@@ -8,6 +8,7 @@
 
 import Foundation
 import Accelerate
+import Charts
 import WatchConnectivity
 
 class TempoDetector: NSObject, WCSessionDelegate {
@@ -64,6 +65,67 @@ class TempoDetector: NSObject, WCSessionDelegate {
         motionVectors.attitude.yaw = Resampler.interp(sampleTimes: motionVectors.time, outputTimes: time, data: &motionVectors.attitude.yaw)
         
         motionVectors.time = time
+    }
+    
+    func update(chart: LineChartView, from segment: UISegmentedControl) {
+        
+        var values = [[Float]]()
+        var vector = [Float]()
+        
+        switch segment.selectedSegmentIndex {
+        case 1:
+            values = [motionVectors!.rotation.x, motionVectors!.rotation.y, motionVectors!.rotation.z]
+            chart.chartDescription?.text = "Rotation"
+        case 2:
+            values = [motionVectors!.attitude.roll, motionVectors!.attitude.pitch, motionVectors!.attitude.yaw]
+            chart.chartDescription?.text = "Attitude"
+        default:
+            values = [motionVectors!.acceleration.x, motionVectors!.acceleration.y, motionVectors!.acceleration.z]
+            chart.chartDescription?.text = "Accelerometer"
+        }
+        
+        var dataEntries = [ChartDataEntry]()
+        var dataSets = [LineChartDataSet]()
+        var dataSet = LineChartDataSet()
+        
+        vector = values[0]
+        for (index, value) in vector.enumerated() {
+            let entry = ChartDataEntry(x: Double(motionVectors!.time[index]), y: Double(value))
+            dataEntries.append(entry)
+        }
+        dataSet = LineChartDataSet(values: dataEntries, label: "X")
+        dataSet.drawCirclesEnabled = false
+        dataSet.lineWidth = 2.0
+        dataSet.colors = [UIColor.red]
+        dataSets.append(dataSet)
+        dataEntries.removeAll()
+        
+        vector = values[1]
+        for (index, value) in vector.enumerated() {
+            let entry = ChartDataEntry(x: Double(motionVectors!.time[index]), y: Double(value))
+            dataEntries.append(entry)
+        }
+        dataSet = LineChartDataSet(values: dataEntries, label: "Y")
+        dataSet.drawCirclesEnabled = false
+        dataSet.lineWidth = 2.0
+        dataSet.colors = [UIColor.green]
+        dataSets.append(dataSet)
+        dataEntries.removeAll()
+        
+        vector = values[2]
+        for (index, value) in vector.enumerated() {
+            let entry = ChartDataEntry(x: Double(motionVectors!.time[index]), y: Double(value))
+            dataEntries.append(entry)
+        }
+        dataSet = LineChartDataSet(values: dataEntries, label: "Z")
+        dataSet.drawCirclesEnabled = false
+        dataSet.lineWidth = 2.0
+        dataSet.colors = [UIColor.blue]
+        dataSets.append(dataSet)
+        dataEntries.removeAll()
+        
+        let lineData = LineChartData(dataSets: dataSets)
+        chart.data = lineData
     }
     
     public func sessionDidBecomeInactive(_ session: WCSession) {

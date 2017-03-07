@@ -26,22 +26,25 @@
                                 <rect key="frame" x="20" y="28" width="627" height="272"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yRZ-zl-tlu">
-                                <rect key="frame" x="308" y="315" width="51" height="30"/>
-                                <state key="normal" title="Update"/>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="F0L-fO-EWU">
+                                <rect key="frame" x="197" y="327" width="272" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="Acceleration"/>
+                                    <segment title="Rotation"/>
+                                    <segment title="Attitude"/>
+                                </segments>
                                 <connections>
-                                    <action selector="updateChart:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Xbs-nA-WCk"/>
+                                    <action selector="updateChart:" destination="BYZ-38-t0r" eventType="valueChanged" id="IiB-ZW-Y9r"/>
                                 </connections>
-                            </button>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="i3x-lI-kvo" secondAttribute="trailing" id="32X-IM-fZH"/>
                             <constraint firstItem="i3x-lI-kvo" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="Pse-mL-ult"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="yRZ-zl-tlu" secondAttribute="bottom" constant="30" id="Xp7-pv-dC8"/>
-                            <constraint firstItem="yRZ-zl-tlu" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="kAv-Vh-ph6"/>
                             <constraint firstAttribute="leadingMargin" secondItem="i3x-lI-kvo" secondAttribute="leading" id="rgO-TF-8Fa"/>
-                            <constraint firstItem="yRZ-zl-tlu" firstAttribute="top" secondItem="i3x-lI-kvo" secondAttribute="bottom" constant="15" id="zEd-jh-NzZ"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="i3x-lI-kvo" secondAttribute="bottom" constant="75" id="yoi-6y-fWh"/>
                         </constraints>
                     </view>
                     <connections>
