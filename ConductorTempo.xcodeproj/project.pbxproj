@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		FD1E70701E6B0D8100D045C2 /* TempoDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD1E706F1E6B0D8100D045C2 /* TempoDetector.swift */; };
-		FD1E70721E6B113900D045C2 /* SignalProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD1E70711E6B113900D045C2 /* SignalProcessor.swift */; };
+		FD1E70721E6B113900D045C2 /* Resampler.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD1E70711E6B113900D045C2 /* Resampler.swift */; };
 		FDADBEE41E5F234000FB3935 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDADBEE31E5F234000FB3935 /* AppDelegate.swift */; };
 		FDADBEE61E5F234000FB3935 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDADBEE51E5F234000FB3935 /* ViewController.swift */; };
 		FDADBEE91E5F234000FB3935 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FDADBEE71E5F234000FB3935 /* Main.storyboard */; };
@@ -111,7 +111,7 @@
 
 /* Begin PBXFileReference section */
 		FD1E706F1E6B0D8100D045C2 /* TempoDetector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TempoDetector.swift; sourceTree = "<group>"; };
-		FD1E70711E6B113900D045C2 /* SignalProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignalProcessor.swift; sourceTree = "<group>"; };
+		FD1E70711E6B113900D045C2 /* Resampler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Resampler.swift; sourceTree = "<group>"; };
 		FDADBEE01E5F234000FB3935 /* ConductorTempo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ConductorTempo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FDADBEE31E5F234000FB3935 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FDADBEE51E5F234000FB3935 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -179,7 +179,7 @@
 			children = (
 				FDADBEE51E5F234000FB3935 /* ViewController.swift */,
 				FD1E706F1E6B0D8100D045C2 /* TempoDetector.swift */,
-				FD1E70711E6B113900D045C2 /* SignalProcessor.swift */,
+				FD1E70711E6B113900D045C2 /* Resampler.swift */,
 				FDADBEE71E5F234000FB3935 /* Main.storyboard */,
 				FDADBF1A1E5F237300FB3935 /* Supporting Files */,
 			);
@@ -416,7 +416,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FDADBEE61E5F234000FB3935 /* ViewController.swift in Sources */,
-				FD1E70721E6B113900D045C2 /* SignalProcessor.swift in Sources */,
+				FD1E70721E6B113900D045C2 /* Resampler.swift in Sources */,
 				FD1E70701E6B0D8100D045C2 /* TempoDetector.swift in Sources */,
 				FDADBEE41E5F234000FB3935 /* AppDelegate.swift in Sources */,
 				FDF968C01E61A04000F754DE /* Globals.swift in Sources */,

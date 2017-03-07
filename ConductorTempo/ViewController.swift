@@ -31,21 +31,7 @@ class ViewController: UIViewController {
         dataSet.colors = [UIColor.blue]
         dataSet.drawCirclesEnabled = false
         
-        dataEntries.removeAll()
-        time = detector.oldMotionVectors!.time
-        values = detector.oldMotionVectors!.acceleration.x
-        
-        for (index, value) in values.enumerated() {
-            let entry = ChartDataEntry(x: Double(time[index]), y: Double(value))
-            dataEntries.append(entry)
-        }
-        
-        let oldDataSet = LineChartDataSet(values: dataEntries, label: "Before")
-        oldDataSet.lineWidth = 2.0
-        oldDataSet.colors = [UIColor.red]
-        oldDataSet.drawCirclesEnabled = false
-        
-        let lineData = LineChartData(dataSets: [dataSet, oldDataSet])
+        let lineData = LineChartData(dataSet: dataSet)
         lineChart.data = lineData
         lineChart.chartDescription?.text = "Attitude"
     }

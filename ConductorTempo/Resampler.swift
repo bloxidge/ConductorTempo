@@ -1,5 +1,5 @@
 //
-//  SignalProcessor.swift
+//  Resampler.swift
 //  ConductorTempo
 //
 //  Created by Peter Bloxidge on 04/03/2017.
@@ -9,7 +9,7 @@
 import Foundation
 import Accelerate
 
-class SignalProcessor {
+class Resampler {
     
     class func interp(sampleTimes: [Float], outputTimes: [Float], data: inout [Float]) -> [Float] {
         
@@ -23,21 +23,13 @@ class SignalProcessor {
     
     private class func calculateB(_ sampleTimes: [Float], _ outputTimes: [Float]) -> [Float] {
         
-//        print(sampleTimes, outputTimes)
-        
         var i = 0
-        
-//        print("sampleTimes size: \(sampleTimes.count)")
-//        print("outputTimes size: \(outputTimes.count)")
         
         return outputTimes.map { (time: Float) -> Float in
             defer {
                 if time > sampleTimes[i] { i += 1 }
             }
-//            print(i, b, k, "\n")
-//            k+=1
             return Float(i) + (time - sampleTimes[i]) / (sampleTimes[i+1] - sampleTimes[i])
         }
     }
-    
 }

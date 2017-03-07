@@ -9,7 +9,7 @@
 import WatchKit
 import Foundation
 
-class InterfaceController: WKInterfaceController/*, TimerDelegate*/ {
+class InterfaceController: WKInterfaceController {
     
     @IBOutlet var timer: WKInterfaceTimer!
     @IBOutlet var startStopButton: WKInterfaceButton!
@@ -37,16 +37,9 @@ class InterfaceController: WKInterfaceController/*, TimerDelegate*/ {
         recorder.send()
     }
     
-//    func updateTimerLabel(to time: (m: String, s: String, ms: String)) {
-//        
-//        timerLabel.setText("\(time.m):\(time.s).\(time.ms)")
-//    }
-    
     override func awake(withContext context: Any?) {
         
         super.awake(withContext: context)
-        
-//        recorder.delegate = self
     }
     
     override func willActivate() {
