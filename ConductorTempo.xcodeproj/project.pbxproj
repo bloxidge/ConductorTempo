@@ -1,0 +1,728 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		FD1E70701E6B0D8100D045C2 /* TempoDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD1E706F1E6B0D8100D045C2 /* TempoDetector.swift */; };
+		FD1E70721E6B113900D045C2 /* SignalProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD1E70711E6B113900D045C2 /* SignalProcessor.swift */; };
+		FDADBEE41E5F234000FB3935 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDADBEE31E5F234000FB3935 /* AppDelegate.swift */; };
+		FDADBEE61E5F234000FB3935 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDADBEE51E5F234000FB3935 /* ViewController.swift */; };
+		FDADBEE91E5F234000FB3935 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FDADBEE71E5F234000FB3935 /* Main.storyboard */; };
+		FDADBEEB1E5F234000FB3935 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FDADBEEA1E5F234000FB3935 /* Assets.xcassets */; };
+		FDADBEEE1E5F234000FB3935 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FDADBEEC1E5F234000FB3935 /* LaunchScreen.storyboard */; };
+		FDADBEF31E5F234000FB3935 /* ConductorTempo WatchKit App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = FDADBEF21E5F234000FB3935 /* ConductorTempo WatchKit App.app */; };
+		FDADBEF91E5F234000FB3935 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FDADBEF71E5F234000FB3935 /* Interface.storyboard */; };
+		FDADBEFB1E5F234000FB3935 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FDADBEFA1E5F234000FB3935 /* Assets.xcassets */; };
+		FDADBF021E5F234000FB3935 /* ConductorTempo WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = FDADBF011E5F234000FB3935 /* ConductorTempo WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		FDADBF071E5F234000FB3935 /* InterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDADBF061E5F234000FB3935 /* InterfaceController.swift */; };
+		FDADBF091E5F234000FB3935 /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDADBF081E5F234000FB3935 /* ExtensionDelegate.swift */; };
+		FDADBF0B1E5F234000FB3935 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FDADBF0A1E5F234000FB3935 /* Assets.xcassets */; };
+		FDADBF201E5F3E5000FB3935 /* MotionRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDADBF1F1E5F3E5000FB3935 /* MotionRecorder.swift */; };
+		FDD21A941E6E421D00C32B1B /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FDD21A8B1E6E400F00C32B1B /* Charts.framework */; };
+		FDD21A951E6E421D00C32B1B /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FDD21A8B1E6E400F00C32B1B /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FDF968C01E61A04000F754DE /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF968BF1E61A04000F754DE /* Globals.swift */; };
+		FDF968C11E61A04000F754DE /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF968BF1E61A04000F754DE /* Globals.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		FDADBEF41E5F234000FB3935 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FDADBED81E5F234000FB3935 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FDADBEF11E5F234000FB3935;
+			remoteInfo = "ConductorTempo WatchKit App";
+		};
+		FDADBF031E5F234000FB3935 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FDADBED81E5F234000FB3935 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FDADBF001E5F234000FB3935;
+			remoteInfo = "ConductorTempo WatchKit Extension";
+		};
+		FDD21A8A1E6E400F00C32B1B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FDD21A841E6E400F00C32B1B /* Charts.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 06165F241D8110E600722320;
+			remoteInfo = Charts;
+		};
+		FDD21A8C1E6E400F00C32B1B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FDD21A841E6E400F00C32B1B /* Charts.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 06B120D51D811E6200D14B02;
+			remoteInfo = ChartsRealm;
+		};
+		FDD21A8E1E6E400F00C32B1B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FDD21A841E6E400F00C32B1B /* Charts.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 06165F2E1D8110E600722320;
+			remoteInfo = ChartsTests;
+		};
+		FDD21A961E6E421D00C32B1B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FDD21A841E6E400F00C32B1B /* Charts.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 06165F231D8110E600722320;
+			remoteInfo = Charts;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		FDADBF121E5F234000FB3935 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				FDADBF021E5F234000FB3935 /* ConductorTempo WatchKit Extension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FDADBF161E5F234000FB3935 /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				FDADBEF31E5F234000FB3935 /* ConductorTempo WatchKit App.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FDD21A981E6E421D00C32B1B /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				FDD21A951E6E421D00C32B1B /* Charts.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		FD1E706F1E6B0D8100D045C2 /* TempoDetector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TempoDetector.swift; sourceTree = "<group>"; };
+		FD1E70711E6B113900D045C2 /* SignalProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignalProcessor.swift; sourceTree = "<group>"; };
+		FDADBEE01E5F234000FB3935 /* ConductorTempo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ConductorTempo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FDADBEE31E5F234000FB3935 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		FDADBEE51E5F234000FB3935 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		FDADBEE81E5F234000FB3935 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		FDADBEEA1E5F234000FB3935 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		FDADBEED1E5F234000FB3935 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		FDADBEEF1E5F234000FB3935 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FDADBEF21E5F234000FB3935 /* ConductorTempo WatchKit App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ConductorTempo WatchKit App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FDADBEF81E5F234000FB3935 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
+		FDADBEFA1E5F234000FB3935 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		FDADBEFC1E5F234000FB3935 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FDADBF011E5F234000FB3935 /* ConductorTempo WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "ConductorTempo WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FDADBF061E5F234000FB3935 /* InterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceController.swift; sourceTree = "<group>"; };
+		FDADBF081E5F234000FB3935 /* ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
+		FDADBF0A1E5F234000FB3935 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		FDADBF0C1E5F234000FB3935 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FDADBF1F1E5F3E5000FB3935 /* MotionRecorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MotionRecorder.swift; sourceTree = "<group>"; };
+		FDD21A841E6E400F00C32B1B /* Charts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Charts.xcodeproj; path = Charts/Charts.xcodeproj; sourceTree = "<group>"; };
+		FDF968BF1E61A04000F754DE /* Globals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		FDADBEDD1E5F234000FB3935 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FDD21A941E6E421D00C32B1B /* Charts.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FDADBEFE1E5F234000FB3935 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		FDADBED71E5F234000FB3935 = {
+			isa = PBXGroup;
+			children = (
+				FDADBEE21E5F234000FB3935 /* ConductorTempo */,
+				FDADBEF61E5F234000FB3935 /* ConductorTempo WatchKit App */,
+				FDADBF051E5F234000FB3935 /* ConductorTempo WatchKit Extension */,
+				FDADBEE11E5F234000FB3935 /* Products */,
+				FDF968BF1E61A04000F754DE /* Globals.swift */,
+				FDD21A841E6E400F00C32B1B /* Charts.xcodeproj */,
+			);
+			sourceTree = "<group>";
+		};
+		FDADBEE11E5F234000FB3935 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FDADBEE01E5F234000FB3935 /* ConductorTempo.app */,
+				FDADBEF21E5F234000FB3935 /* ConductorTempo WatchKit App.app */,
+				FDADBF011E5F234000FB3935 /* ConductorTempo WatchKit Extension.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		FDADBEE21E5F234000FB3935 /* ConductorTempo */ = {
+			isa = PBXGroup;
+			children = (
+				FDADBEE51E5F234000FB3935 /* ViewController.swift */,
+				FD1E706F1E6B0D8100D045C2 /* TempoDetector.swift */,
+				FD1E70711E6B113900D045C2 /* SignalProcessor.swift */,
+				FDADBEE71E5F234000FB3935 /* Main.storyboard */,
+				FDADBF1A1E5F237300FB3935 /* Supporting Files */,
+			);
+			path = ConductorTempo;
+			sourceTree = "<group>";
+		};
+		FDADBEF61E5F234000FB3935 /* ConductorTempo WatchKit App */ = {
+			isa = PBXGroup;
+			children = (
+				FDADBEF71E5F234000FB3935 /* Interface.storyboard */,
+				FDADBF1C1E5F244900FB3935 /* Supporting Files */,
+			);
+			path = "ConductorTempo WatchKit App";
+			sourceTree = "<group>";
+		};
+		FDADBF051E5F234000FB3935 /* ConductorTempo WatchKit Extension */ = {
+			isa = PBXGroup;
+			children = (
+				FDADBF061E5F234000FB3935 /* InterfaceController.swift */,
+				FDADBF1F1E5F3E5000FB3935 /* MotionRecorder.swift */,
+				FDADBF1B1E5F243B00FB3935 /* Supporting Files */,
+			);
+			path = "ConductorTempo WatchKit Extension";
+			sourceTree = "<group>";
+		};
+		FDADBF1A1E5F237300FB3935 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				FDADBEE31E5F234000FB3935 /* AppDelegate.swift */,
+				FDADBEEA1E5F234000FB3935 /* Assets.xcassets */,
+				FDADBEEC1E5F234000FB3935 /* LaunchScreen.storyboard */,
+				FDADBEEF1E5F234000FB3935 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		FDADBF1B1E5F243B00FB3935 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				FDADBF081E5F234000FB3935 /* ExtensionDelegate.swift */,
+				FDADBF0A1E5F234000FB3935 /* Assets.xcassets */,
+				FDADBF0C1E5F234000FB3935 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		FDADBF1C1E5F244900FB3935 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				FDADBEFA1E5F234000FB3935 /* Assets.xcassets */,
+				FDADBEFC1E5F234000FB3935 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		FDD21A851E6E400F00C32B1B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FDD21A8B1E6E400F00C32B1B /* Charts.framework */,
+				FDD21A8D1E6E400F00C32B1B /* ChartsRealm.framework */,
+				FDD21A8F1E6E400F00C32B1B /* ChartsTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		FDADBEDF1E5F234000FB3935 /* ConductorTempo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FDADBF171E5F234000FB3935 /* Build configuration list for PBXNativeTarget "ConductorTempo" */;
+			buildPhases = (
+				FDADBEDC1E5F234000FB3935 /* Sources */,
+				FDADBEDD1E5F234000FB3935 /* Frameworks */,
+				FDADBEDE1E5F234000FB3935 /* Resources */,
+				FDADBF161E5F234000FB3935 /* Embed Watch Content */,
+				FDD21A981E6E421D00C32B1B /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FDADBEF51E5F234000FB3935 /* PBXTargetDependency */,
+				FDD21A971E6E421D00C32B1B /* PBXTargetDependency */,
+			);
+			name = ConductorTempo;
+			productName = ConductorTempo;
+			productReference = FDADBEE01E5F234000FB3935 /* ConductorTempo.app */;
+			productType = "com.apple.product-type.application";
+		};
+		FDADBEF11E5F234000FB3935 /* ConductorTempo WatchKit App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FDADBF131E5F234000FB3935 /* Build configuration list for PBXNativeTarget "ConductorTempo WatchKit App" */;
+			buildPhases = (
+				FDADBEF01E5F234000FB3935 /* Resources */,
+				FDADBF121E5F234000FB3935 /* Embed App Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FDADBF041E5F234000FB3935 /* PBXTargetDependency */,
+			);
+			name = "ConductorTempo WatchKit App";
+			productName = "ConductorTempo WatchKit App";
+			productReference = FDADBEF21E5F234000FB3935 /* ConductorTempo WatchKit App.app */;
+			productType = "com.apple.product-type.application.watchapp2";
+		};
+		FDADBF001E5F234000FB3935 /* ConductorTempo WatchKit Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FDADBF0F1E5F234000FB3935 /* Build configuration list for PBXNativeTarget "ConductorTempo WatchKit Extension" */;
+			buildPhases = (
+				FDADBEFD1E5F234000FB3935 /* Sources */,
+				FDADBEFE1E5F234000FB3935 /* Frameworks */,
+				FDADBEFF1E5F234000FB3935 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "ConductorTempo WatchKit Extension";
+			productName = "ConductorTempo WatchKit Extension";
+			productReference = FDADBF011E5F234000FB3935 /* ConductorTempo WatchKit Extension.appex */;
+			productType = "com.apple.product-type.watchkit2-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		FDADBED81E5F234000FB3935 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0820;
+				LastUpgradeCheck = 0820;
+				ORGANIZATIONNAME = "Peter Bloxidge";
+				TargetAttributes = {
+					FDADBEDF1E5F234000FB3935 = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = 9XT7VKS6C2;
+						ProvisioningStyle = Automatic;
+					};
+					FDADBEF11E5F234000FB3935 = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = 9XT7VKS6C2;
+						ProvisioningStyle = Automatic;
+					};
+					FDADBF001E5F234000FB3935 = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = 9XT7VKS6C2;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = FDADBEDB1E5F234000FB3935 /* Build configuration list for PBXProject "ConductorTempo" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = FDADBED71E5F234000FB3935;
+			productRefGroup = FDADBEE11E5F234000FB3935 /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = FDD21A851E6E400F00C32B1B /* Products */;
+					ProjectRef = FDD21A841E6E400F00C32B1B /* Charts.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				FDADBEDF1E5F234000FB3935 /* ConductorTempo */,
+				FDADBEF11E5F234000FB3935 /* ConductorTempo WatchKit App */,
+				FDADBF001E5F234000FB3935 /* ConductorTempo WatchKit Extension */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		FDD21A8B1E6E400F00C32B1B /* Charts.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Charts.framework;
+			remoteRef = FDD21A8A1E6E400F00C32B1B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		FDD21A8D1E6E400F00C32B1B /* ChartsRealm.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = ChartsRealm.framework;
+			remoteRef = FDD21A8C1E6E400F00C32B1B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		FDD21A8F1E6E400F00C32B1B /* ChartsTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = ChartsTests.xctest;
+			remoteRef = FDD21A8E1E6E400F00C32B1B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		FDADBEDE1E5F234000FB3935 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FDADBEEE1E5F234000FB3935 /* LaunchScreen.storyboard in Resources */,
+				FDADBEEB1E5F234000FB3935 /* Assets.xcassets in Resources */,
+				FDADBEE91E5F234000FB3935 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FDADBEF01E5F234000FB3935 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FDADBEFB1E5F234000FB3935 /* Assets.xcassets in Resources */,
+				FDADBEF91E5F234000FB3935 /* Interface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FDADBEFF1E5F234000FB3935 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FDADBF0B1E5F234000FB3935 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		FDADBEDC1E5F234000FB3935 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FDADBEE61E5F234000FB3935 /* ViewController.swift in Sources */,
+				FD1E70721E6B113900D045C2 /* SignalProcessor.swift in Sources */,
+				FD1E70701E6B0D8100D045C2 /* TempoDetector.swift in Sources */,
+				FDADBEE41E5F234000FB3935 /* AppDelegate.swift in Sources */,
+				FDF968C01E61A04000F754DE /* Globals.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FDADBEFD1E5F234000FB3935 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FDF968C11E61A04000F754DE /* Globals.swift in Sources */,
+				FDADBF201E5F3E5000FB3935 /* MotionRecorder.swift in Sources */,
+				FDADBF091E5F234000FB3935 /* ExtensionDelegate.swift in Sources */,
+				FDADBF071E5F234000FB3935 /* InterfaceController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		FDADBEF51E5F234000FB3935 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FDADBEF11E5F234000FB3935 /* ConductorTempo WatchKit App */;
+			targetProxy = FDADBEF41E5F234000FB3935 /* PBXContainerItemProxy */;
+		};
+		FDADBF041E5F234000FB3935 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FDADBF001E5F234000FB3935 /* ConductorTempo WatchKit Extension */;
+			targetProxy = FDADBF031E5F234000FB3935 /* PBXContainerItemProxy */;
+		};
+		FDD21A971E6E421D00C32B1B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Charts;
+			targetProxy = FDD21A961E6E421D00C32B1B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		FDADBEE71E5F234000FB3935 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FDADBEE81E5F234000FB3935 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		FDADBEEC1E5F234000FB3935 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FDADBEED1E5F234000FB3935 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		FDADBEF71E5F234000FB3935 /* Interface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FDADBEF81E5F234000FB3935 /* Base */,
+			);
+			name = Interface.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		FDADBF0D1E5F234000FB3935 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		FDADBF0E1E5F234000FB3935 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		FDADBF101E5F234000FB3935 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				DEVELOPMENT_TEAM = 9XT7VKS6C2;
+				INFOPLIST_FILE = "ConductorTempo WatchKit Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.bloxidge.ConductorTempo.watchkitapp.watchkitextension;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 3.1;
+			};
+			name = Debug;
+		};
+		FDADBF111E5F234000FB3935 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				DEVELOPMENT_TEAM = 9XT7VKS6C2;
+				INFOPLIST_FILE = "ConductorTempo WatchKit Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.bloxidge.ConductorTempo.watchkitapp.watchkitextension;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 3.1;
+			};
+			name = Release;
+		};
+		FDADBF141E5F234000FB3935 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 9XT7VKS6C2;
+				IBSC_MODULE = ConductorTempo_WatchKit_Extension;
+				INFOPLIST_FILE = "ConductorTempo WatchKit App/Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = com.bloxidge.ConductorTempo.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 3.1;
+			};
+			name = Debug;
+		};
+		FDADBF151E5F234000FB3935 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 9XT7VKS6C2;
+				IBSC_MODULE = ConductorTempo_WatchKit_Extension;
+				INFOPLIST_FILE = "ConductorTempo WatchKit App/Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = com.bloxidge.ConductorTempo.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 3.1;
+			};
+			name = Release;
+		};
+		FDADBF181E5F234000FB3935 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 9XT7VKS6C2;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				INFOPLIST_FILE = ConductorTempo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.bloxidge.ConductorTempo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		FDADBF191E5F234000FB3935 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 9XT7VKS6C2;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				INFOPLIST_FILE = ConductorTempo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.bloxidge.ConductorTempo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		FDADBEDB1E5F234000FB3935 /* Build configuration list for PBXProject "ConductorTempo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FDADBF0D1E5F234000FB3935 /* Debug */,
+				FDADBF0E1E5F234000FB3935 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FDADBF0F1E5F234000FB3935 /* Build configuration list for PBXNativeTarget "ConductorTempo WatchKit Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FDADBF101E5F234000FB3935 /* Debug */,
+				FDADBF111E5F234000FB3935 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FDADBF131E5F234000FB3935 /* Build configuration list for PBXNativeTarget "ConductorTempo WatchKit App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FDADBF141E5F234000FB3935 /* Debug */,
+				FDADBF151E5F234000FB3935 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FDADBF171E5F234000FB3935 /* Build configuration list for PBXNativeTarget "ConductorTempo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FDADBF181E5F234000FB3935 /* Debug */,
+				FDADBF191E5F234000FB3935 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = FDADBED81E5F234000FB3935 /* Project object */;
+}

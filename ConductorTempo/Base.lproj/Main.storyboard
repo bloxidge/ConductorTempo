@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="landscape">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="ConductorTempo" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i3x-lI-kvo" customClass="LineChartView" customModule="Charts">
+                                <rect key="frame" x="20" y="28" width="627" height="272"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yRZ-zl-tlu">
+                                <rect key="frame" x="308" y="315" width="51" height="30"/>
+                                <state key="normal" title="Update"/>
+                                <connections>
+                                    <action selector="updateChart:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Xbs-nA-WCk"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="i3x-lI-kvo" secondAttribute="trailing" id="32X-IM-fZH"/>
+                            <constraint firstItem="i3x-lI-kvo" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="Pse-mL-ult"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="yRZ-zl-tlu" secondAttribute="bottom" constant="30" id="Xp7-pv-dC8"/>
+                            <constraint firstItem="yRZ-zl-tlu" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="kAv-Vh-ph6"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="i3x-lI-kvo" secondAttribute="leading" id="rgO-TF-8Fa"/>
+                            <constraint firstItem="yRZ-zl-tlu" firstAttribute="top" secondItem="i3x-lI-kvo" secondAttribute="bottom" constant="15" id="zEd-jh-NzZ"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="lineChart" destination="i3x-lI-kvo" id="nNf-Gg-g0M"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="35.532233883058474" y="36"/>
+        </scene>
+    </scenes>
+</document>
