@@ -11,12 +11,12 @@ import Accelerate
 
 class Resampler {
     
-    class func interp(sampleTimes: [Float], outputTimes: [Float], data: inout [Float]) -> [Float] {
+    class func interp(sampleTimes: [Float], outputTimes: [Float], data: [Float]) -> [Float] {
         
         var b = calculateB(sampleTimes, outputTimes)
         var c = [Float](repeating: 0, count: b.count)
         
-        vDSP_vlint(&data, &b, 1, &c, 1, UInt(b.count), UInt(data.count))
+        vDSP_vlint(data, &b, 1, &c, 1, UInt(b.count), UInt(data.count))
         
         return c
     }

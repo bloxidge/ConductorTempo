@@ -13,11 +13,11 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var lineChart: LineChartView!
     
-    private var controller = TempoDetector()
+    private var model = TempoCalculator()
     
     @IBAction func updateChart(_ sender: UISegmentedControl) {
         
-        controller.update(chart: lineChart, from: sender)
+        model.update(chart: lineChart, from: sender)
     }
     
     override func viewDidLoad() {

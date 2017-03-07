@@ -88,7 +88,6 @@ struct MotionVectors: CustomStringConvertible {
     
     struct AccelerationVectors: CustomStringConvertible {
         
-        let labels = ["X", "Y", "Z"]
         var x = [Float]()
         var y = [Float]()
         var z = [Float]()
@@ -106,7 +105,6 @@ struct MotionVectors: CustomStringConvertible {
 
     struct RotationVectors: CustomStringConvertible {
         
-        let labels = ["X", "Y", "Z"]
         var x = [Float]()
         var y = [Float]()
         var z = [Float]()
@@ -124,7 +122,6 @@ struct MotionVectors: CustomStringConvertible {
 
     struct AttitudeVectors: CustomStringConvertible {
         
-        let labels = ["Roll", "Pitch", "Yaw"]
         var roll = [Float]()
         var pitch = [Float]()
         var yaw = [Float]()
