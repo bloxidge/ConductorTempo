@@ -15,9 +15,10 @@ class TempoCalculator: NSObject, WCSessionDelegate {
     
     private var session: WCSession!
     private var motionData: [MotionDataPoint]!
-    private var recordingArray = [[MotionDataPoint]]()
+//    private var recordingArray = [[MotionDataPoint]]()
     private var motionVectors, upsampledVectors: MotionVectors!
     private var detector = BeatDetector()
+    private var beats: [Float]!
     
     override init() {
         
@@ -40,8 +41,9 @@ class TempoCalculator: NSObject, WCSessionDelegate {
     
     private func processRecordingData() {
         
-        upsampledVectors = resample(motionVectors, fs: 3200)
-        BeatDetector.findBeats(in: upsampledVectors.attitude.x)
+        upsampledVectors = resample(motionVectors, fs: 2000)
+        beats = detector.calculateBeats(data: upsampledVectors.attitude.roll)
+        print(beats)
     }
     
     private func resample(_ input: MotionVectors, fs: Float) -> MotionVectors {
