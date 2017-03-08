@@ -33,6 +33,9 @@ class BeatDetector {
     
     func calculateBeats(data: [Float]) -> [Float] {
         
+//        print("Resampling...")
+//        let newData = resample(data, sampleRate: 50)
+        
         print("Spectrum...")
         let bins = melSpectrumBins(data)
         
@@ -51,6 +54,53 @@ class BeatDetector {
         
 //        return beats
         return beats.positions!
+    }
+    
+    /**
+     This function resamples the audio file to newSampleRate given an AudioKit AudioFile [3][4]
+     */
+    func resample(_ origData: [Float], sampleRate: Float) -> [Float] {
+        
+        let outLength: Int = Int((Float(origData.count) / sampleRate) * newSampleRate) // Capacity of the output array
+        
+        var outData: [Float] = Array(repeating: 0, count: outLength)
+        outData.reserveCapacity(outLength)
+        
+        let hann = hanningWindow(windowWidth)
+        
+        /* Generated Sampling Poisitions */
+        var x_arr : [Float] = []
+        x_arr.reserveCapacity(outLength)
+        for i in 0 ... outLength {
+            x_arr.append(Float(i) * (sampleRate/newSampleRate))
+        }
+        
+        /* Generated sinc stuff */
+        var F : [Float] = []
+        F.reserveCapacity(windowWidth)
+        let scalar = (2 * PI * (nyquistFrequency/sampleRate))
+        for i in (-windowWidth/2) ..< (windowWidth/2) {
+            F.append(sin(Float(i) * scalar)/(Float(i) * scalar))
+        }
+        for i in 0 ..< windowWidth {
+            if(F[i].isNaN) {
+                F[i] = 1 // For some reason the peak of the sinc function ends up as NaN
+            }
+        }
+        
+        let weights = mul(F,y: hann)
+        
+        for samples in 0 ..< outLength {
+            let x = Int(x_arr[samples])
+            var sPoint = Int( x - windowWidth/2 )
+            var ePoint = Int( x + windowWidth/2 )
+            if(sPoint < 0) {sPoint = 0}
+            if(ePoint > origData.count) {ePoint = origData.count - 1}
+            let slice = origData[sPoint..<ePoint]
+            outData[samples] = summul(slice, y: weights) / (sampleRate / newSampleRate)
+        }
+        
+        return outData
     }
     
     /**
@@ -184,13 +234,9 @@ class BeatDetector {
             startpd2 = startpd * 3
         }
         
-        let slowerTempo = 60.0/(Float(startpd)/oesr)
-        let fasterTempo = 60.0/(Float(startpd2)/oesr)
-        let pratio = rawxcr[startpd]/(rawxcr[startpd]+rawxcr[startpd2])
-        
-        var tempo = TempoData(slow: slowerTempo,
-                              fast: fasterTempo,
-                              ratio: pratio)
+        var tempo = TempoData(slow: 60.0/((Float(startpd))/oesr),
+                              fast: 60.0/((Float(startpd2))/oesr),
+                              ratio: rawxcr[startpd]/(rawxcr[startpd]+rawxcr[startpd2]))
         
         // Reorders if it comes out the wrong way around 🙃
         if(tempo.fast < tempo.slow) {
@@ -207,13 +253,13 @@ class BeatDetector {
         /* 🐲🐉 There be dragons here 🐍🐲*/
         var startBPM : Float = 0
         if (tempo.ratio! > 0.5) {
-            startBPM = Float(tempo.slow!) // Fast result from the autocorrelation
+            startBPM = Float(tempo.fast!) // Fast result from the autocorrelation
         }
         else {
-            startBPM = Float(tempo.fast!) // Slow result from the autocorrelation
+            startBPM = Float(tempo.slow!) // Slow result from the autocorrelation
         }
         let pd = (60*oesr)/startBPM // numbeats in onsetEnvelope step, probability there is a beat in each sampling interval
-        let onsetEnv = onsetEnvelope // std(onsetEnvelope) // vector which maps change in frequency
+        let onsetEnv = onsetEnvelope / std(onsetEnvelope) // vector which maps change in frequency
         
         /* NOTE: Gaussian probability weighting function centered around 120bpm.
          This is the probability of the tempo of the song taken from experimental evidence */
@@ -224,7 +270,7 @@ class BeatDetector {
         gaussTempoProb = exp(gaussTempoProb)
         
         // LocalScore is a smoothed version of the onsetEnv based on the 120bpm window
-        var localScore = conv(gaussTempoProb, onsetEnv);
+        var localScore = conv(gaussTempoProb, onsetEnv)
         let sValue = Int(round(Double(gaussTempoProb.count/2)))
         let eValue = Int(onsetEnv.count)
         localScore = Array(localScore[sValue..<eValue])
