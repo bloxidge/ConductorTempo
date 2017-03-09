@@ -42,7 +42,7 @@ class TempoCalculator: NSObject, WCSessionDelegate {
     private func processRecordingData() {
         
         upsampledVectors = resample(motionVectors, fs: 8000)
-        beats = detector.calculateBeats(data: upsampledVectors.acceleration.z)
+        beats = detector.calculateBeats(data: upsampledVectors.attitude.roll)
         print(beats)
     }
     
@@ -119,6 +119,8 @@ class TempoCalculator: NSObject, WCSessionDelegate {
             dataEntries.append(entry)
         }
         let beatData = LineChartDataSet(values: dataEntries, label: "Beats")
+        beatData.colors = [.magenta]
+        beatData.circleColors = [.magenta]
         dataSets.append(beatData)
         
         let lineData = LineChartData(dataSets: dataSets)

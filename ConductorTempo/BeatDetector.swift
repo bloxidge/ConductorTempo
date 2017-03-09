@@ -254,8 +254,7 @@ class BeatDetector {
         var startBPM : Float = 0
         if (tempo.ratio! > 0.5) {
             startBPM = Float(tempo.fast!) // Fast result from the autocorrelation
-        }
-        else {
+        } else {
             startBPM = Float(tempo.slow!) // Slow result from the autocorrelation
         }
         let pd = (60*oesr)/startBPM // numbeats in onsetEnvelope step, probability there is a beat in each sampling interval
@@ -324,28 +323,31 @@ class BeatDetector {
         // Find the best point to end the beat tracking
         var median  = minimum + ((maximum - minimum) / 2)
         var bestEndX : Int = 0
+        /* Suspect the problem lies somewhere in here */
         for var i in stride(from: cumScore.count - 2, to: 0, by: -1) {
             if(cumScoreHasLocalMaxima[i] && ( cumScore[i] > 0.5*median )) {
                 bestEndX = i
-                i = 0;
+                i = 0
             }
         }
         
         // This is my part for the feature extraction
-        median  = min(localScore) + ((max(localScore) - min(localScore)) / 2)
+        median = min(localScore) + ((max(localScore) - min(localScore)) / 2)
         var maximas : [Int] = []
         var localScoreHasLocalMaxima = localMax(localScore)
-        for i in 1 ..< (localScore.count - 2){
+        for i in 1 ..< (localScore.count - 2) {
             if(localScoreHasLocalMaxima[i] && ( localScore[i] > 0.25*median )) {
                 maximas.append(i)
             }
         }
         
         // This finally extracts the beat times
-        var beatTimes : [Int] = [bestEndX]
+        var beatTimes : [Int] = [backLink.count - 1]
         while(backLink[beatTimes.last!] > 0) {
             beatTimes.append(backLink[beatTimes.last!])
         }
+        
+        /* Something needs to go here */
         
         // Times it by the magic constant oesr that converts back to original sample rate
         var beatsInSeconds : [Float] = []
