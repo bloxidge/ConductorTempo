@@ -7,8 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		FD1E70701E6B0D8100D045C2 /* TempoDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD1E706F1E6B0D8100D045C2 /* TempoDetector.swift */; };
-		FD1E70721E6B113900D045C2 /* Resampler.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD1E70711E6B113900D045C2 /* Resampler.swift */; };
+		FD1E70701E6B0D8100D045C2 /* TempoCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD1E706F1E6B0D8100D045C2 /* TempoCalculator.swift */; };
 		FDADBEE41E5F234000FB3935 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDADBEE31E5F234000FB3935 /* AppDelegate.swift */; };
 		FDADBEE61E5F234000FB3935 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDADBEE51E5F234000FB3935 /* ViewController.swift */; };
 		FDADBEE91E5F234000FB3935 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FDADBEE71E5F234000FB3935 /* Main.storyboard */; };
@@ -24,6 +23,10 @@
 		FDADBF201E5F3E5000FB3935 /* MotionRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDADBF1F1E5F3E5000FB3935 /* MotionRecorder.swift */; };
 		FDD21A941E6E421D00C32B1B /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FDD21A8B1E6E400F00C32B1B /* Charts.framework */; };
 		FDD21A951E6E421D00C32B1B /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FDD21A8B1E6E400F00C32B1B /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FDD21A9D1E6F678900C32B1B /* BeatTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD21A9C1E6F678900C32B1B /* BeatTracker.swift */; };
+		FDD21AA11E6F8A2900C32B1B /* BeatTrackerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD21AA01E6F8A2900C32B1B /* BeatTrackerExtension.swift */; };
+		FDD21AC41E704DFB00C32B1B /* Surge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FDD21AC11E704DE600C32B1B /* Surge.framework */; };
+		FDD21AC51E704DFB00C32B1B /* Surge.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FDD21AC11E704DE600C32B1B /* Surge.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FDF968C01E61A04000F754DE /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF968BF1E61A04000F754DE /* Globals.swift */; };
 		FDF968C11E61A04000F754DE /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF968BF1E61A04000F754DE /* Globals.swift */; };
 /* End PBXBuildFile section */
@@ -71,6 +74,27 @@
 			remoteGlobalIDString = 06165F231D8110E600722320;
 			remoteInfo = Charts;
 		};
+		FDD21AC01E704DE600C32B1B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FDD21ABB1E704DE600C32B1B /* Surge.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F8A1E1AA19917A79009735E2;
+			remoteInfo = Surge;
+		};
+		FDD21AC21E704DE600C32B1B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FDD21ABB1E704DE600C32B1B /* Surge.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F84A6AAE19A9A72F007B53E1;
+			remoteInfo = SurgeTests;
+		};
+		FDD21AC61E704DFB00C32B1B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FDD21ABB1E704DE600C32B1B /* Surge.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = F8A1E1A919917A79009735E2;
+			remoteInfo = Surge;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -103,6 +127,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				FDD21A951E6E421D00C32B1B /* Charts.framework in Embed Frameworks */,
+				FDD21AC51E704DFB00C32B1B /* Surge.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -110,8 +135,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		FD1E706F1E6B0D8100D045C2 /* TempoDetector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TempoDetector.swift; sourceTree = "<group>"; };
-		FD1E70711E6B113900D045C2 /* Resampler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Resampler.swift; sourceTree = "<group>"; };
+		FD1E706F1E6B0D8100D045C2 /* TempoCalculator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TempoCalculator.swift; sourceTree = "<group>"; };
 		FDADBEE01E5F234000FB3935 /* ConductorTempo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ConductorTempo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FDADBEE31E5F234000FB3935 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FDADBEE51E5F234000FB3935 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -130,6 +154,9 @@
 		FDADBF0C1E5F234000FB3935 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FDADBF1F1E5F3E5000FB3935 /* MotionRecorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MotionRecorder.swift; sourceTree = "<group>"; };
 		FDD21A841E6E400F00C32B1B /* Charts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Charts.xcodeproj; path = Charts/Charts.xcodeproj; sourceTree = "<group>"; };
+		FDD21A9C1E6F678900C32B1B /* BeatTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeatTracker.swift; sourceTree = "<group>"; };
+		FDD21AA01E6F8A2900C32B1B /* BeatTrackerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeatTrackerExtension.swift; sourceTree = "<group>"; };
+		FDD21ABB1E704DE600C32B1B /* Surge.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Surge.xcodeproj; path = Surge/Surge.xcodeproj; sourceTree = "<group>"; };
 		FDF968BF1E61A04000F754DE /* Globals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -139,6 +166,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FDD21A941E6E421D00C32B1B /* Charts.framework in Frameworks */,
+				FDD21AC41E704DFB00C32B1B /* Surge.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -161,6 +189,7 @@
 				FDADBEE11E5F234000FB3935 /* Products */,
 				FDF968BF1E61A04000F754DE /* Globals.swift */,
 				FDD21A841E6E400F00C32B1B /* Charts.xcodeproj */,
+				FDD21ABB1E704DE600C32B1B /* Surge.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
@@ -178,8 +207,9 @@
 			isa = PBXGroup;
 			children = (
 				FDADBEE51E5F234000FB3935 /* ViewController.swift */,
-				FD1E706F1E6B0D8100D045C2 /* TempoDetector.swift */,
-				FD1E70711E6B113900D045C2 /* Resampler.swift */,
+				FD1E706F1E6B0D8100D045C2 /* TempoCalculator.swift */,
+				FDD21A9C1E6F678900C32B1B /* BeatTracker.swift */,
+				FDD21AA01E6F8A2900C32B1B /* BeatTrackerExtension.swift */,
 				FDADBEE71E5F234000FB3935 /* Main.storyboard */,
 				FDADBF1A1E5F237300FB3935 /* Supporting Files */,
 			);
@@ -245,6 +275,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		FDD21ABC1E704DE600C32B1B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FDD21AC11E704DE600C32B1B /* Surge.framework */,
+				FDD21AC31E704DE600C32B1B /* SurgeTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -263,6 +302,7 @@
 			dependencies = (
 				FDADBEF51E5F234000FB3935 /* PBXTargetDependency */,
 				FDD21A971E6E421D00C32B1B /* PBXTargetDependency */,
+				FDD21AC71E704DFB00C32B1B /* PBXTargetDependency */,
 			);
 			name = ConductorTempo;
 			productName = ConductorTempo;
@@ -346,6 +386,10 @@
 					ProductGroup = FDD21A851E6E400F00C32B1B /* Products */;
 					ProjectRef = FDD21A841E6E400F00C32B1B /* Charts.xcodeproj */;
 				},
+				{
+					ProductGroup = FDD21ABC1E704DE600C32B1B /* Products */;
+					ProjectRef = FDD21ABB1E704DE600C32B1B /* Surge.xcodeproj */;
+				},
 			);
 			projectRoot = "";
 			targets = (
@@ -376,6 +420,20 @@
 			fileType = wrapper.cfbundle;
 			path = ChartsTests.xctest;
 			remoteRef = FDD21A8E1E6E400F00C32B1B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		FDD21AC11E704DE600C32B1B /* Surge.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Surge.framework;
+			remoteRef = FDD21AC01E704DE600C32B1B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		FDD21AC31E704DE600C32B1B /* SurgeTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = SurgeTests.xctest;
+			remoteRef = FDD21AC21E704DE600C32B1B /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -416,10 +474,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				FDADBEE61E5F234000FB3935 /* ViewController.swift in Sources */,
-				FD1E70721E6B113900D045C2 /* Resampler.swift in Sources */,
-				FD1E70701E6B0D8100D045C2 /* TempoDetector.swift in Sources */,
+				FDD21AA11E6F8A2900C32B1B /* BeatTrackerExtension.swift in Sources */,
+				FD1E70701E6B0D8100D045C2 /* TempoCalculator.swift in Sources */,
 				FDADBEE41E5F234000FB3935 /* AppDelegate.swift in Sources */,
 				FDF968C01E61A04000F754DE /* Globals.swift in Sources */,
+				FDD21A9D1E6F678900C32B1B /* BeatTracker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -451,6 +510,11 @@
 			isa = PBXTargetDependency;
 			name = Charts;
 			targetProxy = FDD21A961E6E421D00C32B1B /* PBXContainerItemProxy */;
+		};
+		FDD21AC71E704DFB00C32B1B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Surge;
+			targetProxy = FDD21AC61E704DFB00C32B1B /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
