@@ -15,9 +15,8 @@ class TempoCalculator: NSObject, WCSessionDelegate {
     
     private var session: WCSession!
     private var motionData: [MotionDataPoint]!
-//    private var recordingArray = [[MotionDataPoint]]()
     private var motionVectors, upsampledVectors: MotionVectors!
-    private var detector = BeatDetector()
+    private var tracker = BeatTracker()
     private var beats: [Float]!
     
     override init() {
@@ -41,37 +40,8 @@ class TempoCalculator: NSObject, WCSessionDelegate {
     
     private func processRecordingData() {
         
-        upsampledVectors = resample(motionVectors, fs: 8000)
-        beats = detector.calculateBeats(data: upsampledVectors.attitude.roll)
+        beats = tracker.calculateBeats(from: motionVectors)
         print(beats)
-    }
-    
-    private func resample(_ input: MotionVectors, fs: Float) -> MotionVectors {
-        
-        var output = input
-        var time = [Float]()
-        var t: Float = 0.0
-        while t < input.time[input.time.count - 2] {
-            t = round(2*fs * t) / (2*fs)
-            time.append(t)
-            t += 1/fs
-        }
-        
-        output.time = time
-        
-        output.acceleration.x = Resampler.interp(sampleTimes: input.time, outputTimes: output.time, data: input.acceleration.x)
-        output.acceleration.y = Resampler.interp(sampleTimes: input.time, outputTimes: output.time, data: input.acceleration.y)
-        output.acceleration.z = Resampler.interp(sampleTimes: input.time, outputTimes: output.time, data: input.acceleration.z)
-        
-        output.rotation.x = Resampler.interp(sampleTimes: input.time, outputTimes: output.time, data: input.rotation.x)
-        output.rotation.y = Resampler.interp(sampleTimes: input.time, outputTimes: output.time, data: input.rotation.y)
-        output.rotation.z = Resampler.interp(sampleTimes: input.time, outputTimes: output.time, data: input.rotation.z)
-        
-        output.attitude.roll = Resampler.interp(sampleTimes: input.time, outputTimes: output.time, data: input.attitude.roll)
-        output.attitude.pitch = Resampler.interp(sampleTimes: input.time, outputTimes: output.time, data: input.attitude.pitch)
-        output.attitude.yaw = Resampler.interp(sampleTimes: input.time, outputTimes: output.time, data: input.attitude.yaw)
-        
-        return output
     }
     
     func update(chart: LineChartView, from segment: UISegmentedControl) {

@@ -1,5 +1,5 @@
 //
-//  BeatDetector_Extension.swift
+//  SigProcExtension.swift
 //  ConductorTempo
 //
 //  Created by Peter Bloxidge on 08/03/2017.
@@ -9,44 +9,46 @@
 import Foundation
 import Surge
 
-let PI: Float = Float(M_PI)
-
-extension BeatDetector {
+extension BeatTracker {
     
     /**
-     Returns 'true' where there are local maxima in x (columnwise).
-     don't include first point, maybe last point
+     Returns 'true' where there are local maxima in x, excluding the first and last point.
      */
-    func localMax(_ x: [Float]) -> [Bool] {
-        var m = [Bool]()
+    func localMax(_ x: [Float]) -> [Int] {
+        
+        var m = [Int]()
         m.reserveCapacity(x.count)
-        m.append(false)
+        m.append(0)
         for i in 1 ..< x.count-1 {
             if ((x[i-1] < x[i]) && (x[i+1] < x[i])) {
-                m.append(true)
+                m.append(1)
             }
             else {
-                m.append(false)
+                m.append(0)
             }
         }
         return m
     }
     
     /**
-     Generates a hanning window of a certain width
+     Generates a hanning window of a certain width.
      */
     func hanningWindow(_ width: Int) -> [Float] {
+        
         let windowSize = Float(width)
         var window = [Float]()
         window.reserveCapacity(width)
         for j in 1 ... width {
-            window.append(0.5 - 0.5 * cos(2*PI*(Float(j)/windowSize)))
+            window.append(0.5 - 0.5 * cos(2*Float(M_PI)*(Float(j)/windowSize)))
         }
         return window
     }
     
-    /* returns the index of the maximum value of an array */
+    /**
+     Returns the index of the maximum value of an array.
+     */
     func maxIndex(_ array: [Float]) -> Int {
+        
         let maxVal = max(array)
         for i in 0 ..< array.count {
             if (array[i] == maxVal) {
@@ -57,9 +59,10 @@ extension BeatDetector {
     }
     
     /**
-     Returns the standard distribution of a floating point array
+     Returns the standard distribution of a floating point array.
      */
     func std(_ x: [Float]) -> Float {
+        
         var std: Float = 0.0
         var mean: Float = 0.0
         vDSP_normalize(x, 1, nil, 1, &mean, &std, vDSP_Length(x.count))
@@ -67,8 +70,8 @@ extension BeatDetector {
     }
     
     /**
-     Convert frequencies in Hz to mel 'scale'.
-     Adapted from matlab script `fft2melmx.m`
+     Converts frequencies in Hz to mel 'scale'.
+     Adapted from matlab script: `fft2melmx.m`
      */
     func hzToMel(_ hz: Float) -> Float {
         
@@ -92,9 +95,9 @@ extension BeatDetector {
         return mel
     }
     
-    /*
-     Convert values on the mel 'scale' to frequency in Hz
-     Adapted from matlab script `fft2melmx.m`
+    /**
+     Converts values on the mel 'scale' to frequency in Hz
+     Adapted from matlab script: `fft2melmx.m`
      */
     func melToHz(_ mel: Float) -> Float {
         
@@ -116,9 +119,9 @@ extension BeatDetector {
         }
         return f
     }
-    /*
+    /**
      Returns an array which contains the weightings of the fast fourier transform that are required to bin pack the data into bins seperated by the mel scale.
-     Adapted from matlab script: fft2melmx.m [function z = fft2melmx()]
+     Adapted from matlab script: `fft2melmx.m`
      */
     func fft2mel() -> [[Float]] {
         
@@ -161,5 +164,48 @@ extension BeatDetector {
             weights.append(weightRow)
         }
         return weights
+    }
+    
+    /**
+     Interpolates an array of floats from an array of given sample times.
+     */
+    func interp(sampleTimes: [Float], outputTimes: [Float], data: [Float]) -> [Float] {
+        
+        var i = 0
+        
+        var b = outputTimes.map { (time: Float) -> Float in
+            defer {
+                if time > sampleTimes[i] { i += 1 }
+            }
+            return Float(i) + (time - sampleTimes[i]) / (sampleTimes[i+1] - sampleTimes[i])
+        }
+        var c = [Float](repeating: 0, count: b.count)
+        
+        vDSP_vlint(data, &b, 1, &c, 1, UInt(b.count), UInt(data.count))
+        
+        return c
+    }
+    
+    /**
+     Returns the central value from the array after it is sorted.
+     
+     - parameter values: Array of decimal numbers.
+     - returns: The median value from the array. Returns nil for an empty array. Returns the mean of the two middle values if there is an even number of items in the array.
+     */
+    func median(_ values: [Float]) -> Float {
+        
+        let count = Float(values.count)
+        let sorted = values.sorted()
+        
+        if count.truncatingRemainder(dividingBy: 2) == 0 {
+            // Even number of items - return the mean of two middle values
+            let leftIndex = Int(count / 2 - 1)
+            let leftValue = sorted[leftIndex]
+            let rightValue = sorted[leftIndex + 1]
+            return (leftValue + rightValue) / 2
+        } else {
+            // Odd number of items - take the middle item.
+            return sorted[Int(count / 2)]
+        }
     }
 }

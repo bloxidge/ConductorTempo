@@ -1,5 +1,5 @@
 //
-//  BeatDetector.swift
+//  BeatTracker.swift
 //  ConductorTempo
 //
 //  Created by Peter Bloxidge on 07/03/2017.
@@ -9,9 +9,8 @@
 import Foundation
 import Surge
 
-class BeatDetector {
+class BeatTracker {
     
-    //! CONSTANTS
     let newSampleRate    : Float = 8000
     let windowWidth      : Int = 256
     let windowHop        : Int = 32
@@ -26,85 +25,70 @@ class BeatDetector {
         var ratio : Float?
     }
     
-    struct BeatData {
-        var positions : [Float]?
-        var maximas   : [Int]?
-    }
-    
-    func calculateBeats(data: [Float]) -> [Float] {
+    func calculateBeats(from vectors: MotionVectors) -> [Float] {
         
-//        print("Resampling...")
-//        let newData = resample(data, sampleRate: 50)
+        // Create a new set of vectors at new sampling frequency
+        print("Resampling...")
+        let newVecs = resample(vectors)
         
+        // Pick vector to use for beat analysis
+        let data = newVecs.attitude.roll
+        
+        // Perform FFT that returns frequency bins on the 'mel' scale
         print("Spectrum...")
         let bins = melSpectrumBins(data)
         
+        // Calculate onset envelope from FFT data
         print("Calculus...")
-        let env = calculateOnsetEnvelope(array: bins)
+        let env = calculateOnsetEnvelope(bins)
         
-        //! Part 2: Global tempo estimation which calculates the inter-beat interval, τp
+        // Estimate two most likely starting tempos based on onset envelope
         print("Tempo...")
         let tempo = estimateTempo(from: env)
         
-        //! Part 3: Beat Tracking and feature extraction
+        // Retrieve locations of beats by matching onset envelope with predicted onset times
         print("Beats...")
         let beats = beatTracking(tempo, onsetEnvelope: env)
-//        let feat = performFeatureExtractionAlgorithm(beat.maximas!, melBins: bins)
-        print("Finished!!!")
         
-//        return beats
-        return beats.positions!
+        return beats
     }
     
     /**
-     This function resamples the audio file to newSampleRate given an AudioKit AudioFile [3][4]
+     Resamples the motion vector arrays from ~50Hz to approximately auditory new sampling frequency (8kHz).
      */
-    func resample(_ origData: [Float], sampleRate: Float) -> [Float] {
+    private func resample(_ input: MotionVectors) -> MotionVectors {
         
-        let outLength: Int = Int((Float(origData.count) / sampleRate) * newSampleRate) // Capacity of the output array
-        
-        var outData: [Float] = Array(repeating: 0, count: outLength)
-        outData.reserveCapacity(outLength)
-        
-        let hann = hanningWindow(windowWidth)
-        
-        /* Generated Sampling Poisitions */
-        var x_arr : [Float] = []
-        x_arr.reserveCapacity(outLength)
-        for i in 0 ... outLength {
-            x_arr.append(Float(i) * (sampleRate/newSampleRate))
+        let fs = newSampleRate
+        var output = input
+        var time = [Float]()
+        var t: Float = 0.0
+        while t < input.time[input.time.count - 2] {
+            t = round(2*fs * t) / (2*fs)
+            time.append(t)
+            t += 1/fs
         }
         
-        /* Generated sinc stuff */
-        var F : [Float] = []
-        F.reserveCapacity(windowWidth)
-        let scalar = (2 * PI * (nyquistFrequency/sampleRate))
-        for i in (-windowWidth/2) ..< (windowWidth/2) {
-            F.append(sin(Float(i) * scalar)/(Float(i) * scalar))
-        }
-        for i in 0 ..< windowWidth {
-            if(F[i].isNaN) {
-                F[i] = 1 // For some reason the peak of the sinc function ends up as NaN
-            }
-        }
+        output.time = time
         
-        let weights = mul(F,y: hann)
+        output.acceleration.x = interp(sampleTimes: input.time, outputTimes: output.time, data: input.acceleration.x)
+        output.acceleration.y = interp(sampleTimes: input.time, outputTimes: output.time, data: input.acceleration.y)
+        output.acceleration.z = interp(sampleTimes: input.time, outputTimes: output.time, data: input.acceleration.z)
         
-        for samples in 0 ..< outLength {
-            let x = Int(x_arr[samples])
-            var sPoint = Int( x - windowWidth/2 )
-            var ePoint = Int( x + windowWidth/2 )
-            if(sPoint < 0) {sPoint = 0}
-            if(ePoint > origData.count) {ePoint = origData.count - 1}
-            let slice = origData[sPoint..<ePoint]
-            outData[samples] = summul(slice, y: weights) / (sampleRate / newSampleRate)
-        }
+        output.rotation.x = interp(sampleTimes: input.time, outputTimes: output.time, data: input.rotation.x)
+        output.rotation.y = interp(sampleTimes: input.time, outputTimes: output.time, data: input.rotation.y)
+        output.rotation.z = interp(sampleTimes: input.time, outputTimes: output.time, data: input.rotation.z)
         
-        return outData
+        output.attitude.roll = interp(sampleTimes: input.time, outputTimes: output.time, data: input.attitude.roll)
+        output.attitude.pitch = interp(sampleTimes: input.time, outputTimes: output.time, data: input.attitude.pitch)
+        output.attitude.yaw = interp(sampleTimes: input.time, outputTimes: output.time, data: input.attitude.yaw)
+        
+        return output
     }
     
     /**
-     Perform a fourier transform on the data using a hanning window windowWidth and windowHop advance between frames. This is converted to an 'approximate auditory representation' by mapping the fft spectral bins onto 40 weighted Mel bands. Mel loosely stands for melody and is equal to the range of tones that are expected to be used most often for musical compositions.
+     Perform a fourier transform on the data using a hanning window windowWidth and windowHop advance between frames.
+     This is converted to an 'approximate auditory representation' by mapping the fft spectral bins onto 40 weighted Mel bands.
+     Mel loosely stands for melody and is equal to the range of tones that are expected to be used most often for musical compositions.
      */
     private func melSpectrumBins(_ data: [Float]) -> [[Float]] {
         
@@ -144,7 +128,7 @@ class BeatDetector {
     /**
      First order differentiation (dy/dx) along time is calculated for each bin, giving a one dimensional 'onset strength envelope' against time that responds to proportional increase in energy summed across approximately auditory frequency bins.
      */
-    func calculateOnsetEnvelope(array: [[Float]] ) -> [Float] {
+    func calculateOnsetEnvelope(_ array: [[Float]] ) -> [Float] {
         
         var decisionWaveform : [Float] = []
         decisionWaveform.reserveCapacity(array.count)
@@ -165,7 +149,9 @@ class BeatDetector {
         return decisionWaveform
     }
     
-    /* Global tempo estimation */
+    /**
+     Global tempo estimation
+     */
     func estimateTempo(from array: [Float]) -> TempoData {
         
         let maxd : Float = 60
@@ -238,7 +224,7 @@ class BeatDetector {
                               fast: 60.0/((Float(startpd2))/oesr),
                               ratio: rawxcr[startpd]/(rawxcr[startpd]+rawxcr[startpd2]))
         
-        // Reorders if it comes out the wrong way around 🙃
+        // Reorders if it comes out the wrong way around
         if(tempo.fast < tempo.slow) {
             let fast = tempo.fast
             tempo.fast = tempo.slow
@@ -248,9 +234,8 @@ class BeatDetector {
         return tempo
     }
     
-    func beatTracking(_ tempo: TempoData, onsetEnvelope: [Float]) -> BeatData {
+    func beatTracking(_ tempo: TempoData, onsetEnvelope: [Float]) -> [Float] {
         
-        /* 🐲🐉 There be dragons here 🐍🐲*/
         var startBPM : Float = 0
         if (tempo.ratio! > 0.5) {
             startBPM = Float(tempo.fast!) // Fast result from the autocorrelation
@@ -282,7 +267,7 @@ class BeatDetector {
         
         // Filling the arrays
         for i in Int(round(-2*pd)) ..< Int(-round(pd/2)) {
-            prange.append(Int(i))
+            prange.append(i)
             txwt.append(abs(pow(log(Float(i) / -pd), 2)) * -tightness)
         }
         
@@ -307,55 +292,55 @@ class BeatDetector {
             }
         }
         
-        var cumScoreHasLocalMaxima = localMax(cumScore)
-        var maximum : Float = 0.0
-        var minimum : Float = 0.0
-        for i in 0 ..< cumScore.count - 1 {
-            if(cumScoreHasLocalMaxima[i]) {
-                if(cumScore[i] > maximum) {
-                    maximum = cumScore[i]
-                }
-                if(cumScore[i] < minimum) {
-                    minimum = cumScore[i]
-                }
-            }
-        }
         // Find the best point to end the beat tracking
-        var median  = minimum + ((maximum - minimum) / 2)
-        var bestEndX : Int = 0
-        /* Suspect the problem lies somewhere in here */
-        for var i in stride(from: cumScore.count - 2, to: 0, by: -1) {
-            if(cumScoreHasLocalMaxima[i] && ( cumScore[i] > 0.5*median )) {
-                bestEndX = i
-                i = 0
+        var cumScoreHasLocalMaxima = localMax(cumScore)
+        var cumScoreLocalMaxima : [Float] = []
+        for i in 0 ..< cumScore.count - 1 {
+            if(cumScoreHasLocalMaxima[i] == 1) {
+                cumScoreLocalMaxima.append(cumScore[i])
             }
         }
-        
-        // This is my part for the feature extraction
-        median = min(localScore) + ((max(localScore) - min(localScore)) / 2)
-        var maximas : [Int] = []
-        var localScoreHasLocalMaxima = localMax(localScore)
-        for i in 1 ..< (localScore.count - 2) {
-            if(localScoreHasLocalMaxima[i] && ( localScore[i] > 0.25*median )) {
-                maximas.append(i)
+        let medscore = median(cumScoreLocalMaxima)
+        var bestEndPoss : [Float] = []
+        for i in 0 ..< cumScore.count - 1 {
+            if ((cumScore[i] * Float(cumScoreHasLocalMaxima[i])) > 0.5*medscore) {
+                bestEndPoss.append(Float(i))
             }
         }
+        let bestEndX = Int(max(bestEndPoss))
         
         // This finally extracts the beat times
-        var beatTimes : [Int] = [backLink.count - 1]
+        var beatTimes : [Int] = [bestEndX]
         while(backLink[beatTimes.last!] > 0) {
             beatTimes.append(backLink[beatTimes.last!])
         }
+        beatTimes.reverse()
+        print(beatTimes)
         
-        /* Something needs to go here */
+        // Choose start and end looking only on the beats
+        var boe : [Float] = []
+        for b in beatTimes {
+            boe.append(localScore[b])
+        }
+        let bWindowLength = 5
+        var sboe = conv(hanningWindow(bWindowLength), boe)
+        sboe = Array(sboe[Int(floor(Double(bWindowLength/2))+1)...boe.count])
+        let thsboe = 0.5 * sqrt(mean(pow(sboe,2)))
+        var bIndices : [Float] = []
+        for i in 0 ..< sboe.count {
+            if sboe[i]>thsboe {
+                bIndices.append(Float(i))
+            }
+        }
+        beatTimes = Array(beatTimes[Int(min(bIndices)+2)...Int(max(bIndices)+2)])
         
         // Times it by the magic constant oesr that converts back to original sample rate
         var beatsInSeconds : [Float] = []
-        for i in ((0 + 1)...beatTimes.count-1).reversed() {
-            beatsInSeconds.append( Float(beatTimes[i]) / oesr )
+        for beat in beatTimes {
+            beatsInSeconds.append( Float(beat) / oesr )
         }
         
-        return BeatData(positions: beatsInSeconds, maximas: maximas)
+        return beatsInSeconds
     }
 
 }
