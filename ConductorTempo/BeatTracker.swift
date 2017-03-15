@@ -9,7 +9,14 @@
 import Foundation
 import Surge
 
+protocol ProgressDelegate: class  {
+    var text : String { get set }
+    var inProgress : Bool { get set }
+}
+
 class BeatTracker {
+    
+    weak var delegate: ProgressDelegate!
     
     let newSampleRate    : Float = 8000
     let windowWidth      : Int = 256
@@ -28,27 +35,36 @@ class BeatTracker {
     func calculateBeats(from vectors: MotionVectors) -> [Float] {
         
         // Create a new set of vectors at new sampling frequency
-        print("Resampling...")
+//        print("Resampling...")
+        delegate.inProgress = true
+        delegate.text = "Resampling..."
         let newVecs = resample(vectors)
         
         // Pick vector to use for beat analysis
         let data = newVecs.attitude.roll
         
         // Perform FFT that returns frequency bins on the 'mel' scale
-        print("Spectrum...")
+//        print("Spectrum...")
+        delegate.text = "Spectrum..."
         let bins = melSpectrumBins(data)
         
         // Calculate onset envelope from FFT data
-        print("Calculus...")
+//        print("Calculus...")
+        delegate.text = "Calculus..."
         let env = calculateOnsetEnvelope(bins)
         
         // Estimate two most likely starting tempos based on onset envelope
-        print("Tempo...")
+//        print("Tempo...")
+        delegate.text = "Tempo..."
         let tempo = estimateTempo(from: env)
         
         // Retrieve locations of beats by matching onset envelope with predicted onset times
-        print("Beats...")
+//        print("Beats...")
+        delegate.text = "Beats..."
         let beats = beatTracking(tempo, onsetEnvelope: env)
+        
+        delegate.text = "Processing complete!"
+        delegate.inProgress = false
         
         return beats
     }

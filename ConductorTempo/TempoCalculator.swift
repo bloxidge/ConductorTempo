@@ -16,8 +16,8 @@ class TempoCalculator: NSObject, WCSessionDelegate {
     private var session: WCSession!
     private var motionData: [MotionDataPoint]!
     private var motionVectors, upsampledVectors: MotionVectors!
-    private var tracker = BeatTracker()
     private var beats: [Float]!
+    var tracker = BeatTracker()
     
     override init() {
         

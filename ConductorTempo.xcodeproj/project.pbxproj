@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		FD1E70701E6B0D8100D045C2 /* TempoCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD1E706F1E6B0D8100D045C2 /* TempoCalculator.swift */; };
 		FDADBEE41E5F234000FB3935 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDADBEE31E5F234000FB3935 /* AppDelegate.swift */; };
-		FDADBEE61E5F234000FB3935 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDADBEE51E5F234000FB3935 /* ViewController.swift */; };
+		FDADBEE61E5F234000FB3935 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDADBEE51E5F234000FB3935 /* MainViewController.swift */; };
 		FDADBEE91E5F234000FB3935 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FDADBEE71E5F234000FB3935 /* Main.storyboard */; };
 		FDADBEEB1E5F234000FB3935 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FDADBEEA1E5F234000FB3935 /* Assets.xcassets */; };
 		FDADBEEE1E5F234000FB3935 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FDADBEEC1E5F234000FB3935 /* LaunchScreen.storyboard */; };
@@ -21,6 +21,9 @@
 		FDADBF091E5F234000FB3935 /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDADBF081E5F234000FB3935 /* ExtensionDelegate.swift */; };
 		FDADBF0B1E5F234000FB3935 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FDADBF0A1E5F234000FB3935 /* Assets.xcassets */; };
 		FDADBF201E5F3E5000FB3935 /* MotionRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDADBF1F1E5F3E5000FB3935 /* MotionRecorder.swift */; };
+		FDC05E5E1E78E86A00D45F19 /* TempoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDC05E5D1E78E86A00D45F19 /* TempoViewController.swift */; };
+		FDC05E601E78E94E00D45F19 /* GraphTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDC05E5F1E78E94E00D45F19 /* GraphTabBarController.swift */; };
+		FDC05E621E78EF3900D45F19 /* MotionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDC05E611E78EF3900D45F19 /* MotionViewController.swift */; };
 		FDD21A941E6E421D00C32B1B /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FDD21A8B1E6E400F00C32B1B /* Charts.framework */; };
 		FDD21A951E6E421D00C32B1B /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FDD21A8B1E6E400F00C32B1B /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FDD21A9D1E6F678900C32B1B /* BeatTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD21A9C1E6F678900C32B1B /* BeatTracker.swift */; };
@@ -138,7 +141,7 @@
 		FD1E706F1E6B0D8100D045C2 /* TempoCalculator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TempoCalculator.swift; sourceTree = "<group>"; };
 		FDADBEE01E5F234000FB3935 /* ConductorTempo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ConductorTempo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FDADBEE31E5F234000FB3935 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		FDADBEE51E5F234000FB3935 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		FDADBEE51E5F234000FB3935 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		FDADBEE81E5F234000FB3935 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		FDADBEEA1E5F234000FB3935 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FDADBEED1E5F234000FB3935 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -153,6 +156,9 @@
 		FDADBF0A1E5F234000FB3935 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FDADBF0C1E5F234000FB3935 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FDADBF1F1E5F3E5000FB3935 /* MotionRecorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MotionRecorder.swift; sourceTree = "<group>"; };
+		FDC05E5D1E78E86A00D45F19 /* TempoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TempoViewController.swift; sourceTree = "<group>"; };
+		FDC05E5F1E78E94E00D45F19 /* GraphTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphTabBarController.swift; sourceTree = "<group>"; };
+		FDC05E611E78EF3900D45F19 /* MotionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MotionViewController.swift; sourceTree = "<group>"; };
 		FDD21A841E6E400F00C32B1B /* Charts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Charts.xcodeproj; path = Charts/Charts.xcodeproj; sourceTree = "<group>"; };
 		FDD21A9C1E6F678900C32B1B /* BeatTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeatTracker.swift; sourceTree = "<group>"; };
 		FDD21AA01E6F8A2900C32B1B /* BeatTrackerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeatTrackerExtension.swift; sourceTree = "<group>"; };
@@ -206,11 +212,14 @@
 		FDADBEE21E5F234000FB3935 /* ConductorTempo */ = {
 			isa = PBXGroup;
 			children = (
-				FDADBEE51E5F234000FB3935 /* ViewController.swift */,
+				FDADBEE51E5F234000FB3935 /* MainViewController.swift */,
 				FD1E706F1E6B0D8100D045C2 /* TempoCalculator.swift */,
 				FDD21A9C1E6F678900C32B1B /* BeatTracker.swift */,
 				FDD21AA01E6F8A2900C32B1B /* BeatTrackerExtension.swift */,
 				FDADBEE71E5F234000FB3935 /* Main.storyboard */,
+				FDC05E611E78EF3900D45F19 /* MotionViewController.swift */,
+				FDC05E5F1E78E94E00D45F19 /* GraphTabBarController.swift */,
+				FDC05E5D1E78E86A00D45F19 /* TempoViewController.swift */,
 				FDADBF1A1E5F237300FB3935 /* Supporting Files */,
 			);
 			path = ConductorTempo;
@@ -473,12 +482,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FDADBEE61E5F234000FB3935 /* ViewController.swift in Sources */,
+				FDADBEE61E5F234000FB3935 /* MainViewController.swift in Sources */,
 				FDD21AA11E6F8A2900C32B1B /* BeatTrackerExtension.swift in Sources */,
 				FD1E70701E6B0D8100D045C2 /* TempoCalculator.swift in Sources */,
 				FDADBEE41E5F234000FB3935 /* AppDelegate.swift in Sources */,
 				FDF968C01E61A04000F754DE /* Globals.swift in Sources */,
+				FDC05E601E78E94E00D45F19 /* GraphTabBarController.swift in Sources */,
+				FDC05E5E1E78E86A00D45F19 /* TempoViewController.swift in Sources */,
 				FDD21A9D1E6F678900C32B1B /* BeatTracker.swift in Sources */,
+				FDC05E621E78EF3900D45F19 /* MotionViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -12,7 +12,7 @@ import Surge
 extension BeatTracker {
     
     /**
-     Returns 'true' where there are local maxima in x, excluding the first and last point.
+     Returns a 1 where there are local maxima in x, excluding the first and last point.
      */
     func localMax(_ x: [Float]) -> [Int] {
         
@@ -190,7 +190,7 @@ extension BeatTracker {
      Returns the central value from the array after it is sorted.
      
      - parameter values: Array of decimal numbers.
-     - returns: The median value from the array. Returns nil for an empty array. Returns the mean of the two middle values if there is an even number of items in the array.
+     - returns: The median value from the array. Returns the mean of the two middle values if there is an even number of items in the array.
      */
     func median(_ values: [Float]) -> Float {
         

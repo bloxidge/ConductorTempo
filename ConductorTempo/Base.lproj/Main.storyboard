@@ -6,14 +6,13 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Main View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="ConductorTempo" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="MainViewController" customModule="ConductorTempo" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -22,12 +21,59 @@
                         <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i3x-lI-kvo" customClass="LineChartView" customModule="Charts">
-                                <rect key="frame" x="20" y="28" width="627" height="272"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="F0L-fO-EWU">
-                                <rect key="frame" x="197" y="327" width="272" height="29"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Start recording conducting on Apple Watch" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O60-7T-ozw">
+                                <rect key="frame" x="167" y="177" width="332" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="8Vh-BR-T3r">
+                                <rect key="frame" x="324" y="207" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </view>
+                    <connections>
+                        <outlet property="lineChart" destination="i3x-lI-kvo" id="nNf-Gg-g0M"/>
+                        <outlet property="progressIndicator" destination="8Vh-BR-T3r" id="xoW-ot-flQ"/>
+                        <outlet property="progressLabel" destination="O60-7T-ozw" id="pG2-Aa-CYo"/>
+                        <segue destination="LQa-JI-6OO" kind="presentation" id="Dxy-ba-h1t"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-99" y="-233"/>
+        </scene>
+        <!--Motion View Controller-->
+        <scene sceneID="4n8-mn-CD3">
+            <objects>
+                <viewController id="rtJ-6v-bgC" userLabel="Motion View Controller" customClass="MotionViewController" customModule="ConductorTempo" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="xMA-qe-3Za"/>
+                        <viewControllerLayoutGuide type="bottom" id="glE-0C-dWb"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="IGi-R0-ac1">
+                        <rect key="frame" x="0.0" y="0.0" width="667" height="326"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Agh-UA-T8w">
+                                <rect key="frame" x="0.0" y="0.0" width="667" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <items>
+                                    <navigationItem title="Motion" id="ZUx-qv-j2c">
+                                        <barButtonItem key="leftBarButtonItem" title="Back" id="eSK-cR-L8M">
+                                            <connections>
+                                                <segue destination="F3O-1A-UcN" kind="unwind" unwindAction="returnToMainViewController:" id="68z-Os-gLb"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" translatesAutoresizingMaskIntoConstraints="NO" id="F0L-fO-EWU">
+                                <rect key="frame" x="197" y="286" width="272" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
                                     <segment title="Acceleration"/>
@@ -38,22 +84,73 @@
                                     <action selector="updateChart:" destination="BYZ-38-t0r" eventType="valueChanged" id="IiB-ZW-Y9r"/>
                                 </connections>
                             </segmentedControl>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="i3x-lI-kvo" customClass="LineChartView" customModule="Charts">
+                                <rect key="frame" x="75" y="54" width="517" height="224"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="i3x-lI-kvo" secondAttribute="trailing" id="32X-IM-fZH"/>
-                            <constraint firstItem="i3x-lI-kvo" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="Pse-mL-ult"/>
-                            <constraint firstAttribute="leadingMargin" secondItem="i3x-lI-kvo" secondAttribute="leading" id="rgO-TF-8Fa"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="i3x-lI-kvo" secondAttribute="bottom" constant="75" id="yoi-6y-fWh"/>
-                        </constraints>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <connections>
-                        <outlet property="lineChart" destination="i3x-lI-kvo" id="nNf-Gg-g0M"/>
-                    </connections>
+                    <tabBarItem key="tabBarItem" title="Motion" id="aAp-t6-fEE" userLabel="Motion Item"/>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="agF-83-60H" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="F3O-1A-UcN" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="35.532233883058474" y="36"/>
+            <point key="canvasLocation" x="700.29985007496259" y="908"/>
+        </scene>
+        <!--Tempo View Controller-->
+        <scene sceneID="HKD-Au-0IQ">
+            <objects>
+                <viewController id="Jiq-Ns-X3V" userLabel="Tempo View Controller" customClass="TempoViewController" customModule="ConductorTempo" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="eU8-1b-IHD"/>
+                        <viewControllerLayoutGuide type="bottom" id="c8p-Lh-8Ph"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="TBL-te-e6i">
+                        <rect key="frame" x="0.0" y="0.0" width="667" height="326"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pc8-YY-3uN">
+                                <rect key="frame" x="0.0" y="0.0" width="667" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <items>
+                                    <navigationItem title="Tempo" id="huk-Uo-7nB">
+                                        <barButtonItem key="leftBarButtonItem" title="Back" id="ryb-me-2If" userLabel="Back">
+                                            <connections>
+                                                <segue destination="HY4-07-arX" kind="unwind" unwindAction="returnToMainViewController:" id="Axi-c8-P59"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Tempo" id="nNF-ab-IBN" userLabel="Tempo Item"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="r1h-Jo-eIi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="HY4-07-arX" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="701" y="211"/>
+        </scene>
+        <!--Graph Tab Bar Controller-->
+        <scene sceneID="wm2-jp-DG2">
+            <objects>
+                <tabBarController id="LQa-JI-6OO" userLabel="Graph Tab Bar Controller" customClass="GraphTabBarController" customModule="ConductorTempo" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" translucent="NO" itemPositioning="centered" id="cxc-Yd-Jdf">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="Jiq-Ns-X3V" kind="relationship" relationship="viewControllers" id="5cg-yi-PeM"/>
+                        <segue destination="rtJ-6v-bgC" kind="relationship" relationship="viewControllers" id="deW-f9-k24"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Pju-en-x79" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-99" y="548"/>
         </scene>
     </scenes>
 </document>
