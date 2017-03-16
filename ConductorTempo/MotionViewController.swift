@@ -11,35 +11,18 @@ import Charts
 
 class MotionViewController: UIViewController {
     
-    @IBOutlet weak var lineChart: LineChartView!
+    var model: TempoCalculator!
     
-    private var model = TempoCalculator()
+    @IBOutlet weak var motionLineChart: LineChartView!
     
     @IBAction func updateChart(_ sender: UISegmentedControl) {
         
-        model.update(chart: lineChart, from: sender)
+        model.update(chart: motionLineChart, from: sender)
     }
 
     override func viewDidLoad() {
+        
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

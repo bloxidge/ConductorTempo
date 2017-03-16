@@ -32,6 +32,7 @@ class MainViewController: UIViewController, ProgressDelegate {
                     self.progressIndicator.startAnimating()
                 } else {
                     self.progressIndicator.stopAnimating()
+                    self.performSegue(withIdentifier: "toGraphTabBar", sender: nil)
                 }
             }
         }
@@ -49,10 +50,12 @@ class MainViewController: UIViewController, ProgressDelegate {
         
         model.tracker.delegate = self
     }
-
-    override func didReceiveMemoryWarning() {
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        super.didReceiveMemoryWarning()
+        if let destinationVC = segue.destination as? GraphTabBarController {
+            destinationVC.model = model
+        }
     }
 
 }

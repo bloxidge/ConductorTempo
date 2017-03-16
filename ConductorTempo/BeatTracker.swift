@@ -331,7 +331,6 @@ class BeatTracker {
             beatTimes.append(backLink[beatTimes.last!])
         }
         beatTimes.reverse()
-        print(beatTimes)
         
         // Choose start and end looking only on the beats
         var boe : [Float] = []

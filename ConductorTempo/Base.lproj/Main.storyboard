@@ -21,26 +21,32 @@
                         <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Start recording conducting on Apple Watch" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O60-7T-ozw">
-                                <rect key="frame" x="167" y="177" width="332" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="8Vh-BR-T3r">
-                                <rect key="frame" x="324" y="207" width="20" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                            </activityIndicatorView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="d4u-kP-VG3">
+                                <rect key="frame" x="167.5" y="162.5" width="331.5" height="50.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Start recording conducting on Apple Watch" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O60-7T-ozw">
+                                        <rect key="frame" x="0.0" y="0.0" width="331.5" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="8Vh-BR-T3r">
+                                        <rect key="frame" x="156" y="30.5" width="20" height="20"/>
+                                        <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </activityIndicatorView>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="d4u-kP-VG3" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="K96-Ds-qQZ"/>
+                            <constraint firstItem="d4u-kP-VG3" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="n5i-WG-1me"/>
+                        </constraints>
                     </view>
                     <connections>
-                        <outlet property="lineChart" destination="i3x-lI-kvo" id="nNf-Gg-g0M"/>
                         <outlet property="progressIndicator" destination="8Vh-BR-T3r" id="xoW-ot-flQ"/>
                         <outlet property="progressLabel" destination="O60-7T-ozw" id="pG2-Aa-CYo"/>
-                        <segue destination="LQa-JI-6OO" kind="presentation" id="Dxy-ba-h1t"/>
+                        <segue destination="LQa-JI-6OO" kind="presentation" identifier="toGraphTabBar" id="Dxy-ba-h1t"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -64,9 +70,9 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <items>
                                     <navigationItem title="Motion" id="ZUx-qv-j2c">
-                                        <barButtonItem key="leftBarButtonItem" title="Back" id="eSK-cR-L8M">
+                                        <barButtonItem key="leftBarButtonItem" systemItem="done" id="Kmr-6Q-54u">
                                             <connections>
-                                                <segue destination="F3O-1A-UcN" kind="unwind" unwindAction="returnToMainViewController:" id="68z-Os-gLb"/>
+                                                <segue destination="F3O-1A-UcN" kind="unwind" unwindAction="returnToMainViewController:" id="rp5-sh-p3O"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -81,7 +87,7 @@
                                     <segment title="Attitude"/>
                                 </segments>
                                 <connections>
-                                    <action selector="updateChart:" destination="BYZ-38-t0r" eventType="valueChanged" id="IiB-ZW-Y9r"/>
+                                    <action selector="updateChart:" destination="rtJ-6v-bgC" eventType="valueChanged" id="cz5-JE-QCm"/>
                                 </connections>
                             </segmentedControl>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="i3x-lI-kvo" customClass="LineChartView" customModule="Charts">
@@ -92,7 +98,10 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Motion" id="aAp-t6-fEE" userLabel="Motion Item"/>
+                    <tabBarItem key="tabBarItem" title="Motion" image="Line-Chart" selectedImage="Line-Chart-Filled" id="aAp-t6-fEE" userLabel="Motion Item"/>
+                    <connections>
+                        <outlet property="motionLineChart" destination="i3x-lI-kvo" id="3Fl-1b-Rsw"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="agF-83-60H" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="F3O-1A-UcN" userLabel="Exit" sceneMemberID="exit"/>
@@ -116,9 +125,9 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <items>
                                     <navigationItem title="Tempo" id="huk-Uo-7nB">
-                                        <barButtonItem key="leftBarButtonItem" title="Back" id="ryb-me-2If" userLabel="Back">
+                                        <barButtonItem key="leftBarButtonItem" systemItem="done" id="37y-f0-aDt">
                                             <connections>
-                                                <segue destination="HY4-07-arX" kind="unwind" unwindAction="returnToMainViewController:" id="Axi-c8-P59"/>
+                                                <segue destination="HY4-07-arX" kind="unwind" unwindAction="returnToMainViewController:" id="gsp-Xq-U7E"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -127,7 +136,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Tempo" id="nNF-ab-IBN" userLabel="Tempo Item"/>
+                    <tabBarItem key="tabBarItem" title="Tempo" image="Music-Conductor" selectedImage="Music-Conductor-Filled" id="nNF-ab-IBN" userLabel="Tempo Item"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="r1h-Jo-eIi" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="HY4-07-arX" userLabel="Exit" sceneMemberID="exit"/>
@@ -153,4 +162,10 @@
             <point key="canvasLocation" x="-99" y="548"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Line-Chart" width="25" height="25"/>
+        <image name="Line-Chart-Filled" width="25" height="25"/>
+        <image name="Music-Conductor" width="25" height="25"/>
+        <image name="Music-Conductor-Filled" width="25" height="25"/>
+    </resources>
 </document>

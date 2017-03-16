@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ConductorTempo/BeatTracker.swift"
-            timestampString = "511246607.688735"
+            timestampString = "511313429.761351"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "347"
-            endingLineNumber = "347"
+            startingLineNumber = "346"
+            endingLineNumber = "346"
             landmarkName = "beatTracking(_:onsetEnvelope:)"
             landmarkType = "7">
          </BreakpointContent>
