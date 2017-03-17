@@ -30,7 +30,7 @@ class TempoCalculator: NSObject, WCSessionDelegate {
         }
     }
     
-    func session(_ session: WCSession, didReceiveMessageData messageData: Data) {
+    func session(_ session: WCSession, didReceive file: WCSessionFile) {
         
         motionData = messageData.toArray(type: MotionDataPoint.self)
         
