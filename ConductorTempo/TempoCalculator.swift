@@ -32,7 +32,9 @@ class TempoCalculator: NSObject, WCSessionDelegate {
     
     func session(_ session: WCSession, didReceive file: WCSessionFile) {
         
-        motionData = messageData.toArray(type: MotionDataPoint.self)
+        if let rcvdData = try? Data(contentsOf: file.fileURL!) {
+            motionData = rcvdData.toArray(type: MotionDataPoint.self)
+        }
         
         processRecordingData()
     }
