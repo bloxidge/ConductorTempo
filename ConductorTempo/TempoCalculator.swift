@@ -16,8 +16,8 @@ class TempoCalculator: NSObject, WCSessionDelegate {
     private var session: WCSession!
     private var motionData: [MotionDataPoint]!
     private var motionVectors, upsampledVectors: MotionVectors!
-    private var tracker = BeatTracker()
-    private var beats: [Float]!
+    var tracker = BeatTracker()
+    var beats: [Float]!
     
     override init() {
         
@@ -30,18 +30,19 @@ class TempoCalculator: NSObject, WCSessionDelegate {
         }
     }
     
-    func session(_ session: WCSession, didReceiveMessageData messageData: Data) {
+    func session(_ session: WCSession, didReceive file: WCSessionFile) {
         
-        motionData = messageData.toArray(type: MotionDataPoint.self)
-        motionVectors = MotionVectors(from: motionData)
+        if let rcvdData = try? Data(contentsOf: file.fileURL!) {
+            motionData = rcvdData.toArray(type: MotionDataPoint.self)
+        }
         
         processRecordingData()
     }
     
     private func processRecordingData() {
         
+        motionVectors = MotionVectors(from: motionData)
         beats = tracker.calculateBeats(from: motionVectors)
-        print(beats)
     }
     
     func update(chart: LineChartView, from segment: UISegmentedControl) {

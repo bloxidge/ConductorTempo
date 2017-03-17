@@ -25,6 +25,8 @@ class MotionRecorder: NSObject, WCSessionDelegate {
     private let fs: Float = 50.0
     private let motionManager = CMMotionManager()
     private var currentRecording = [MotionDataPoint]()
+    private let file = "motiondata.txt"
+    private var url: URL!
     
     override init() {
         
@@ -74,15 +76,22 @@ class MotionRecorder: NSObject, WCSessionDelegate {
         if motionManager.isDeviceMotionActive {
             motionManager.stopDeviceMotionUpdates()
         }
+        saveMotionData()
+    }
+    
+    private func saveMotionData() {
+        
+        let data = Data(bytes: currentRecording, count: currentRecording.count * MemoryLayout<MotionDataPoint>.size)
+        
+        if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+            url = dir.appendingPathComponent(file)
+            try? data.write(to: url)
+        }
     }
     
     func send() {
         
-        let data = Data(bytes: currentRecording, count: currentRecording.count * MemoryLayout<MotionDataPoint>.size)
-        
-        session.sendMessageData(data, replyHandler: nil, errorHandler: {(error) -> Void in
-            print("WCSession errors have occurred: \(error.localizedDescription)")
-        })
+        session.transferFile(url, metadata: nil)
     }
     
     public func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
