@@ -35,6 +35,7 @@ class BeatTracker {
     func calculateBeats(from vectors: MotionVectors) -> [Float] {
         
         // Create a new set of vectors at new sampling frequency
+//        print("Resampling...")
         delegate.inProgress = true
         delegate.text = "Resampling..."
         let newVecs = resample(vectors)
@@ -43,18 +44,22 @@ class BeatTracker {
         let data = newVecs.attitude.roll
         
         // Perform FFT that returns frequency bins on the 'mel' scale
+//        print("Spectrum...")
         delegate.text = "Spectrum..."
         let bins = melSpectrumBins(data)
         
         // Calculate onset envelope from FFT data
+//        print("Calculus...")
         delegate.text = "Calculus..."
         let env = calculateOnsetEnvelope(bins)
         
         // Estimate two most likely starting tempos based on onset envelope
+//        print("Tempo...")
         delegate.text = "Tempo..."
         let tempo = estimateTempo(from: env)
         
         // Retrieve locations of beats by matching onset envelope with predicted onset times
+//        print("Beats...")
         delegate.text = "Beats..."
         let beats = beatTracking(tempo, onsetEnvelope: env)
         
