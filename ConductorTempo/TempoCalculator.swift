@@ -47,6 +47,10 @@ class TempoCalculator: NSObject, WCSessionDelegate {
         
         motionVectors = MotionVectors(from: motionData)
         beats = tracker.calculateBeats(from: motionVectors)
+        let iois = differential(beats)
+        print(iois)
+        localTempo = Float(60.0) / iois
+        print(localTempo)
     }
     
     func update(chart: LineChartView, from segment: UISegmentedControl) {
