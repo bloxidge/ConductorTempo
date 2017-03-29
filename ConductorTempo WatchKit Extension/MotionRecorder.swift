@@ -21,8 +21,6 @@ class MotionRecorder: NSObject, WCSessionDelegate {
             }
         }
     }
-    private var startTime = TimeInterval()
-    private let fs: Float = 50.0
     private let motionManager = CMMotionManager()
     private var currentRecording = [MotionDataPoint]()
     private let file = "motiondata.txt"
@@ -38,19 +36,22 @@ class MotionRecorder: NSObject, WCSessionDelegate {
             session.activate()
         }
         
-        motionManager.deviceMotionUpdateInterval = Double(1/fs)
+        motionManager.deviceMotionUpdateInterval = 0.02
         motionManager.startDeviceMotionUpdates()
     }
     
     private func start() {
         
-        var timestamp: Float = 0.0
-        
         currentRecording.removeAll()
         
+        var timestamp: TimeInterval = 0.0
+        let startTime = Date(timeIntervalSinceNow: 0)
+        
         if motionManager.isDeviceMotionAvailable {
-            motionManager.startDeviceMotionUpdates(to: OperationQueue.current!) {
+            motionManager.startDeviceMotionUpdates(to: OperationQueue.main) {
                 (deviceMotion: CMDeviceMotion?, NSError) -> Void in
+                
+                timestamp = -startTime.timeIntervalSinceNow
                 
                 let acc = AccelerationPoint(x: Float(deviceMotion!.userAcceleration.x),
                                             y: Float(deviceMotion!.userAcceleration.y),
@@ -62,11 +63,10 @@ class MotionRecorder: NSObject, WCSessionDelegate {
                                         pitch: Float(deviceMotion!.attitude.pitch),
                                         yaw: Float(deviceMotion!.attitude.yaw))
                 
-                self.currentRecording.append(MotionDataPoint(time: round(2*self.fs * timestamp) / (2*self.fs),
+                self.currentRecording.append(MotionDataPoint(time: Float(timestamp),
                                                              acceleration: acc,
                                                              rotation: rot,
                                                              attitude: att))
-                timestamp += 0.02
             }
         }
     }
@@ -76,7 +76,27 @@ class MotionRecorder: NSObject, WCSessionDelegate {
         if motionManager.isDeviceMotionActive {
             motionManager.stopDeviceMotionUpdates()
         }
+        cleanMotionData()
         saveMotionData()
+    }
+    
+    private func cleanMotionData() {
+        
+        var i = 1
+        var prevTime: Float = 0.0
+        
+        for value in currentRecording {
+            if (value.time - prevTime) < 0.01 {
+                i += 1
+            }
+            prevTime = value.time
+        }
+        currentRecording.removeFirst(i)
+        
+        let initialTimestamp = currentRecording.first!.time
+        for (index, _) in currentRecording.enumerated() {
+            currentRecording[index].time -= initialTimestamp
+        }
     }
     
     private func saveMotionData() {

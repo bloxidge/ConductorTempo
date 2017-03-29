@@ -9,14 +9,14 @@
 import Foundation
 import Surge
 
-protocol ProgressDelegate: class  {
+protocol ProgressDelegate  {
     var text : String { get set }
     var inProgress : Bool { get set }
 }
 
 class BeatTracker {
     
-    weak var delegate: ProgressDelegate!
+    var delegate: ProgressDelegate!
     
     let newSampleRate    : Float = 8000
     let windowWidth      : Int = 256
@@ -35,7 +35,6 @@ class BeatTracker {
     func calculateBeats(from vectors: MotionVectors) -> [Float] {
         
         // Create a new set of vectors at new sampling frequency
-//        print("Resampling...")
         delegate.inProgress = true
         delegate.text = "Resampling..."
         let newVecs = resample(vectors)
@@ -44,22 +43,18 @@ class BeatTracker {
         let data = newVecs.attitude.roll
         
         // Perform FFT that returns frequency bins on the 'mel' scale
-//        print("Spectrum...")
         delegate.text = "Spectrum..."
         let bins = melSpectrumBins(data)
         
         // Calculate onset envelope from FFT data
-//        print("Calculus...")
         delegate.text = "Calculus..."
         let env = calculateOnsetEnvelope(bins)
         
         // Estimate two most likely starting tempos based on onset envelope
-//        print("Tempo...")
         delegate.text = "Tempo..."
         let tempo = estimateTempo(from: env)
         
         // Retrieve locations of beats by matching onset envelope with predicted onset times
-//        print("Beats...")
         delegate.text = "Beats..."
         let beats = beatTracking(tempo, onsetEnvelope: env)
         
@@ -79,7 +74,7 @@ class BeatTracker {
         var time = [Float]()
         var t: Float = 0.0
         while t < input.time[input.time.count - 2] {
-            t = round(2*fs * t) / (2*fs)
+            t = round(fs * t) / fs
             time.append(t)
             t += 1/fs
         }
@@ -144,7 +139,7 @@ class BeatTracker {
     /**
      First order differentiation (dy/dx) along time is calculated for each bin, giving a one dimensional 'onset strength envelope' against time that responds to proportional increase in energy summed across approximately auditory frequency bins.
      */
-    func calculateOnsetEnvelope(_ array: [[Float]] ) -> [Float] {
+    private func calculateOnsetEnvelope(_ array: [[Float]] ) -> [Float] {
         
         var decisionWaveform : [Float] = []
         decisionWaveform.reserveCapacity(array.count)
@@ -168,7 +163,7 @@ class BeatTracker {
     /**
      Global tempo estimation
      */
-    func estimateTempo(from array: [Float]) -> TempoData {
+    private func estimateTempo(from array: [Float]) -> TempoData {
         
         let maxd : Float = 60
         let maxt : Float = 120
@@ -250,7 +245,7 @@ class BeatTracker {
         return tempo
     }
     
-    func beatTracking(_ tempo: TempoData, onsetEnvelope: [Float]) -> [Float] {
+    private func beatTracking(_ tempo: TempoData, onsetEnvelope: [Float]) -> [Float] {
         
         var startBPM : Float = 0
         if (tempo.ratio! > 0.5) {

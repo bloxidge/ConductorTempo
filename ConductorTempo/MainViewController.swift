@@ -37,7 +37,7 @@ class MainViewController: UIViewController, ProgressDelegate {
             }
         }
         get {
-            return self.inProgress
+            return progressIndicator.isAnimating
         }
     }
     

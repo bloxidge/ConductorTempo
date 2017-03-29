@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import Accelerate
+import Surge
 import Charts
 import WatchConnectivity
 
@@ -15,7 +15,7 @@ class TempoCalculator: NSObject, WCSessionDelegate {
     
     private var session: WCSession!
     private var motionData: [MotionDataPoint]!
-    private var motionVectors, upsampledVectors: MotionVectors!
+    private var motionVectors: MotionVectors!
     var tracker = BeatTracker()
     var beats: [Float]!
     
@@ -23,8 +23,13 @@ class TempoCalculator: NSObject, WCSessionDelegate {
         
         super.init()
         
+        checkWatchIsPaired()
+    }
+    
+    private func checkWatchIsPaired() {
+        
         if WCSession.isSupported() {
-            session = WCSession.default()
+            session = .default()
             session.delegate = self
             session.activate()
         }
@@ -35,7 +40,6 @@ class TempoCalculator: NSObject, WCSessionDelegate {
         if let rcvdData = try? Data(contentsOf: file.fileURL!) {
             motionData = rcvdData.toArray(type: MotionDataPoint.self)
         }
-        
         processRecordingData()
     }
     

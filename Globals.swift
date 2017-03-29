@@ -10,7 +10,7 @@ import Foundation
 
 struct MotionDataPoint: CustomStringConvertible {
     
-    let time: Float
+    var time: Float
     let acceleration: AccelerationPoint
     let rotation: RotationPoint
     let attitude: AttitudePoint

@@ -1,8 +1,8 @@
 //
-//  SigProcExtension.swift
+//  Extensions.swift
 //  ConductorTempo
 //
-//  Created by Peter Bloxidge on 08/03/2017.
+//  Created by Peter Bloxidge on 19/03/2017.
 //  Copyright © 2017 Peter Bloxidge. All rights reserved.
 //
 
