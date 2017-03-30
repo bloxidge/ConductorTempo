@@ -17,7 +17,7 @@ class MotionViewController: UIViewController {
     
     @IBAction func updateChart(_ sender: UISegmentedControl) {
         
-        model.update(chart: motionLineChart, from: sender)
+        model.updateMotionChart(motionLineChart, selectedSegment: sender.selectedSegmentIndex)
     }
 
     override func viewDidLoad() {

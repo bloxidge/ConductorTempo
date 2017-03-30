@@ -48,13 +48,31 @@ class TempoCalculator: NSObject, WCSessionDelegate {
         
         motionVectors = MotionVectors(from: motionData)
         beats = tracker.calculateBeats(from: motionVectors)
+        
         let iois = differential(beats)
-        print(iois)
         localTempo = Float(60.0) / iois
-        print(localTempo)
     }
     
-    func update(chart: LineChartView, from segment: UISegmentedControl) {
+    func updateTempoChart(_ chart: LineChartView) {
+        
+        var dataEntries = [ChartDataEntry]()
+        
+        for (i, value) in localTempo.enumerated() {
+            let entry = ChartDataEntry(x: Double(beats[i]), y: Double(value))
+            dataEntries.append(entry)
+        }
+        
+        let dataSet = LineChartDataSet(values: dataEntries, label: "Tempo")
+        dataSet.drawCirclesEnabled = false
+        dataSet.lineWidth = 2.0
+        dataSet.colors = [.orange]
+        
+        let lineData = LineChartData(dataSet: dataSet)
+        chart.chartDescription?.text = "Local Tempo Change"
+        chart.data = lineData
+    }
+    
+    func updateMotionChart(_ chart: LineChartView, selectedSegment: Int) {
         
         var vectors = [[Float]]()
         var labels: [String]
@@ -63,7 +81,7 @@ class TempoCalculator: NSObject, WCSessionDelegate {
         var dataSets = [LineChartDataSet]()
         var dataSet = LineChartDataSet()
         
-        switch segment.selectedSegmentIndex {
+        switch selectedSegment {
         case 1:
             vectors = [motionVectors!.rotation.x, motionVectors!.rotation.y, motionVectors!.rotation.z]
             labels = ["X", "Y", "Z"]
