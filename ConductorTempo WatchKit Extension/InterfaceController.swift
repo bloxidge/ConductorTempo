@@ -13,9 +13,10 @@ class InterfaceController: WKInterfaceController {
     
     @IBOutlet var timer: WKInterfaceTimer!
     @IBOutlet var startStopButton: WKInterfaceButton!
-    @IBOutlet var sendBution: WKInterfaceButton!
     
     private var recorder = MotionRecorder()
+    private let moss = UIColor(red: 0.0, green: 0.5, blue: 0.25, alpha: 1.0)
+    private let cayenne = UIColor(red: 0.5, green: 0.0, blue: 0.0, alpha: 1.0)
     
     @IBAction func startStopButtonPressed() {
         
@@ -23,10 +24,12 @@ class InterfaceController: WKInterfaceController {
         case true:
             recorder.isRecording = false
             startStopButton.setTitle("Start")
+            startStopButton.setBackgroundColor(moss)
             timer.stop()
         case false:
             recorder.isRecording = true
             startStopButton.setTitle("Stop")
+            startStopButton.setBackgroundColor(cayenne)
             timer.setDate(Date(timeIntervalSinceNow: 0))
             timer.start()
         }

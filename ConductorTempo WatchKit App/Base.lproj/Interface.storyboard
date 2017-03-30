@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
     <device id="watch38" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -14,25 +14,30 @@
             <objects>
                 <controller id="AgC-eL-Hgc" customClass="InterfaceController" customModule="ConductorTempo_WatchKit_App" customModuleProvider="target">
                     <items>
-                        <label alignment="center" text="Tempo Detector" id="BRM-hZ-2Go"/>
-                        <timer alignment="center" verticalAlignment="center" textAlignment="left" id="I8w-tt-QR4">
+                        <label alignment="center" text="Motion Recorder" id="BRM-hZ-2Go"/>
+                        <timer alignment="center" textAlignment="left" id="I8w-tt-QR4">
                             <fontDescription key="font" type="boldSystem" pointSize="24"/>
                             <calendarUnit key="units" minute="YES" second="YES"/>
                         </timer>
-                        <button width="1" alignment="center" verticalAlignment="center" title="Start" id="gVF-SF-qtR">
-                            <connections>
-                                <action selector="startStopButtonPressed" destination="AgC-eL-Hgc" id="Wg6-40-bIq"/>
-                            </connections>
-                        </button>
-                        <button width="1" alignment="left" verticalAlignment="bottom" title="Send" id="qZs-e4-sbf">
-                            <connections>
-                                <action selector="sendButtonPressed" destination="AgC-eL-Hgc" id="N6B-eN-cwU"/>
-                            </connections>
-                        </button>
+                        <group width="1" height="75" alignment="center" verticalAlignment="bottom" spacing="5" id="1oW-b2-ISP">
+                            <items>
+                                <button width="0.5" height="1" alignment="center" verticalAlignment="center" title="Send" id="gVF-SF-qtR">
+                                    <color key="backgroundColor" white="0.25" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                    <connections>
+                                        <action selector="sendButtonPressed" destination="AgC-eL-Hgc" id="le6-gp-9SH"/>
+                                    </connections>
+                                </button>
+                                <button width="0.5" height="1" alignment="left" verticalAlignment="bottom" title="Start" id="qZs-e4-sbf">
+                                    <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="0.25098040700000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <connections>
+                                        <action selector="startStopButtonPressed" destination="AgC-eL-Hgc" id="lno-5X-fCy"/>
+                                    </connections>
+                                </button>
+                            </items>
+                        </group>
                     </items>
                     <connections>
-                        <outlet property="sendBution" destination="qZs-e4-sbf" id="HqA-Ml-jh9"/>
-                        <outlet property="startStopButton" destination="gVF-SF-qtR" id="R9y-uy-Ms5"/>
+                        <outlet property="startStopButton" destination="qZs-e4-sbf" id="VHc-xi-A7g"/>
                         <outlet property="timer" destination="I8w-tt-QR4" id="THD-1Y-ODg"/>
                     </connections>
                 </controller>

@@ -40,7 +40,7 @@ class BeatTracker {
         let newVecs = resample(vectors)
         
         // Pick vector to use for beat analysis
-        let data = newVecs.attitude.roll
+        let data = newVecs.acceleration.z
         
         // Perform FFT that returns frequency bins on the 'mel' scale
         delegate.text = "Spectrum..."
