@@ -9,6 +9,7 @@
 import Foundation
 import Surge
 import Charts
+import KalmanFilter
 import WatchConnectivity
 
 class TempoCalculator: NSObject, WCSessionDelegate {
@@ -18,6 +19,7 @@ class TempoCalculator: NSObject, WCSessionDelegate {
     private var motionVectors: MotionVectors!
     var tracker = BeatTracker()
     var beats: [Float]!
+    var localTempo, kalmanTempo: [Float]!
     
     override init() {
         
@@ -45,11 +47,64 @@ class TempoCalculator: NSObject, WCSessionDelegate {
     
     private func processRecordingData() {
         
+        /* Create vector arrays and perform beat detection */
         motionVectors = MotionVectors(from: motionData)
         beats = tracker.calculateBeats(from: motionVectors)
+        
+        /* Calculate local tempo from inter-onset intervals */
+        let iois = differential(beats)
+        localTempo = Float(60.0) / iois
+        kalmanTempo = localTempo
+        
+        /* Find global average tempo */
+        let globalTempo = mean(localTempo)
+        
+        /* Implement Kalman filter to smooth local tempo results */
+        var filter = KalmanFilter(stateEstimatePrior: globalTempo, errorCovariancePrior: 1)
+        for (i, value) in localTempo.enumerated() {
+            let prediction = filter.predict(stateTransitionModel: 1, controlInputModel: 0, controlVector: 0, covarianceOfProcessNoise: 0)
+            kalmanTempo[i] = Float(prediction.stateEstimatePrior)
+            let update = prediction.update(measurement: value, observationModel: 1, covarienceOfObservationNoise: 0.1)
+            filter = update
+        }
     }
     
-    func update(chart: LineChartView, from segment: UISegmentedControl) {
+    func updateTempoChart(_ chart: LineChartView) {
+        
+        var dataEntries = [ChartDataEntry]()
+        var dataSets = [ChartDataSet]()
+        
+        for (i, value) in localTempo.enumerated() {
+            let entry = ChartDataEntry(x: Double(beats[i]), y: Double(value))
+            dataEntries.append(entry)
+        }
+        
+        var dataSet = LineChartDataSet(values: dataEntries, label: "Raw Tempo")
+        dataSet.drawCirclesEnabled = false
+        dataSet.lineWidth = 2.0
+        dataSet.colors = [.orange]
+        dataSets.append(dataSet)
+        
+        dataEntries.removeAll()
+        
+        for (i, value) in kalmanTempo.enumerated() {
+            let entry = ChartDataEntry(x: Double(beats[i]), y: Double(value))
+            dataEntries.append(entry)
+        }
+        
+        dataSet = LineChartDataSet(values: dataEntries, label: "Kalman Filtered")
+        dataSet.drawCirclesEnabled = false
+        dataSet.lineWidth = 2.0
+        dataSet.colors = [.purple]
+        dataSets.append(dataSet)
+        
+        let lineData = LineChartData(dataSets: dataSets)
+        chart.chartDescription?.text = "Local Tempo Change"
+        chart.setVisibleYRangeMinimum(100, axis: .left)
+        chart.data = lineData
+    }
+    
+    func updateMotionChart(_ chart: LineChartView, selectedSegment: Int) {
         
         var vectors = [[Float]]()
         var labels: [String]
@@ -58,7 +113,7 @@ class TempoCalculator: NSObject, WCSessionDelegate {
         var dataSets = [LineChartDataSet]()
         var dataSet = LineChartDataSet()
         
-        switch segment.selectedSegmentIndex {
+        switch selectedSegment {
         case 1:
             vectors = [motionVectors!.rotation.x, motionVectors!.rotation.y, motionVectors!.rotation.z]
             labels = ["X", "Y", "Z"]

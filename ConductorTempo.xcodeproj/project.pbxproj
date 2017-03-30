@@ -32,6 +32,8 @@
 		FDD21AC51E704DFB00C32B1B /* Surge.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FDD21AC11E704DE600C32B1B /* Surge.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FDF968C01E61A04000F754DE /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF968BF1E61A04000F754DE /* Globals.swift */; };
 		FDF968C11E61A04000F754DE /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF968BF1E61A04000F754DE /* Globals.swift */; };
+		FDFE58FF1E8C9CB200D9B299 /* KalmanFilter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FDFE58FB1E8C9CA700D9B299 /* KalmanFilter.framework */; };
+		FDFE59001E8C9CB200D9B299 /* KalmanFilter.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FDFE58FB1E8C9CA700D9B299 /* KalmanFilter.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -98,6 +100,27 @@
 			remoteGlobalIDString = F8A1E1A919917A79009735E2;
 			remoteInfo = Surge;
 		};
+		FDFE58FA1E8C9CA700D9B299 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FDFE58F31E8C9CA700D9B299 /* KalmanFilter.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = CEF007781D650AEE0084F081;
+			remoteInfo = KalmanFilter;
+		};
+		FDFE58FC1E8C9CA700D9B299 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FDFE58F31E8C9CA700D9B299 /* KalmanFilter.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = CEF007821D650AEE0084F081;
+			remoteInfo = KalmanFilterTests;
+		};
+		FDFE59011E8C9CB200D9B299 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FDFE58F31E8C9CA700D9B299 /* KalmanFilter.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = CEF007771D650AEE0084F081;
+			remoteInfo = KalmanFilter;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -130,6 +153,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				FDD21A951E6E421D00C32B1B /* Charts.framework in Embed Frameworks */,
+				FDFE59001E8C9CB200D9B299 /* KalmanFilter.framework in Embed Frameworks */,
 				FDD21AC51E704DFB00C32B1B /* Surge.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -164,6 +188,7 @@
 		FDD21A9C1E6F678900C32B1B /* BeatTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeatTracker.swift; sourceTree = "<group>"; };
 		FDD21ABB1E704DE600C32B1B /* Surge.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Surge.xcodeproj; path = Surge/Surge.xcodeproj; sourceTree = "<group>"; };
 		FDF968BF1E61A04000F754DE /* Globals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
+		FDFE58F31E8C9CA700D9B299 /* KalmanFilter.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = KalmanFilter.xcodeproj; path = KalmanFilter/KalmanFilter.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -172,6 +197,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FDD21A941E6E421D00C32B1B /* Charts.framework in Frameworks */,
+				FDFE58FF1E8C9CB200D9B299 /* KalmanFilter.framework in Frameworks */,
 				FDD21AC41E704DFB00C32B1B /* Surge.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -194,6 +220,7 @@
 				FDADBF051E5F234000FB3935 /* ConductorTempo WatchKit Extension */,
 				FDADBEE11E5F234000FB3935 /* Products */,
 				FDF968BF1E61A04000F754DE /* Globals.swift */,
+				FDFE58F31E8C9CA700D9B299 /* KalmanFilter.xcodeproj */,
 				FDD21A841E6E400F00C32B1B /* Charts.xcodeproj */,
 				FDD21ABB1E704DE600C32B1B /* Surge.xcodeproj */,
 			);
@@ -293,6 +320,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		FDFE58F41E8C9CA700D9B299 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FDFE58FB1E8C9CA700D9B299 /* KalmanFilter.framework */,
+				FDFE58FD1E8C9CA700D9B299 /* KalmanFilterTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -312,6 +348,7 @@
 				FDADBEF51E5F234000FB3935 /* PBXTargetDependency */,
 				FDD21A971E6E421D00C32B1B /* PBXTargetDependency */,
 				FDD21AC71E704DFB00C32B1B /* PBXTargetDependency */,
+				FDFE59021E8C9CB200D9B299 /* PBXTargetDependency */,
 			);
 			name = ConductorTempo;
 			productName = ConductorTempo;
@@ -396,6 +433,10 @@
 					ProjectRef = FDD21A841E6E400F00C32B1B /* Charts.xcodeproj */;
 				},
 				{
+					ProductGroup = FDFE58F41E8C9CA700D9B299 /* Products */;
+					ProjectRef = FDFE58F31E8C9CA700D9B299 /* KalmanFilter.xcodeproj */;
+				},
+				{
 					ProductGroup = FDD21ABC1E704DE600C32B1B /* Products */;
 					ProjectRef = FDD21ABB1E704DE600C32B1B /* Surge.xcodeproj */;
 				},
@@ -443,6 +484,20 @@
 			fileType = wrapper.cfbundle;
 			path = SurgeTests.xctest;
 			remoteRef = FDD21AC21E704DE600C32B1B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		FDFE58FB1E8C9CA700D9B299 /* KalmanFilter.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = KalmanFilter.framework;
+			remoteRef = FDFE58FA1E8C9CA700D9B299 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		FDFE58FD1E8C9CA700D9B299 /* KalmanFilterTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = KalmanFilterTests.xctest;
+			remoteRef = FDFE58FC1E8C9CA700D9B299 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -527,6 +582,11 @@
 			isa = PBXTargetDependency;
 			name = Surge;
 			targetProxy = FDD21AC61E704DFB00C32B1B /* PBXContainerItemProxy */;
+		};
+		FDFE59021E8C9CB200D9B299 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = KalmanFilter;
+			targetProxy = FDFE59011E8C9CB200D9B299 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

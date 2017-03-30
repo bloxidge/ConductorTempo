@@ -9,6 +9,22 @@
 import Foundation
 import Surge
 
+extension TempoCalculator {
+    
+    /**
+     Returns the first-order differential of a set of data. The returned array is one element smaller than the input.
+     */
+    func differential(_ array: [Float]) -> [Float] {
+        
+        var diff = [Float]()
+        diff.reserveCapacity(array.count-1)
+        for i in 0 ..< array.count-1 {
+            diff.append(array[i+1] - array[i])
+        }
+        return diff
+    }
+}
+
 extension BeatTracker {
     
     /**
@@ -185,27 +201,27 @@ extension BeatTracker {
         
         return c
     }
+}
+
+/**
+ Returns the central value from the array after it is sorted.
+ 
+ - parameter values: Array of decimal numbers.
+ - returns: The median value from the array. Returns the mean of the two middle values if there is an even number of items in the array.
+ */
+func median(_ values: [Float]) -> Float {
     
-    /**
-     Returns the central value from the array after it is sorted.
-     
-     - parameter values: Array of decimal numbers.
-     - returns: The median value from the array. Returns the mean of the two middle values if there is an even number of items in the array.
-     */
-    func median(_ values: [Float]) -> Float {
-        
-        let count = Float(values.count)
-        let sorted = values.sorted()
-        
-        if count.truncatingRemainder(dividingBy: 2) == 0 {
-            // Even number of items - return the mean of two middle values
-            let leftIndex = Int(count / 2 - 1)
-            let leftValue = sorted[leftIndex]
-            let rightValue = sorted[leftIndex + 1]
-            return (leftValue + rightValue) / 2
-        } else {
-            // Odd number of items - take the middle item.
-            return sorted[Int(count / 2)]
-        }
+    let count = Float(values.count)
+    let sorted = values.sorted()
+    
+    if count.truncatingRemainder(dividingBy: 2) == 0 {
+        // Even number of items - return the mean of two middle values
+        let leftIndex = Int(count / 2 - 1)
+        let leftValue = sorted[leftIndex]
+        let rightValue = sorted[leftIndex + 1]
+        return (leftValue + rightValue) / 2
+    } else {
+        // Odd number of items - take the middle item.
+        return sorted[Int(count / 2)]
     }
 }
