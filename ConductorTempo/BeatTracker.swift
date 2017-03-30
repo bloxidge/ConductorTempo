@@ -12,6 +12,7 @@ import Surge
 protocol ProgressDelegate  {
     var text : String { get set }
     var inProgress : Bool { get set }
+    var buttonEnabled : Bool { get set }
 }
 
 class BeatTracker {
@@ -35,12 +36,13 @@ class BeatTracker {
     func calculateBeats(from vectors: MotionVectors) -> [Float] {
         
         // Create a new set of vectors at new sampling frequency
+        delegate.buttonEnabled = false
         delegate.inProgress = true
         delegate.text = "Resampling..."
         let newVecs = resample(vectors)
         
         // Pick vector to use for beat analysis
-        let data = newVecs.acceleration.z
+        let data = newVecs.attitude.roll
         
         // Perform FFT that returns frequency bins on the 'mel' scale
         delegate.text = "Spectrum..."
@@ -58,8 +60,9 @@ class BeatTracker {
         delegate.text = "Beats..."
         let beats = beatTracking(tempo, onsetEnvelope: env)
         
-        delegate.text = "Processing complete!"
+        delegate.text = "Processing complete!\nStart a new recording on Apple Watch at any point."
         delegate.inProgress = false
+        delegate.buttonEnabled = true
         
         return beats
     }

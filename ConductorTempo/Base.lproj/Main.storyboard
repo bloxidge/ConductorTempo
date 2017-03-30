@@ -21,37 +21,83 @@
                         <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="d4u-kP-VG3">
-                                <rect key="frame" x="167.5" y="162.5" width="331.5" height="50.5"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" spacing="80" translatesAutoresizingMaskIntoConstraints="NO" id="UGd-70-tht">
+                                <rect key="frame" x="52" y="142.5" width="563" height="91"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Start recording conducting on Apple Watch" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O60-7T-ozw">
-                                        <rect key="frame" x="0.0" y="0.0" width="331.5" height="20.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="8Vh-BR-T3r">
-                                        <rect key="frame" x="156" y="30.5" width="20" height="20"/>
-                                        <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                    </activityIndicatorView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="d4u-kP-VG3">
+                                        <rect key="frame" x="0.0" y="0.0" width="290" height="91"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You currently have no saved data. Start recording on Apple Watch to see analysis of conducting." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O60-7T-ozw">
+                                                <rect key="frame" x="0.0" y="0.0" width="290" height="61"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="290" id="xUe-Tf-nLm"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="8Vh-BR-T3r">
+                                                <rect key="frame" x="135" y="71" width="20" height="20"/>
+                                                <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                            </activityIndicatorView>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="c81-WD-krZ">
+                                        <rect key="frame" x="370" y="1" width="193" height="89.5"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Average Global Tempo" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mih-d2-fzt">
+                                                <rect key="frame" x="0.0" y="0.0" width="193" height="21.5"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-- BPM" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VWS-Ce-o4i">
+                                                <rect key="frame" x="31" y="41.5" width="131.5" height="48"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="40"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                                <size key="shadowOffset" width="2" height="2"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
                                 </subviews>
                             </stackView>
+                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QPG-Oi-eSc">
+                                <rect key="frame" x="0.0" y="0.0" width="667" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <items>
+                                    <navigationItem title="Conductor Tempo Retrieval" id="sTE-Tn-vka"/>
+                                </items>
+                            </navigationBar>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EMV-LR-6Ds">
+                                <rect key="frame" x="0.0" y="331" width="667" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <items>
+                                    <barButtonItem enabled="NO" title="View graphs for local tempo and motion data" id="R24-6f-gzW">
+                                        <connections>
+                                            <segue destination="LQa-JI-6OO" kind="presentation" id="syW-da-14a"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="d4u-kP-VG3" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="K96-Ds-qQZ"/>
-                            <constraint firstItem="d4u-kP-VG3" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="n5i-WG-1me"/>
+                            <constraint firstItem="UGd-70-tht" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="0pC-sL-fkp"/>
+                            <constraint firstItem="UGd-70-tht" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="X0N-rb-NzR"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="graphsButton" destination="R24-6f-gzW" id="o7U-zS-9nR"/>
                         <outlet property="progressIndicator" destination="8Vh-BR-T3r" id="xoW-ot-flQ"/>
                         <outlet property="progressLabel" destination="O60-7T-ozw" id="pG2-Aa-CYo"/>
+                        <outlet property="tempoValueLabel" destination="VWS-Ce-o4i" id="YNk-fJ-7s4"/>
                         <segue destination="LQa-JI-6OO" kind="presentation" identifier="toGraphTabBar" id="Dxy-ba-h1t"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-99" y="-233"/>
+            <point key="canvasLocation" x="-99.400299850074973" y="-234.40000000000001"/>
         </scene>
         <!--Motion View Controller-->
         <scene sceneID="4n8-mn-CD3">
@@ -69,7 +115,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="667" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <items>
-                                    <navigationItem title="Motion" id="ZUx-qv-j2c">
+                                    <navigationItem title="Motion Data" id="ZUx-qv-j2c">
                                         <barButtonItem key="leftBarButtonItem" systemItem="done" id="Kmr-6Q-54u">
                                             <connections>
                                                 <segue destination="F3O-1A-UcN" kind="unwind" unwindAction="returnToMainViewController:" id="rp5-sh-p3O"/>
@@ -124,7 +170,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="667" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <items>
-                                    <navigationItem title="Tempo" id="huk-Uo-7nB">
+                                    <navigationItem title="Tempo Data" id="huk-Uo-7nB">
                                         <barButtonItem key="leftBarButtonItem" systemItem="done" id="37y-f0-aDt">
                                             <connections>
                                                 <segue destination="HY4-07-arX" kind="unwind" unwindAction="returnToMainViewController:" id="gsp-Xq-U7E"/>
@@ -176,4 +222,7 @@
         <image name="Music-Conductor" width="25" height="25"/>
         <image name="Music-Conductor-Filled" width="25" height="25"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="syW-da-14a"/>
+    </inferredMetricsTieBreakers>
 </document>

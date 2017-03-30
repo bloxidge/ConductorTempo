@@ -12,9 +12,19 @@ class MainViewController: UIViewController, ProgressDelegate {
     
     @IBOutlet var progressLabel: UILabel!
     @IBOutlet var progressIndicator: UIActivityIndicatorView!
+    @IBOutlet var tempoValueLabel: UILabel!
+    @IBOutlet var graphsButton: UIBarButtonItem!
     
     private var model = TempoCalculator()
     
+    var buttonEnabled: Bool {
+        set {
+            graphsButton.isEnabled = newValue
+        }
+        get {
+            return graphsButton.isEnabled
+        }
+    }
     var text: String {
         set {
             DispatchQueue.main.async {
