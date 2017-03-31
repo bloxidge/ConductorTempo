@@ -14,12 +14,15 @@ class MainViewController: UIViewController, ProgressDelegate {
     @IBOutlet var progressIndicator: UIActivityIndicatorView!
     @IBOutlet var tempoValueLabel: UILabel!
     @IBOutlet var graphsButton: UIBarButtonItem!
+    @IBOutlet var refreshButton: UIButton!
     
     private var model = TempoCalculator()
     
     var buttonEnabled: Bool {
         set {
-            graphsButton.isEnabled = newValue
+            DispatchQueue.main.async {
+                self.graphsButton.isEnabled = newValue
+            }
         }
         get {
             return graphsButton.isEnabled
@@ -42,13 +45,36 @@ class MainViewController: UIViewController, ProgressDelegate {
                     self.progressIndicator.startAnimating()
                 } else {
                     self.progressIndicator.stopAnimating()
-                    self.performSegue(withIdentifier: "toGraphTabBar", sender: nil)
                 }
             }
         }
         get {
             return progressIndicator.isAnimating
         }
+    }
+    var tempo: Int? {
+        set {
+            DispatchQueue.main.async {
+                self.tempoValueLabel.text = "\(newValue!)"
+            }
+        }
+        get {
+            if let tmp = Int(tempoValueLabel.text!) {
+                return tmp
+            } else {
+                return nil
+            }
+        }
+    }
+    
+    func removeRefreshButton() {
+        
+        refreshButton.isHidden = true
+    }
+    
+    @IBAction func refreshPressed() {
+        
+        model.checkWatchIsPaired()
     }
     
     @IBAction func returnToMainViewController(_ segue: UIStoryboardSegue) {
@@ -58,7 +84,10 @@ class MainViewController: UIViewController, ProgressDelegate {
         
         super.viewDidLoad()
         
+        model.delegate = self
         model.tracker.delegate = self
+        
+        model.checkWatchIsPaired()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

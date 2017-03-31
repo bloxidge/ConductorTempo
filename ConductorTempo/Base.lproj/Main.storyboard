@@ -22,13 +22,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" spacing="80" translatesAutoresizingMaskIntoConstraints="NO" id="UGd-70-tht">
-                                <rect key="frame" x="52" y="142.5" width="563" height="91"/>
+                                <rect key="frame" x="52" y="142.5" width="563" height="90.5"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="d4u-kP-VG3">
-                                        <rect key="frame" x="0.0" y="0.0" width="290" height="91"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="290" height="90.5"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You currently have no saved data. Start recording on Apple Watch to see analysis of conducting." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O60-7T-ozw">
-                                                <rect key="frame" x="0.0" y="0.0" width="290" height="61"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Progress Text Placeholder" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O60-7T-ozw">
+                                                <rect key="frame" x="0.0" y="0.0" width="290" height="20.5"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="290" id="xUe-Tf-nLm"/>
                                                 </constraints>
@@ -37,13 +37,20 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="8Vh-BR-T3r">
-                                                <rect key="frame" x="135" y="71" width="20" height="20"/>
+                                                <rect key="frame" x="135" y="30.5" width="20" height="20"/>
                                                 <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                             </activityIndicatorView>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="net-Sd-p9c">
+                                                <rect key="frame" x="118.5" y="60.5" width="53" height="30"/>
+                                                <state key="normal" title="Refresh"/>
+                                                <connections>
+                                                    <action selector="refreshPressed" destination="BYZ-38-t0r" eventType="touchUpInside" id="7KA-pE-EUg"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="c81-WD-krZ">
-                                        <rect key="frame" x="370" y="1" width="193" height="89.5"/>
+                                        <rect key="frame" x="370" y="0.5" width="193" height="89.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Average Global Tempo" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mih-d2-fzt">
                                                 <rect key="frame" x="0.0" y="0.0" width="193" height="21.5"/>
@@ -51,13 +58,25 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-- BPM" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VWS-Ce-o4i">
-                                                <rect key="frame" x="31" y="41.5" width="131.5" height="48"/>
-                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="40"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                                <size key="shadowOffset" width="2" height="2"/>
-                                            </label>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="OVZ-ld-ng9">
+                                                <rect key="frame" x="27.5" y="41.5" width="138" height="48"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VWS-Ce-o4i">
+                                                        <rect key="frame" x="0.0" y="0.0" width="36.5" height="48"/>
+                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="40"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                        <size key="shadowOffset" width="2" height="2"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BPM" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zpN-i5-KrG">
+                                                        <rect key="frame" x="51.5" y="0.0" width="86.5" height="48"/>
+                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="40"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                        <size key="shadowOffset" width="2" height="2"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
                                         </subviews>
                                     </stackView>
                                 </subviews>
@@ -91,8 +110,8 @@
                         <outlet property="graphsButton" destination="R24-6f-gzW" id="o7U-zS-9nR"/>
                         <outlet property="progressIndicator" destination="8Vh-BR-T3r" id="xoW-ot-flQ"/>
                         <outlet property="progressLabel" destination="O60-7T-ozw" id="pG2-Aa-CYo"/>
+                        <outlet property="refreshButton" destination="net-Sd-p9c" id="4sj-yT-K5J"/>
                         <outlet property="tempoValueLabel" destination="VWS-Ce-o4i" id="YNk-fJ-7s4"/>
-                        <segue destination="LQa-JI-6OO" kind="presentation" identifier="toGraphTabBar" id="Dxy-ba-h1t"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -124,7 +143,7 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" translatesAutoresizingMaskIntoConstraints="NO" id="F0L-fO-EWU">
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="2" translatesAutoresizingMaskIntoConstraints="NO" id="F0L-fO-EWU">
                                 <rect key="frame" x="197" y="286" width="272" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
@@ -222,7 +241,4 @@
         <image name="Music-Conductor" width="25" height="25"/>
         <image name="Music-Conductor-Filled" width="25" height="25"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="syW-da-14a"/>
-    </inferredMetricsTieBreakers>
 </document>

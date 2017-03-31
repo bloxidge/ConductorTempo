@@ -20,16 +20,13 @@ class TempoCalculator: NSObject, WCSessionDelegate {
     var tracker = BeatTracker()
     var beats: [Float]!
     var localTempo, kalmanTempo: [Float]!
+    var delegate: ProgressDelegate!
     
     override init() {
         
         super.init()
         
-        checkWatchIsPaired()
-    }
-    
-    private func checkWatchIsPaired() {
-        
+        /* Check device supports Apple Watch then activate WCSession */
         if WCSession.isSupported() {
             session = .default()
             session.delegate = self
@@ -37,7 +34,22 @@ class TempoCalculator: NSObject, WCSessionDelegate {
         }
     }
     
+    func checkWatchIsPaired() {
+        
+        /* Check if Watch is paired and app is installed */
+        if session.isPaired && session.isWatchAppInstalled {
+            delegate.text = "Apple Watch connected! \nYou currently have no saved data. \nStart recording on Apple Watch."
+            delegate.removeRefreshButton()
+        } else {
+            delegate.text = "Communication unsuccesful... \nPlease check Apple Watch is paired and app is installed."
+        }
+    }
+    
     func session(_ session: WCSession, didReceive file: WCSessionFile) {
+        
+        delegate.text = "Recording received!"
+        delegate.buttonEnabled = false
+        delegate.inProgress = true
         
         if let rcvdData = try? Data(contentsOf: file.fileURL!) {
             motionData = rcvdData.toArray(type: MotionDataPoint.self)
@@ -48,10 +60,12 @@ class TempoCalculator: NSObject, WCSessionDelegate {
     private func processRecordingData() {
         
         /* Create vector arrays and perform beat detection */
+        delegate.text = "Finding beats..."
         motionVectors = MotionVectors(from: motionData)
         beats = tracker.calculateBeats(from: motionVectors)
         
         /* Calculate local tempo from inter-onset intervals */
+        delegate.text = "Inter-Onset Intervals..."
         let iois = differential(beats)
         localTempo = Float(60.0) / iois
         kalmanTempo = localTempo
@@ -60,6 +74,7 @@ class TempoCalculator: NSObject, WCSessionDelegate {
         let globalTempo = mean(localTempo)
         
         /* Implement Kalman filter to smooth local tempo results */
+        delegate.text = "Filtering..."
         var filter = KalmanFilter(stateEstimatePrior: globalTempo, errorCovariancePrior: 1)
         for (i, value) in localTempo.enumerated() {
             let prediction = filter.predict(stateTransitionModel: 1, controlInputModel: 0, controlVector: 0, covarianceOfProcessNoise: 0)
@@ -67,6 +82,12 @@ class TempoCalculator: NSObject, WCSessionDelegate {
             let update = prediction.update(measurement: value, observationModel: 1, covarienceOfObservationNoise: 0.1)
             filter = update
         }
+        
+        delegate.tempo = Int(mean(kalmanTempo))
+        
+        delegate.text = "Processing complete! \nStart new recording on Apple Watch when ready..."
+        delegate.inProgress = false
+        delegate.buttonEnabled = true
     }
     
     func updateTempoChart(_ chart: LineChartView) {

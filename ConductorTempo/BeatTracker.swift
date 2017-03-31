@@ -13,6 +13,9 @@ protocol ProgressDelegate  {
     var text : String { get set }
     var inProgress : Bool { get set }
     var buttonEnabled : Bool { get set }
+    var tempo : Int? { get set }
+    
+    func removeRefreshButton()
 }
 
 class BeatTracker {
@@ -36,8 +39,6 @@ class BeatTracker {
     func calculateBeats(from vectors: MotionVectors) -> [Float] {
         
         // Create a new set of vectors at new sampling frequency
-        delegate.buttonEnabled = false
-        delegate.inProgress = true
         delegate.text = "Resampling..."
         let newVecs = resample(vectors)
         
@@ -53,16 +54,12 @@ class BeatTracker {
         let env = calculateOnsetEnvelope(bins)
         
         // Estimate two most likely starting tempos based on onset envelope
-        delegate.text = "Tempo..."
+        delegate.text = "Estimation..."
         let tempo = estimateTempo(from: env)
         
         // Retrieve locations of beats by matching onset envelope with predicted onset times
         delegate.text = "Beats..."
         let beats = beatTracking(tempo, onsetEnvelope: env)
-        
-        delegate.text = "Processing complete!\nStart a new recording on Apple Watch at any point."
-        delegate.inProgress = false
-        delegate.buttonEnabled = true
         
         return beats
     }
