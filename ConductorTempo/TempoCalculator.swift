@@ -32,6 +32,7 @@ class TempoCalculator: NSObject, WCSessionDelegate {
             session.delegate = self
             session.activate()
         }
+        clearPendingTransfers()
     }
     
     func checkWatchIsPaired() {
@@ -45,11 +46,21 @@ class TempoCalculator: NSObject, WCSessionDelegate {
         }
     }
     
+    private func clearPendingTransfers() {
+        
+        let transfers = session.outstandingFileTransfers
+        if transfers.count > 0 {
+            transfers.first!.cancel()
+        }
+    }
+    
     func session(_ session: WCSession, didReceive file: WCSessionFile) {
         
         delegate.text = "Recording received!"
         delegate.buttonEnabled = false
         delegate.inProgress = true
+        
+        try? FileManager.default.removeItem(at: file.fileURL)
         
         if let rcvdData = try? Data(contentsOf: file.fileURL) {
             motionData = rcvdData.toArray(type: MotionDataPoint.self)
