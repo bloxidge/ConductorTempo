@@ -51,7 +51,7 @@ class TempoCalculator: NSObject, WCSessionDelegate {
         delegate.buttonEnabled = false
         delegate.inProgress = true
         
-        if let rcvdData = try? Data(contentsOf: file.fileURL!) {
+        if let rcvdData = try? Data(contentsOf: file.fileURL) {
             motionData = rcvdData.toArray(type: MotionDataPoint.self)
         }
         processRecordingData()
