@@ -14,10 +14,12 @@ class MainViewController: UIViewController, ProgressDelegate {
     @IBOutlet var progressIndicator: UIActivityIndicatorView!
     @IBOutlet var tempoValueLabel: UILabel!
     @IBOutlet var metroTempoLabel: UILabel!
+    @IBOutlet var metroStepper: UIStepper!
     @IBOutlet var graphsButton: UIBarButtonItem!
     @IBOutlet var refreshButton: UIButton!
     
     private var model = TempoCalculator()
+    private var metro: Metronome!
     
     var buttonEnabled: Bool {
         set {
@@ -78,6 +80,16 @@ class MainViewController: UIViewController, ProgressDelegate {
         model.checkWatchIsPaired()
     }
     
+    @IBAction func metroSwitchPressed(_ sender: UISwitch) {
+        
+        metro.isPlaying = sender.isOn
+    }
+    
+    @IBAction func metroTempoReleased(_ sender: UIStepper) {
+        
+        metro.tempo = sender.value
+    }
+    
     @IBAction func metroTempoChanged(_ sender: UIStepper) {
         
         metroTempoLabel.text = String(format: "%0.0f", sender.value)
@@ -94,6 +106,9 @@ class MainViewController: UIViewController, ProgressDelegate {
         model.tracker.delegate = self
         
         model.checkWatchIsPaired()
+        
+        metro = Metronome(tempo: metroStepper.value)
+        metro.isPlaying = false
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

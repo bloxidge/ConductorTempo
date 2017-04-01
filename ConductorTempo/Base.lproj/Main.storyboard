@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -66,6 +66,9 @@
                                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="2wF-ZS-b6u">
                                                                 <rect key="frame" x="75.5" y="36.5" width="51" height="31"/>
                                                                 <color key="onTintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <connections>
+                                                                    <action selector="metroSwitchPressed:" destination="BYZ-38-t0r" eventType="valueChanged" id="khH-Di-oiJ"/>
+                                                                </connections>
                                                             </switch>
                                                             <stackView opaque="NO" contentMode="left" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="78D-rx-hgi">
                                                                 <rect key="frame" x="0.0" y="82.5" width="200" height="29"/>
@@ -96,7 +99,8 @@
                                                                     <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="120" minimumValue="40" maximumValue="200" translatesAutoresizingMaskIntoConstraints="NO" id="K71-hR-CzW">
                                                                         <rect key="frame" x="106" y="0.0" width="94" height="29"/>
                                                                         <connections>
-                                                                            <action selector="metroTempoChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="2TY-iA-oht"/>
+                                                                            <action selector="metroTempoChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="z3J-33-NZf"/>
+                                                                            <action selector="metroTempoReleased:" destination="BYZ-38-t0r" eventType="touchUpInside" id="xfT-v7-Qrs"/>
                                                                         </connections>
                                                                     </stepper>
                                                                 </subviews>
@@ -225,6 +229,7 @@
                     </view>
                     <connections>
                         <outlet property="graphsButton" destination="R24-6f-gzW" id="o7U-zS-9nR"/>
+                        <outlet property="metroStepper" destination="K71-hR-CzW" id="52N-wG-Yow"/>
                         <outlet property="metroTempoLabel" destination="8wt-So-rDu" id="KUI-Mc-fDE"/>
                         <outlet property="progressIndicator" destination="8Vh-BR-T3r" id="xoW-ot-flQ"/>
                         <outlet property="progressLabel" destination="O60-7T-ozw" id="pG2-Aa-CYo"/>
