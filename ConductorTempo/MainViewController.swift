@@ -8,38 +8,54 @@
 
 import UIKit
 
-class MainViewController: UIViewController, ProgressDelegate {
+protocol ProcessDelegate  {
+    var text : String { get set }
+    var inProgress : Bool { get set }
+    var buttonEnabled : Bool { get set }
+    var tempo : Float? { get set }
+    var accuracy : Float? { get set }
+    
+    func removeRefreshButton()
+}
+
+class MainViewController: UIViewController, ProcessDelegate {
     
     @IBOutlet var progressLabel: UILabel!
     @IBOutlet var progressIndicator: UIActivityIndicatorView!
     @IBOutlet var tempoValueLabel: UILabel!
+    @IBOutlet var accuracyValueLabel: UILabel!
     @IBOutlet var metroTempoLabel: UILabel!
+    @IBOutlet var metroStepper: UIStepper!
     @IBOutlet var graphsButton: UIBarButtonItem!
     @IBOutlet var refreshButton: UIButton!
     
     private var model = TempoCalculator()
+    private var metro: Metronome!
     
     var buttonEnabled: Bool {
+        get {
+            return graphsButton.isEnabled
+        }
         set {
             DispatchQueue.main.async {
                 self.graphsButton.isEnabled = newValue
             }
         }
-        get {
-            return graphsButton.isEnabled
-        }
     }
     var text: String {
+        get {
+            return progressLabel.text!
+        }
         set {
             DispatchQueue.main.async {
                 self.progressLabel.text = newValue
             }
         }
-        get {
-            return progressLabel.text!
-        }
     }
     var inProgress: Bool {
+        get {
+            return progressIndicator.isAnimating
+        }
         set {
             DispatchQueue.main.async {
                 if newValue {
@@ -49,21 +65,32 @@ class MainViewController: UIViewController, ProgressDelegate {
                 }
             }
         }
-        get {
-            return progressIndicator.isAnimating
-        }
     }
-    var tempo: Int? {
-        set {
-            DispatchQueue.main.async {
-                self.tempoValueLabel.text = "\(newValue!)"
-            }
-        }
+    var tempo: Float? {
         get {
-            if let tmp = Int(tempoValueLabel.text!) {
+            if let tmp = Float(tempoValueLabel.text!) {
                 return tmp
             } else {
                 return nil
+            }
+        }
+        set {
+            DispatchQueue.main.async {
+                self.tempoValueLabel.text = String(format: "%0.0f", newValue!)
+            }
+        }
+    }
+    var accuracy: Float? {
+        get {
+            if let tmp = Float(tempoValueLabel.text!) {
+                return tmp
+            } else {
+                return nil
+            }
+        }
+        set {
+            DispatchQueue.main.async {
+                self.accuracyValueLabel.text = String(format: "%0.1f", newValue!)
             }
         }
     }
@@ -78,9 +105,20 @@ class MainViewController: UIViewController, ProgressDelegate {
         model.checkWatchIsPaired()
     }
     
+    @IBAction func metroSwitchPressed(_ sender: UISwitch) {
+        
+        metro.isPlaying = sender.isOn
+    }
+    
+    @IBAction func metroTempoReleased(_ sender: UIStepper) {
+        
+        metro.tempo = sender.value
+    }
+    
     @IBAction func metroTempoChanged(_ sender: UIStepper) {
         
         metroTempoLabel.text = String(format: "%0.0f", sender.value)
+        model.targetTempo = Float(sender.value)
     }
     
     @IBAction func returnToMainViewController(_ segue: UIStoryboardSegue) {
@@ -93,7 +131,11 @@ class MainViewController: UIViewController, ProgressDelegate {
         model.delegate = self
         model.tracker.delegate = self
         
+        model.targetTempo = Float(metroStepper.value)
         model.checkWatchIsPaired()
+        
+        metro = Metronome(tempo: metroStepper.value)
+        metro.isPlaying = false
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

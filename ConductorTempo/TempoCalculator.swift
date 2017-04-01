@@ -14,13 +14,21 @@ import WatchConnectivity
 
 class TempoCalculator: NSObject, WCSessionDelegate {
     
+    var tracker = BeatTracker()
+    var delegate: ProcessDelegate!
     private var session: WCSession!
     private var motionData: [MotionDataPoint]!
     private var motionVectors: MotionVectors!
-    var tracker = BeatTracker()
-    var beats: [Float]!
-    var localTempo, kalmanTempo: [Float]!
-    var delegate: ProgressDelegate!
+    private var beats, localTempo, kalmanTempo: [Float]!
+    private var localAccuracy = [Float]()
+    private var averageTempo, averageAccuracy: Float!
+    var targetTempo: Float! {
+        didSet {
+            if averageTempo != nil {
+                calculateAccuracy()
+            }
+        }
+    }
     
     override init() {
         
@@ -79,26 +87,48 @@ class TempoCalculator: NSObject, WCSessionDelegate {
         delegate.text = "Inter-Onset Intervals..."
         let iois = differential(beats)
         localTempo = Float(60.0) / iois
-        kalmanTempo = localTempo
-        
-        /* Find global average tempo */
-        let globalTempo = mean(localTempo)
         
         /* Implement Kalman filter to smooth local tempo results */
         delegate.text = "Filtering..."
-        var filter = KalmanFilter(stateEstimatePrior: globalTempo, errorCovariancePrior: 1)
+        filterTempo()
+        
+        /* Calculate average accuracy compared to target tempo */
+        delegate.text = "Accuracy..."
+        calculateAccuracy()
+        
+        delegate.text = "Processing complete! \nStart new recording on Apple Watch when ready..."
+        delegate.inProgress = false
+        delegate.buttonEnabled = true
+    }
+    
+    private func filterTempo() {
+        
+        kalmanTempo = localTempo
+        var filter = KalmanFilter(stateEstimatePrior: mean(localTempo), errorCovariancePrior: 1)
         for (i, value) in localTempo.enumerated() {
             let prediction = filter.predict(stateTransitionModel: 1, controlInputModel: 0, controlVector: 0, covarianceOfProcessNoise: 0)
             kalmanTempo[i] = Float(prediction.stateEstimatePrior)
             let update = prediction.update(measurement: value, observationModel: 1, covarienceOfObservationNoise: 0.1)
             filter = update
         }
+        averageTempo = mean(kalmanTempo)
+        delegate.tempo = averageTempo
+    }
+    
+    private func calculateAccuracy() {
         
-        delegate.tempo = Int(mean(kalmanTempo))
-        
-        delegate.text = "Processing complete! \nStart new recording on Apple Watch when ready..."
-        delegate.inProgress = false
-        delegate.buttonEnabled = true
+        localAccuracy.removeAll()
+        for value in kalmanTempo {
+            let diff = abs(targetTempo - value)
+            var ratio = diff/value
+            if ratio > 1 {
+                ratio = 1
+            }
+            let accuracy: Float = (1 - ratio) * 100
+            localAccuracy.append(accuracy)
+        }
+        averageAccuracy = mean(localAccuracy)
+        delegate.accuracy = averageAccuracy
     }
     
     func updateTempoChart(_ chart: LineChartView) {
