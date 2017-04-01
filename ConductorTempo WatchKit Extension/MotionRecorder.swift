@@ -10,8 +10,15 @@ import Foundation
 import CoreMotion
 import WatchConnectivity
 
+protocol RecorderDelegate {
+    
+    var isFilePresent: Bool! { get set }
+    var fileSize: String! { get set }
+}
+
 class MotionRecorder: NSObject, WCSessionDelegate {
     
+    var delegate: RecorderDelegate!
     var session: WCSession!
     var isRecording = false {
         didSet {
@@ -23,8 +30,19 @@ class MotionRecorder: NSObject, WCSessionDelegate {
     }
     private let motionManager = CMMotionManager()
     private var currentRecording = [MotionDataPoint]()
+    private let manager = FileManager.default
     private let file = "motiondata.txt"
-    private var url: URL!
+    private var url: URL {
+        get {
+            let dir = manager.urls(for: .documentDirectory, in: .userDomainMask).first!
+            return dir.appendingPathComponent(file)
+        }
+    }
+    private var fileExists: Bool {
+        get {
+            return manager.fileExists(atPath: url.path)
+        }
+    }
     
     override init() {
         
@@ -35,6 +53,8 @@ class MotionRecorder: NSObject, WCSessionDelegate {
             session.delegate = self
             session.activate()
         }
+        
+        deleteFile()
         
         motionManager.deviceMotionUpdateInterval = 0.02
         motionManager.startDeviceMotionUpdates()
@@ -103,10 +123,34 @@ class MotionRecorder: NSObject, WCSessionDelegate {
         
         let data = Data(bytes: currentRecording, count: currentRecording.count * MemoryLayout<MotionDataPoint>.size)
         
-        if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
-            url = dir.appendingPathComponent(file)
-            try? data.write(to: url)
+        try? data.write(to: url)
+        
+        checkIfFilePresent()
+        delegate.fileSize = fileSizeString(for: data)
+    }
+    
+    func checkIfFilePresent() {
+        
+        delegate.isFilePresent = fileExists
+    }
+    
+    private func deleteFile() {
+        
+        if fileExists {
+            try? manager.removeItem(at: url)
         }
+    }
+    
+    private func fileSizeString(for data: Data) -> String {
+        
+        var bytes = Double(data.count)
+        var i = 0
+        let tokens = ["bytes", "Kb", "Mb", "Gb"]
+        while bytes > 1024 {
+            bytes /= 1024
+            i += 1
+        }
+        return String(format: "%4.1f %@", bytes, tokens[i])
     }
     
     func send() {
