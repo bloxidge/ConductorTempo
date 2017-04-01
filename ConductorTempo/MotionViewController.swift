@@ -14,6 +14,7 @@ class MotionViewController: UIViewController {
     var model: TempoCalculator!
     
     @IBOutlet weak var motionLineChart: LineChartView!
+    @IBOutlet var motionSegmentControl: UISegmentedControl!
     
     @IBAction func updateChart(_ sender: UISegmentedControl) {
         
@@ -23,6 +24,8 @@ class MotionViewController: UIViewController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
+        model.updateMotionChart(motionLineChart, selectedSegment: motionSegmentControl.selectedSegmentIndex)
     }
 
 }

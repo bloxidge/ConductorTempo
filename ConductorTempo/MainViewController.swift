@@ -13,6 +13,7 @@ class MainViewController: UIViewController, ProgressDelegate {
     @IBOutlet var progressLabel: UILabel!
     @IBOutlet var progressIndicator: UIActivityIndicatorView!
     @IBOutlet var tempoValueLabel: UILabel!
+    @IBOutlet var metroTempoLabel: UILabel!
     @IBOutlet var graphsButton: UIBarButtonItem!
     @IBOutlet var refreshButton: UIButton!
     
@@ -75,6 +76,11 @@ class MainViewController: UIViewController, ProgressDelegate {
     @IBAction func refreshPressed() {
         
         model.checkWatchIsPaired()
+    }
+    
+    @IBAction func metroTempoChanged(_ sender: UIStepper) {
+        
+        metroTempoLabel.text = String(format: "%0.0f", sender.value)
     }
     
     @IBAction func returnToMainViewController(_ segue: UIStoryboardSegue) {
