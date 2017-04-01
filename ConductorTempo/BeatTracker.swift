@@ -9,18 +9,9 @@
 import Foundation
 import Surge
 
-protocol ProgressDelegate  {
-    var text : String { get set }
-    var inProgress : Bool { get set }
-    var buttonEnabled : Bool { get set }
-    var tempo : Int? { get set }
-    
-    func removeRefreshButton()
-}
-
 class BeatTracker {
     
-    var delegate: ProgressDelegate!
+    var delegate: ProcessDelegate!
     
     let newSampleRate    : Float = 8000
     let windowWidth      : Int = 256

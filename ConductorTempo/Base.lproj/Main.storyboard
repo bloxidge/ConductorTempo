@@ -228,6 +228,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="accuracyValueLabel" destination="ryw-TI-Njq" id="FBZ-KD-EHz"/>
                         <outlet property="graphsButton" destination="R24-6f-gzW" id="o7U-zS-9nR"/>
                         <outlet property="metroStepper" destination="K71-hR-CzW" id="52N-wG-Yow"/>
                         <outlet property="metroTempoLabel" destination="8wt-So-rDu" id="KUI-Mc-fDE"/>
