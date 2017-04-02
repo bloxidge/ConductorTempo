@@ -19,7 +19,7 @@ class TempoCalculator: NSObject, WCSessionDelegate {
     private var session: WCSession!
     private var motionData: [MotionDataPoint]!
     private var motionVectors: MotionVectors!
-    private var beats, localTempo, kalmanTempo: [Float]!
+    private var beats, localTempo: [Float]!
     private var localAccuracy = [Float]()
     private var averageTempo, averageAccuracy: Float!
     var targetTempo: Float! {
@@ -105,22 +105,21 @@ class TempoCalculator: NSObject, WCSessionDelegate {
     
     private func filterTempo() {
         
-        kalmanTempo = localTempo
         var filter = KalmanFilter(stateEstimatePrior: mean(localTempo), errorCovariancePrior: 1)
         for (i, value) in localTempo.enumerated() {
-            let prediction = filter.predict(stateTransitionModel: 1, controlInputModel: 0, controlVector: 0, covarianceOfProcessNoise: 0)
-            kalmanTempo[i] = Float(prediction.stateEstimatePrior)
-            let update = prediction.update(measurement: value, observationModel: 1, covarienceOfObservationNoise: 0.1)
+            let prediction = filter.predict(stateTransitionModel: 1, controlInputModel: 0, controlVector: 0, covarianceOfProcessNoise: 0.07)
+            localTempo[i] = Float(prediction.stateEstimatePrior)
+            let update = prediction.update(measurement: value, observationModel: 1, covarienceOfObservationNoise: 1.5)
             filter = update
         }
-        averageTempo = mean(kalmanTempo)
+        averageTempo = mean(localTempo)
         delegate.tempo = averageTempo
     }
     
     private func calculateAccuracy() {
         
         localAccuracy.removeAll()
-        for value in kalmanTempo {
+        for value in localTempo {
             let diff = abs(targetTempo - value)
             var ratio = diff/value
             if ratio > 1 {
@@ -136,35 +135,27 @@ class TempoCalculator: NSObject, WCSessionDelegate {
     func updateTempoChart(_ chart: LineChartView) {
         
         var dataEntries = [ChartDataEntry]()
-        var dataSets = [ChartDataSet]()
         
         for (i, value) in localTempo.enumerated() {
             let entry = ChartDataEntry(x: Double(beats[i]), y: Double(value))
             dataEntries.append(entry)
         }
         
-        var dataSet = LineChartDataSet(values: dataEntries, label: "Raw Tempo")
+        let dataSet = LineChartDataSet(values: dataEntries, label: "Local Tempo")
         dataSet.drawCirclesEnabled = false
         dataSet.lineWidth = 2.0
-        dataSet.colors = [.orange]
-        dataSets.append(dataSet)
+        dataSet.colors = [.aqua]
         
         dataEntries.removeAll()
         
-        for (i, value) in kalmanTempo.enumerated() {
-            let entry = ChartDataEntry(x: Double(beats[i]), y: Double(value))
-            dataEntries.append(entry)
-        }
-        
-        dataSet = LineChartDataSet(values: dataEntries, label: "Kalman Filtered")
-        dataSet.drawCirclesEnabled = false
-        dataSet.lineWidth = 2.0
-        dataSet.colors = [.purple]
-        dataSets.append(dataSet)
-        
-        let lineData = LineChartData(dataSets: dataSets)
-        chart.chartDescription?.text = "Local Tempo Change"
-        chart.setVisibleYRangeMinimum(100, axis: .left)
+        let lineData = LineChartData(dataSet: dataSet)
+        chart.chartDescription?.text = ""
+        chart.xAxis.labelPosition = .bottom
+        chart.leftAxis.axisMinimum = Double(averageTempo - 20)
+        chart.leftAxis.axisMaximum = Double(averageTempo + 20)
+        chart.rightAxis.drawLabelsEnabled = false
+        chart.legend.position = .aboveChartRight
+        chart.legend.form = .line
         chart.data = lineData
     }
     
@@ -172,7 +163,7 @@ class TempoCalculator: NSObject, WCSessionDelegate {
         
         var vectors = [[Float]]()
         var labels: [String]
-        let colors: [UIColor] = [.red, .green, .blue]
+        let colors: [UIColor] = [.red, .clover, .blue]
         var dataEntries = [ChartDataEntry]()
         var dataSets = [LineChartDataSet]()
         var dataSet = LineChartDataSet()
@@ -199,6 +190,7 @@ class TempoCalculator: NSObject, WCSessionDelegate {
                 dataEntries.append(entry)
             }
             dataSet = LineChartDataSet(values: dataEntries, label: labels[index])
+            dataSet.drawValuesEnabled = false
             dataSet.drawCirclesEnabled = false
             dataSet.lineWidth = 2.0
             dataSet.colors = [colors[index]]
@@ -218,6 +210,11 @@ class TempoCalculator: NSObject, WCSessionDelegate {
         dataSets.append(beatData)
         
         let lineData = LineChartData(dataSets: dataSets)
+        chart.chartDescription?.text = ""
+        chart.xAxis.labelPosition = .bottom
+        chart.leftAxis.drawLabelsEnabled = false
+        chart.rightAxis.drawLabelsEnabled = false
+        chart.legend.position = .aboveChartRight
         chart.data = lineData
     }
     

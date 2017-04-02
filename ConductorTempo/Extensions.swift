@@ -6,7 +6,7 @@
 //  Copyright © 2017 Peter Bloxidge. All rights reserved.
 //
 
-import Foundation
+import UIKit
 import Surge
 
 extension TempoCalculator {
@@ -201,27 +201,37 @@ extension BeatTracker {
         
         return c
     }
+    
+    /**
+     Returns the central value from the array after it is sorted.
+     
+     - parameter values: Array of decimal numbers.
+     - returns: The median value from the array. Returns the mean of the two middle values if there is an even number of items in the array.
+     */
+    func median(_ values: [Float]) -> Float {
+        
+        let count = Float(values.count)
+        let sorted = values.sorted()
+        
+        if count.truncatingRemainder(dividingBy: 2) == 0 {
+            // Even number of items - return the mean of two middle values
+            let leftIndex = Int(count / 2 - 1)
+            let leftValue = sorted[leftIndex]
+            let rightValue = sorted[leftIndex + 1]
+            return (leftValue + rightValue) / 2
+        } else {
+            // Odd number of items - take the middle item.
+            return sorted[Int(count / 2)]
+        }
+    }
 }
 
-/**
- Returns the central value from the array after it is sorted.
- 
- - parameter values: Array of decimal numbers.
- - returns: The median value from the array. Returns the mean of the two middle values if there is an even number of items in the array.
- */
-func median(_ values: [Float]) -> Float {
+extension UIColor {
     
-    let count = Float(values.count)
-    let sorted = values.sorted()
-    
-    if count.truncatingRemainder(dividingBy: 2) == 0 {
-        // Even number of items - return the mean of two middle values
-        let leftIndex = Int(count / 2 - 1)
-        let leftValue = sorted[leftIndex]
-        let rightValue = sorted[leftIndex + 1]
-        return (leftValue + rightValue) / 2
-    } else {
-        // Odd number of items - take the middle item.
-        return sorted[Int(count / 2)]
+    class var aqua: UIColor {
+        return UIColor(red: 0.0, green: 0.5, blue: 1.0, alpha: 1.0)
+    }
+    class var clover: UIColor {
+        return UIColor(red: 0.0, green: 0.5, blue: 0.0, alpha: 1.0)
     }
 }
