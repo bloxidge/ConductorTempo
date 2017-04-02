@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
@@ -268,25 +268,36 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="2" translatesAutoresizingMaskIntoConstraints="NO" id="F0L-fO-EWU">
-                                <rect key="frame" x="197" y="286" width="272" height="29"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <segments>
-                                    <segment title="Acceleration"/>
-                                    <segment title="Rotation"/>
-                                    <segment title="Attitude"/>
-                                </segments>
-                                <connections>
-                                    <action selector="updateChart:" destination="rtJ-6v-bgC" eventType="valueChanged" id="cz5-JE-QCm"/>
-                                </connections>
-                            </segmentedControl>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="i3x-lI-kvo" customClass="LineChartView" customModule="Charts">
-                                <rect key="frame" x="75" y="54" width="517" height="224"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="0.94999999999999996" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="emR-aP-dE5">
+                                <rect key="frame" x="68.5" y="56" width="530" height="263"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i3x-lI-kvo" customClass="LineChartView" customModule="Charts">
+                                        <rect key="frame" x="0.0" y="0.0" width="530" height="230"/>
+                                        <color key="backgroundColor" white="0.94999999999999996" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="230" id="7Xw-HX-Fgf"/>
+                                            <constraint firstAttribute="width" constant="530" id="cQb-AQ-Roy"/>
+                                        </constraints>
+                                    </view>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="2" translatesAutoresizingMaskIntoConstraints="NO" id="F0L-fO-EWU">
+                                        <rect key="frame" x="129" y="235" width="272" height="29"/>
+                                        <segments>
+                                            <segment title="Acceleration"/>
+                                            <segment title="Rotation"/>
+                                            <segment title="Attitude"/>
+                                        </segments>
+                                        <connections>
+                                            <action selector="updateChart:" destination="rtJ-6v-bgC" eventType="valueChanged" id="cz5-JE-QCm"/>
+                                        </connections>
+                                    </segmentedControl>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="0.94999999999999996" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="emR-aP-dE5" firstAttribute="centerX" secondItem="IGi-R0-ac1" secondAttribute="centerX" id="Byv-CN-15o"/>
+                            <constraint firstItem="emR-aP-dE5" firstAttribute="centerY" secondItem="IGi-R0-ac1" secondAttribute="centerY" id="oTh-fp-iOn"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Motion" image="Line-Chart" selectedImage="Line-Chart-Filled" id="aAp-t6-fEE" userLabel="Motion Item"/>
                     <connections>
@@ -325,13 +336,20 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="L8f-1K-qqg" customClass="LineChartView" customModule="Charts">
-                                <rect key="frame" x="42" y="63" width="583" height="243"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L8f-1K-qqg" customClass="LineChartView" customModule="Charts">
+                                <rect key="frame" x="43.5" y="62.5" width="580" height="250"/>
                                 <color key="backgroundColor" white="0.94999999999999996" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="580" id="Gfs-Gl-5JT"/>
+                                    <constraint firstAttribute="height" constant="250" id="qtH-ic-Zs2"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="0.94999999999999996" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="L8f-1K-qqg" firstAttribute="centerY" secondItem="TBL-te-e6i" secondAttribute="centerY" id="NzW-32-WGL"/>
+                            <constraint firstItem="L8f-1K-qqg" firstAttribute="centerX" secondItem="TBL-te-e6i" secondAttribute="centerX" id="zri-qq-pA4"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Tempo" image="Music-Conductor" selectedImage="Music-Conductor-Filled" id="nNF-ab-IBN" userLabel="Tempo Item"/>
                     <connections>
