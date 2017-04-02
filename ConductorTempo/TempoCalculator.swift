@@ -64,15 +64,17 @@ class TempoCalculator: NSObject, WCSessionDelegate {
     
     func session(_ session: WCSession, didReceive file: WCSessionFile) {
         
+        checkWatchIsPaired()
+        
         delegate.text = "Recording received!"
         delegate.buttonEnabled = false
         delegate.inProgress = true
         
-        try? FileManager.default.removeItem(at: file.fileURL)
-        
         if let rcvdData = try? Data(contentsOf: file.fileURL) {
             motionData = rcvdData.toArray(type: MotionDataPoint.self)
         }
+        try? FileManager.default.removeItem(at: file.fileURL)
+        
         processRecordingData()
     }
     

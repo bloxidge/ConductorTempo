@@ -97,7 +97,9 @@ class MainViewController: UIViewController, ProcessDelegate {
     
     func removeRefreshButton() {
         
-        refreshButton.isHidden = true
+        if !refreshButton.isHidden {
+            refreshButton.isHidden = true
+        }
     }
     
     @IBAction func refreshPressed() {
