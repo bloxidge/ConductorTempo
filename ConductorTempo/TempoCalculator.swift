@@ -108,9 +108,9 @@ class TempoCalculator: NSObject, WCSessionDelegate {
         kalmanTempo = localTempo
         var filter = KalmanFilter(stateEstimatePrior: mean(localTempo), errorCovariancePrior: 1)
         for (i, value) in localTempo.enumerated() {
-            let prediction = filter.predict(stateTransitionModel: 1, controlInputModel: 0, controlVector: 0, covarianceOfProcessNoise: 0)
+            let prediction = filter.predict(stateTransitionModel: 1, controlInputModel: 0, controlVector: 0, covarianceOfProcessNoise: 0.07)
             kalmanTempo[i] = Float(prediction.stateEstimatePrior)
-            let update = prediction.update(measurement: value, observationModel: 1, covarienceOfObservationNoise: 0.1)
+            let update = prediction.update(measurement: value, observationModel: 1, covarienceOfObservationNoise: 1.5)
             filter = update
         }
         averageTempo = mean(kalmanTempo)
