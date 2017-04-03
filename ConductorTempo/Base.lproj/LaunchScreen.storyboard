@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
     <device id="retina4_7" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -21,39 +22,24 @@
                         <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Conductor Tempo Retrieval" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cJP-KV-aXT">
-                                <rect key="frame" x="140" y="169.5" width="388" height="36"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
-                                <color key="textColor" white="0.75" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="19W-jZ-ohN">
+                                <rect key="frame" x="83" y="50" width="500" height="266"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="19W-jZ-ohN" secondAttribute="height" multiplier="250:133" id="iLK-Gh-8ia"/>
+                                    <constraint firstAttribute="width" constant="500" id="pY4-2h-kFa"/>
+                                </constraints>
+                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Copyright © 2017 The University of York. All rights reserved." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uP9-4T-fZO">
                                 <rect key="frame" x="139.5" y="348" width="389.5" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Peter Bloxidge" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="exO-TV-dHV">
-                                <rect key="frame" x="275" y="143.5" width="117" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Music Performance Analysis Systems" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LF9-z7-09S">
-                                <rect key="frame" x="198.5" y="215.5" width="271" height="19.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
-                        <color key="backgroundColor" white="0.19604421490000001" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.15806448459625244" green="0.16770747303962708" blue="0.19600671529769897" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="LF9-z7-09S" firstAttribute="top" secondItem="cJP-KV-aXT" secondAttribute="bottom" constant="10" id="12k-4Q-Yzk"/>
-                            <constraint firstItem="cJP-KV-aXT" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="ALQ-Iu-G8r"/>
-                            <constraint firstItem="cJP-KV-aXT" firstAttribute="top" secondItem="exO-TV-dHV" secondAttribute="bottom" constant="5" id="BCQ-iL-MOb"/>
-                            <constraint firstItem="exO-TV-dHV" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="Iwz-Vt-RBu"/>
-                            <constraint firstItem="cJP-KV-aXT" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="aK3-Z6-sul"/>
-                            <constraint firstItem="LF9-z7-09S" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="fco-HT-keu"/>
+                            <constraint firstItem="19W-jZ-ohN" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="30" id="VOh-yN-wac"/>
+                            <constraint firstItem="19W-jZ-ohN" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="ZPI-Ks-02N"/>
                             <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="uP9-4T-fZO" secondAttribute="bottom" constant="10" id="ubi-XG-OO7"/>
                             <constraint firstItem="uP9-4T-fZO" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="vVS-R1-5pe"/>
                         </constraints>
@@ -64,4 +50,7 @@
             <point key="canvasLocation" x="52.623688155922046" y="373.60000000000002"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Logo.png" width="3253" height="1762"/>
+    </resources>
 </document>

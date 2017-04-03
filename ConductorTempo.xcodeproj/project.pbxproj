@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		FD199A151E7F3C7D00A3DFBC /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD199A141E7F3C7D00A3DFBC /* Extensions.swift */; };
 		FD1E70701E6B0D8100D045C2 /* TempoCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD1E706F1E6B0D8100D045C2 /* TempoCalculator.swift */; };
+		FD7051FD1E91F03000BB800A /* Logo.png in Resources */ = {isa = PBXBuildFile; fileRef = FD7051FC1E91F03000BB800A /* Logo.png */; };
 		FDADBEE41E5F234000FB3935 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDADBEE31E5F234000FB3935 /* AppDelegate.swift */; };
 		FDADBEE61E5F234000FB3935 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDADBEE51E5F234000FB3935 /* MainViewController.swift */; };
 		FDADBEE91E5F234000FB3935 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FDADBEE71E5F234000FB3935 /* Main.storyboard */; };
@@ -169,6 +170,7 @@
 /* Begin PBXFileReference section */
 		FD199A141E7F3C7D00A3DFBC /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		FD1E706F1E6B0D8100D045C2 /* TempoCalculator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TempoCalculator.swift; sourceTree = "<group>"; };
+		FD7051FC1E91F03000BB800A /* Logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Logo.png; path = Resources/Logo.png; sourceTree = SOURCE_ROOT; };
 		FDADBEE01E5F234000FB3935 /* ConductorTempo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ConductorTempo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FDADBEE31E5F234000FB3935 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FDADBEE51E5F234000FB3935 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -186,7 +188,7 @@
 		FDADBF0A1E5F234000FB3935 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FDADBF0C1E5F234000FB3935 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FDADBF1F1E5F3E5000FB3935 /* MotionRecorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MotionRecorder.swift; sourceTree = "<group>"; };
-		FDBA7AF11E8F5F36005DA771 /* Click.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Click.wav; sourceTree = SOURCE_ROOT; };
+		FDBA7AF11E8F5F36005DA771 /* Click.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = Click.wav; path = Resources/Click.wav; sourceTree = SOURCE_ROOT; };
 		FDC05E5D1E78E86A00D45F19 /* TempoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TempoViewController.swift; sourceTree = "<group>"; };
 		FDC05E5F1E78E94E00D45F19 /* GraphTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphTabBarController.swift; sourceTree = "<group>"; };
 		FDC05E611E78EF3900D45F19 /* MotionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MotionViewController.swift; sourceTree = "<group>"; };
@@ -286,6 +288,7 @@
 			isa = PBXGroup;
 			children = (
 				FDBA7AF11E8F5F36005DA771 /* Click.wav */,
+				FD7051FC1E91F03000BB800A /* Logo.png */,
 				FDADBEE31E5F234000FB3935 /* AppDelegate.swift */,
 				FDADBEEA1E5F234000FB3935 /* Assets.xcassets */,
 				FDADBEEC1E5F234000FB3935 /* LaunchScreen.storyboard */,
@@ -521,6 +524,7 @@
 			files = (
 				FDADBEEE1E5F234000FB3935 /* LaunchScreen.storyboard in Resources */,
 				FDADBEEB1E5F234000FB3935 /* Assets.xcassets in Resources */,
+				FD7051FD1E91F03000BB800A /* Logo.png in Resources */,
 				FDADBEE91E5F234000FB3935 /* Main.storyboard in Resources */,
 				FDBA7AF21E8F5F36005DA771 /* Click.wav in Resources */,
 			);

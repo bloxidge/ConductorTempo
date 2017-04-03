@@ -21,14 +21,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="QPG-Oi-eSc">
+                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QPG-Oi-eSc">
                                 <rect key="frame" x="0.0" y="0.0" width="667" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <color key="barTintColor" red="0.15806448459625244" green="0.16770747303962708" blue="0.19600671529769897" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <textAttributes key="titleTextAttributes">
+                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </textAttributes>
                                 <items>
                                     <navigationItem title="Conductor Tempo Retrieval" id="sTE-Tn-vka"/>
                                 </items>
                             </navigationBar>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" fixedFrame="YES" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="EMV-LR-6Ds">
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" fixedFrame="YES" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EMV-LR-6Ds">
                                 <rect key="frame" x="0.0" y="331" width="667" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <items>
@@ -39,6 +43,7 @@
                                         </connections>
                                     </barButtonItem>
                                 </items>
+                                <color key="barTintColor" red="0.1580644846" green="0.167707473" blue="0.1960067153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </toolbar>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dXP-9C-ayd">
                                 <rect key="frame" x="551" y="268" width="22" height="22"/>
@@ -251,12 +256,16 @@
                         <viewControllerLayoutGuide type="bottom" id="glE-0C-dWb"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="IGi-R0-ac1">
-                        <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
+                        <rect key="frame" x="0.0" y="0.0" width="667" height="326"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="Agh-UA-T8w">
+                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Agh-UA-T8w">
                                 <rect key="frame" x="0.0" y="0.0" width="667" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <color key="barTintColor" red="0.1580644846" green="0.167707473" blue="0.1960067153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <textAttributes key="titleTextAttributes">
+                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </textAttributes>
                                 <items>
                                     <navigationItem title="Motion Data" id="ZUx-qv-j2c">
                                         <barButtonItem key="leftBarButtonItem" systemItem="done" id="Kmr-6Q-54u">
@@ -269,7 +278,7 @@
                                 </items>
                             </navigationBar>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="emR-aP-dE5">
-                                <rect key="frame" x="68.5" y="56" width="530" height="263"/>
+                                <rect key="frame" x="68.5" y="55" width="530" height="263"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i3x-lI-kvo" customClass="LineChartView" customModule="Charts">
                                         <rect key="frame" x="0.0" y="0.0" width="530" height="230"/>
@@ -296,7 +305,7 @@
                         <color key="backgroundColor" white="0.94999999999999996" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="emR-aP-dE5" firstAttribute="centerX" secondItem="IGi-R0-ac1" secondAttribute="centerX" id="Byv-CN-15o"/>
-                            <constraint firstItem="emR-aP-dE5" firstAttribute="centerY" secondItem="IGi-R0-ac1" secondAttribute="centerY" id="oTh-fp-iOn"/>
+                            <constraint firstItem="emR-aP-dE5" firstAttribute="top" secondItem="xMA-qe-3Za" secondAttribute="bottom" constant="35" id="w23-0T-8K2"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Motion" image="Line-Chart" selectedImage="Line-Chart-Filled" id="aAp-t6-fEE" userLabel="Motion Item"/>
@@ -319,12 +328,16 @@
                         <viewControllerLayoutGuide type="bottom" id="c8p-Lh-8Ph"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="TBL-te-e6i">
-                        <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
+                        <rect key="frame" x="0.0" y="0.0" width="667" height="326"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="pc8-YY-3uN">
+                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pc8-YY-3uN">
                                 <rect key="frame" x="0.0" y="0.0" width="667" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <color key="barTintColor" red="0.1580644846" green="0.167707473" blue="0.1960067153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <textAttributes key="titleTextAttributes">
+                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </textAttributes>
                                 <items>
                                     <navigationItem title="Tempo Data" id="huk-Uo-7nB">
                                         <barButtonItem key="leftBarButtonItem" systemItem="done" id="37y-f0-aDt">
@@ -337,7 +350,7 @@
                                 </items>
                             </navigationBar>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L8f-1K-qqg" customClass="LineChartView" customModule="Charts">
-                                <rect key="frame" x="43.5" y="62.5" width="580" height="250"/>
+                                <rect key="frame" x="43.5" y="55" width="580" height="250"/>
                                 <color key="backgroundColor" white="0.94999999999999996" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="580" id="Gfs-Gl-5JT"/>
@@ -347,7 +360,7 @@
                         </subviews>
                         <color key="backgroundColor" white="0.94999999999999996" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="L8f-1K-qqg" firstAttribute="centerY" secondItem="TBL-te-e6i" secondAttribute="centerY" id="NzW-32-WGL"/>
+                            <constraint firstItem="L8f-1K-qqg" firstAttribute="top" secondItem="eU8-1b-IHD" secondAttribute="bottom" constant="35" id="zFr-Yk-pLO"/>
                             <constraint firstItem="L8f-1K-qqg" firstAttribute="centerX" secondItem="TBL-te-e6i" secondAttribute="centerX" id="zri-qq-pA4"/>
                         </constraints>
                     </view>
@@ -366,11 +379,12 @@
             <objects>
                 <tabBarController id="LQa-JI-6OO" userLabel="Graph Tab Bar Controller" customClass="GraphTabBarController" customModule="ConductorTempo" customModuleProvider="target" sceneMemberID="viewController">
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics" barStyle="black"/>
-                    <tabBar key="tabBar" contentMode="scaleToFill" barStyle="black" itemPositioning="centered" id="cxc-Yd-Jdf">
+                    <tabBar key="tabBar" contentMode="scaleToFill" translucent="NO" itemPositioning="centered" id="cxc-Yd-Jdf">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <color key="tintColor" red="0.0" green="0.66666666669999997" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="barTintColor" red="0.1580644846" green="0.167707473" blue="0.1960067153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="selectedImageTintColor" red="0.0" green="0.66666666669999997" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBar>
                     <connections>
