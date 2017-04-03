@@ -153,7 +153,7 @@ class TempoCalculator: NSObject, WCSessionDelegate {
         chart.xAxis.labelPosition = .bottom
         chart.leftAxis.axisMinimum = Double(averageTempo - 20)
         chart.leftAxis.axisMaximum = Double(averageTempo + 20)
-        chart.rightAxis.drawLabelsEnabled = false
+        chart.rightAxis.enabled = false
         chart.legend.position = .aboveChartRight
         chart.legend.form = .line
         chart.data = lineData

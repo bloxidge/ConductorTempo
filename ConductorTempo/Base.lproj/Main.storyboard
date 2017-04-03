@@ -29,7 +29,7 @@
                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </textAttributes>
                                 <items>
-                                    <navigationItem title="Conductor Tempo Retrieval" id="sTE-Tn-vka"/>
+                                    <navigationItem title="Watch Conductor" id="sTE-Tn-vka"/>
                                 </items>
                             </navigationBar>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" fixedFrame="YES" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EMV-LR-6Ds">
@@ -278,7 +278,7 @@
                                 </items>
                             </navigationBar>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="emR-aP-dE5">
-                                <rect key="frame" x="68.5" y="55" width="530" height="263"/>
+                                <rect key="frame" x="68.5" y="53" width="530" height="263"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i3x-lI-kvo" customClass="LineChartView" customModule="Charts">
                                         <rect key="frame" x="0.0" y="0.0" width="530" height="230"/>
@@ -304,8 +304,8 @@
                         </subviews>
                         <color key="backgroundColor" white="0.94999999999999996" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="glE-0C-dWb" firstAttribute="top" secondItem="emR-aP-dE5" secondAttribute="bottom" constant="10" id="5Xj-WA-19R"/>
                             <constraint firstItem="emR-aP-dE5" firstAttribute="centerX" secondItem="IGi-R0-ac1" secondAttribute="centerX" id="Byv-CN-15o"/>
-                            <constraint firstItem="emR-aP-dE5" firstAttribute="top" secondItem="xMA-qe-3Za" secondAttribute="bottom" constant="35" id="w23-0T-8K2"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Motion" image="Line-Chart" selectedImage="Line-Chart-Filled" id="aAp-t6-fEE" userLabel="Motion Item"/>
@@ -350,7 +350,7 @@
                                 </items>
                             </navigationBar>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L8f-1K-qqg" customClass="LineChartView" customModule="Charts">
-                                <rect key="frame" x="43.5" y="55" width="580" height="250"/>
+                                <rect key="frame" x="43.5" y="56" width="580" height="250"/>
                                 <color key="backgroundColor" white="0.94999999999999996" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="580" id="Gfs-Gl-5JT"/>
@@ -360,7 +360,7 @@
                         </subviews>
                         <color key="backgroundColor" white="0.94999999999999996" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="L8f-1K-qqg" firstAttribute="top" secondItem="eU8-1b-IHD" secondAttribute="bottom" constant="35" id="zFr-Yk-pLO"/>
+                            <constraint firstItem="c8p-Lh-8Ph" firstAttribute="top" secondItem="L8f-1K-qqg" secondAttribute="bottom" constant="20" id="d8C-fw-ua7"/>
                             <constraint firstItem="L8f-1K-qqg" firstAttribute="centerX" secondItem="TBL-te-e6i" secondAttribute="centerX" id="zri-qq-pA4"/>
                         </constraints>
                     </view>

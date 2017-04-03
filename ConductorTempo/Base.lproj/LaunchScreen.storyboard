@@ -23,7 +23,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="19W-jZ-ohN">
-                                <rect key="frame" x="83" y="50" width="500" height="266"/>
+                                <rect key="frame" x="83" y="54.5" width="500" height="266"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="19W-jZ-ohN" secondAttribute="height" multiplier="250:133" id="iLK-Gh-8ia"/>
                                     <constraint firstAttribute="width" constant="500" id="pY4-2h-kFa"/>
@@ -38,8 +38,8 @@
                         </subviews>
                         <color key="backgroundColor" red="0.15806448459625244" green="0.16770747303962708" blue="0.19600671529769897" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="19W-jZ-ohN" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="30" id="VOh-yN-wac"/>
                             <constraint firstItem="19W-jZ-ohN" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="ZPI-Ks-02N"/>
+                            <constraint firstItem="19W-jZ-ohN" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="dLd-w2-Xaz"/>
                             <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="uP9-4T-fZO" secondAttribute="bottom" constant="10" id="ubi-XG-OO7"/>
                             <constraint firstItem="uP9-4T-fZO" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="vVS-R1-5pe"/>
                         </constraints>
