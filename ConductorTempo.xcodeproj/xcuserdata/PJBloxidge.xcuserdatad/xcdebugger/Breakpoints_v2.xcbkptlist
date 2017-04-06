@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ConductorTempo/TempoCalculator.swift"
-            timestampString = "512815954.907648"
+            timestampString = "512948582.681121"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "152"
-            endingLineNumber = "152"
+            startingLineNumber = "173"
+            endingLineNumber = "173"
             landmarkName = "updateTempoChart(_:)"
             landmarkType = "7">
          </BreakpointContent>

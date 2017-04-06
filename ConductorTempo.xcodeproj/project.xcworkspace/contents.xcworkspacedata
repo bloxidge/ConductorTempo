@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:ConductorTempo.xcodeproj">
+      location = "absolute:Users/PJBloxidge/Documents/Music Performance Analysis Systems/Assignment/WatchConductor/ConductorTempo.xcodeproj">
    </FileRef>
 </Workspace>

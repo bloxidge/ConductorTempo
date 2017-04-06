@@ -2,8 +2,8 @@
 //  TempoViewController.swift
 //  ConductorTempo
 //
-//  Created by Peter Bloxidge on 15/03/2017.
-//  Copyright © 2017 Peter Bloxidge. All rights reserved.
+//  Created by Y0075205 on 15/03/2017.
+//  Copyright © 2017 Y0075205. All rights reserved.
 //
 
 import UIKit

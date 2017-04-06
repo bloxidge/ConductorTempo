@@ -2,8 +2,8 @@
 //  MotionRecorder.swift
 //  ConductorTempo
 //
-//  Created by Peter Bloxidge on 23/02/2017.
-//  Copyright © 2017 Peter Bloxidge. All rights reserved.
+//  Created by Y0075205 on 23/02/2017.
+//  Copyright © 2017 Y0075205. All rights reserved.
 //
 
 import Foundation

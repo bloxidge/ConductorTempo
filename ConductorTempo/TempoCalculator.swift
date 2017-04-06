@@ -2,8 +2,8 @@
 //  TempoCalculator.swift
 //  ConductorTempo
 //
-//  Created by Peter Bloxidge on 04/03/2017.
-//  Copyright © 2017 Peter Bloxidge. All rights reserved.
+//  Created by Y0075205 on 04/03/2017.
+//  Copyright © 2017 Y0075205. All rights reserved.
 //
 
 import Foundation
@@ -135,24 +135,45 @@ class TempoCalculator: NSObject, WCSessionDelegate {
     func updateTempoChart(_ chart: LineChartView) {
         
         var dataEntries = [ChartDataEntry]()
+        var dataSets = [LineChartDataSet]()
+        var dataSet = LineChartDataSet()
         
+        /* Line chart for local tempo */
         for (i, value) in localTempo.enumerated() {
             let entry = ChartDataEntry(x: Double(beats[i]), y: Double(value))
             dataEntries.append(entry)
         }
         
-        let dataSet = LineChartDataSet(values: dataEntries, label: "Local Tempo")
+        dataSet = LineChartDataSet(values: dataEntries, label: "Measured Tempo")
         dataSet.drawCirclesEnabled = false
+        dataSet.drawValuesEnabled = false
         dataSet.lineWidth = 2.0
         dataSet.colors = [.aqua]
+        dataSets.append(dataSet)
         
         dataEntries.removeAll()
         
-        let lineData = LineChartData(dataSet: dataSet)
+        /* Straight line showing target tempo */
+        let first = ChartDataEntry(x: Double(beats.first!), y: Double(targetTempo))
+        let last = ChartDataEntry(x: Double(beats.last!), y: Double(targetTempo))
+        dataEntries.append(contentsOf: [first, last])
+        
+        dataSet = LineChartDataSet(values: dataEntries, label: "Target Tempo")
+        dataSet.drawCirclesEnabled = false
+        dataSet.drawValuesEnabled = false
+        dataSet.lineWidth = 2.0
+        dataSet.lineDashLengths = [6.0]
+        dataSet.lineDashPhase = 3.0
+        dataSet.colors = [.purple]
+        dataSets.append(dataSet)
+        
+        dataEntries.removeAll()
+        
+        let lineData = LineChartData(dataSets: dataSets)
         chart.chartDescription?.text = ""
         chart.xAxis.labelPosition = .bottom
-        chart.leftAxis.axisMinimum = Double(averageTempo - 20)
-        chart.leftAxis.axisMaximum = Double(averageTempo + 20)
+        chart.leftAxis.axisMinimum = Double(targetTempo - 20)
+        chart.leftAxis.axisMaximum = Double(targetTempo + 20)
         chart.rightAxis.enabled = false
         chart.legend.position = .aboveChartRight
         chart.legend.form = .line
