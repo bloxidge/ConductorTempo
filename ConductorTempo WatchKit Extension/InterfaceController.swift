@@ -9,18 +9,22 @@
 import WatchKit
 import Foundation
 
+/**
+ Class for the main interface controller. Implements RecorderDelegate for updating file size information and button availability.
+ */
 class InterfaceController: WKInterfaceController, RecorderDelegate {
     
-    @IBOutlet var timer: WKInterfaceTimer!
-    @IBOutlet var startStopButton: WKInterfaceButton!
-    @IBOutlet var sendButton: WKInterfaceButton!
-    @IBOutlet var fileLabel: WKInterfaceLabel!
+    // Interface variables
+    @IBOutlet var timer           : WKInterfaceTimer!
+    @IBOutlet var startStopButton : WKInterfaceButton!
+    @IBOutlet var sendButton      : WKInterfaceButton!
+    @IBOutlet var fileLabel       : WKInterfaceLabel!
     
+    // Private variables
     private var recorder = MotionRecorder()
-    private let moss = UIColor(red: 0.0, green: 0.5, blue: 0.25, alpha: 1.0)
-    private let cayenne = UIColor(red: 0.5, green: 0.0, blue: 0.0, alpha: 1.0)
     
-    var isFilePresent: Bool! {
+    // RecorderDelegate variables
+    var isFilePresent : Bool! {
         get {
             return self.isFilePresent
         }
@@ -34,38 +38,48 @@ class InterfaceController: WKInterfaceController, RecorderDelegate {
             }
         }
     }
-    var fileSize: String! {
+    var fileSize : String! {
         get {
             return self.fileSize
         }
         set {
-            
             fileLabel.setText(newValue)
         }
     }
     
+    /**
+     Called when the 'Start'/'Stop' button is pressed.
+     */
     @IBAction func startStopButtonPressed() {
         
         switch recorder.isRecording {
         case true:
             recorder.isRecording = false
             startStopButton.setTitle("Start")
-            startStopButton.setBackgroundColor(moss)
+            startStopButton.setBackgroundColor(.moss)
             timer.stop()
         case false:
             recorder.isRecording = true
             startStopButton.setTitle("Stop")
-            startStopButton.setBackgroundColor(cayenne)
+            startStopButton.setBackgroundColor(.cayenne)
             timer.setDate(Date(timeIntervalSinceNow: 0))
             timer.start()
         }
     }
     
+    /**
+     Called when the 'Send' button is pressed.
+     */
     @IBAction func sendButtonPressed() {
         
         recorder.send()
     }
     
+    // Interface Controller required functions
+    
+    /**
+     Called when this interface is loaded.
+     */
     override func awake(withContext context: Any?) {
         
         super.awake(withContext: context)

@@ -8,18 +8,25 @@
 
 import UIKit
 
+/**
+ Tab Bar Controller class containing the two line chart view controllers.
+ */
 class GraphTabBarController: UITabBarController {
     
-    var model: TempoCalculator!
-
+//    var model: TempoCalculator!
+    
+    /**
+     Called when this view is loaded.
+     */
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        
-        if let tabVCs = self.viewControllers {
-            (tabVCs[0] as! TempoViewController).model = self.model
-            (tabVCs[1] as! MotionViewController).model = self.model
-        }
+//        
+//        // Passes the TempoCalculator model to the view controllers in this TabBarController
+//        if let tabVCs = self.viewControllers {
+//            (tabVCs[0] as! TempoViewController).model = self.model
+//            (tabVCs[1] as! MotionViewController).model = self.model
+//        }
     }
 
 }

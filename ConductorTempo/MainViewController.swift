@@ -8,30 +8,26 @@
 
 import UIKit
 
-protocol ProcessDelegate  {
-    var text : String { get set }
-    var inProgress : Bool { get set }
-    var buttonEnabled : Bool { get set }
-    var tempo : Float? { get set }
-    var accuracy : Float? { get set }
-    
-    func removeRefreshButton()
-}
-
+/**
+ Class for the main view controller. Implements ProcessDelegate for updating messages and other properties.
+ */
 class MainViewController: UIViewController, ProcessDelegate {
     
-    @IBOutlet var progressLabel: UILabel!
-    @IBOutlet var progressIndicator: UIActivityIndicatorView!
-    @IBOutlet var tempoValueLabel: UILabel!
-    @IBOutlet var accuracyValueLabel: UILabel!
-    @IBOutlet var metroTempoLabel: UILabel!
-    @IBOutlet var metroStepper: UIStepper!
-    @IBOutlet var graphsButton: UIBarButtonItem!
-    @IBOutlet var refreshButton: UIButton!
+    // Interface variables
+    @IBOutlet var progressLabel      : UILabel!
+    @IBOutlet var progressIndicator  : UIActivityIndicatorView!
+    @IBOutlet var tempoValueLabel    : UILabel!
+    @IBOutlet var accuracyValueLabel : UILabel!
+    @IBOutlet var metroTempoLabel    : UILabel!
+    @IBOutlet var metroStepper       : UIStepper!
+    @IBOutlet var graphsButton       : UIBarButtonItem!
+    @IBOutlet var refreshButton      : UIButton!
     
+    // Private variables
     private var model = TempoCalculator()
-    private var metro: Metronome!
+    private var metro : Metronome!
     
+    // ProcessDelegate variables
     var buttonEnabled: Bool {
         get {
             return graphsButton.isEnabled
@@ -95,6 +91,9 @@ class MainViewController: UIViewController, ProcessDelegate {
         }
     }
     
+    /**
+     ProcessDelegate method. Removes the 'Refresh' button once the Apple Watch is connected successfully.
+     */
     func removeRefreshButton() {
         
         if !refreshButton.isHidden {
@@ -102,48 +101,76 @@ class MainViewController: UIViewController, ProcessDelegate {
         }
     }
     
+    /**
+     Called when the 'Refresh' button is pressed.
+     */
     @IBAction func refreshPressed() {
         
         model.checkWatchIsPaired()
     }
     
+    /**
+     Called when the Metronome switch is pressed.
+     */
     @IBAction func metroSwitchPressed(_ sender: UISwitch) {
         
         metro.isPlaying = sender.isOn
     }
     
+    /**
+     Called when the metronome tempo stepper button is released.
+     */
     @IBAction func metroTempoReleased(_ sender: UIStepper) {
         
         metro.tempo = sender.value
     }
     
+    /**
+     Called when the metronome tempo stepper value is changed.
+     */
     @IBAction func metroTempoChanged(_ sender: UIStepper) {
         
         metroTempoLabel.text = String(format: "%0.0f", sender.value)
         model.targetTempo = Float(sender.value)
     }
     
+    /**
+     Required for exiting modal segue and returning to this view controller.
+     */
     @IBAction func returnToMainViewController(_ segue: UIStoryboardSegue) {
     }
     
+    /**
+     Called when this view is loaded.
+     */
     override func viewDidLoad() {
         
         super.viewDidLoad()
         
+        // Set ProcessDelegates to be this object
         model.delegate = self
         model.tracker.delegate = self
         
+        // Set initial values for variables in the model
         model.targetTempo = Float(metroStepper.value)
         model.checkWatchIsPaired()
         
+        // Create Metronome object
         metro = Metronome(tempo: metroStepper.value)
         metro.isPlaying = false
     }
     
+    /**
+     Called when this view controller prepares to move to a new view controller.
+     */
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
+        // Pass the TempoCalculator model to the destination view controllers
         if let destinationVC = segue.destination as? GraphTabBarController {
-            destinationVC.model = model
+            if let tabVCs = destinationVC.viewControllers {
+                (tabVCs[0] as! TempoViewController).model = self.model
+                (tabVCs[1] as! MotionViewController).model = self.model
+            }
         }
     }
 

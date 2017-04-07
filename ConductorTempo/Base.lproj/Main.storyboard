@@ -121,13 +121,13 @@
                                                 </constraints>
                                             </stackView>
                                             <stackView contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="d4u-kP-VG3">
-                                                <rect key="frame" x="0.0" y="179.66666666666669" width="290" height="70.333333333333314"/>
+                                                <rect key="frame" x="0.0" y="154.66666666666663" width="290" height="95.333333333333343"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="g1H-ZU-7sT">
-                                                        <rect key="frame" x="0.0" y="0.0" width="290" height="40.333333333333314"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="290" height="65.333333333333343"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Progress Text Placeholder" textAlignment="center" lineBreakMode="clip" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O60-7T-ozw">
-                                                                <rect key="frame" x="0.0" y="0.0" width="290" height="20.333333333333314"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="290" height="20.333333333333343"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="290" id="xUe-Tf-nLm"/>
                                                                 </constraints>
@@ -136,14 +136,14 @@
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="8Vh-BR-T3r">
-                                                                <rect key="frame" x="135" y="20.333333333333314" width="20" height="0.0"/>
+                                                                <rect key="frame" x="135" y="25.333333333333343" width="20" height="20"/>
                                                                 <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                             </activityIndicatorView>
                                                         </subviews>
                                                         <edgeInsets key="layoutMargins" top="0.0" left="0.0" bottom="20" right="0.0"/>
                                                     </stackView>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="net-Sd-p9c">
-                                                        <rect key="frame" x="118.66666666666669" y="40.333333333333314" width="53" height="30"/>
+                                                        <rect key="frame" x="118.66666666666669" y="65.333333333333343" width="53" height="30"/>
                                                         <state key="normal" title="Refresh"/>
                                                         <connections>
                                                             <action selector="refreshPressed" destination="BYZ-38-t0r" eventType="touchUpInside" id="7KA-pE-EUg"/>
@@ -296,7 +296,7 @@
                                             <segment title="Attitude"/>
                                         </segments>
                                         <connections>
-                                            <action selector="updateChart:" destination="rtJ-6v-bgC" eventType="valueChanged" id="cz5-JE-QCm"/>
+                                            <action selector="motionSegmentChanged:" destination="rtJ-6v-bgC" eventType="valueChanged" id="HAh-nN-gsj"/>
                                         </connections>
                                     </segmentedControl>
                                 </subviews>
@@ -377,7 +377,7 @@
         <!--Graph Tab Bar Controller-->
         <scene sceneID="wm2-jp-DG2">
             <objects>
-                <tabBarController id="LQa-JI-6OO" userLabel="Graph Tab Bar Controller" customClass="GraphTabBarController" customModule="ConductorTempo" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController id="LQa-JI-6OO" userLabel="Graph Tab Bar Controller" sceneMemberID="viewController">
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics" barStyle="black"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" translucent="NO" itemPositioning="centered" id="cxc-Yd-Jdf">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>

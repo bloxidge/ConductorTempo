@@ -6,6 +6,13 @@
 //  Copyright © 2017 Y0075205. All rights reserved.
 //
 
+/**************************************************
+ *
+ *  [1]  D. P. W. Ellis, “Beat Tracking by Dynamic Programming,” J. New Music Res., vol. 36, no. 1, pp. 51–60, 2007. [Online].
+ *       Available: https://labrosa.ee.columbia.edu/projects/beattrack/
+ *
+ **************************************************/
+
 import UIKit
 import Surge
 
@@ -87,7 +94,8 @@ extension BeatTracker {
     
     /**
      Converts frequencies in Hz to mel 'scale'.
-     Adapted from matlab script: `fft2melmx.m`
+     
+     Adapted from matlab script: `fft2melmx.m` [1]
      */
     func hzToMel(_ hz: Float) -> Float {
         
@@ -96,7 +104,7 @@ extension BeatTracker {
         let brkfrq : Float = 1000
         let brkpt  : Float = (brkfrq - f_0)/f_sp // starting mel value for log region
         
-        let logstep = Float(exp(log(6.4)/27)) // magic 1.0711703 which is the ratio needed to get from 1000 Hz to 6400 Hz in 27 steps, and is *almost* the ratio between 1000 Hz and the preceding linear filter center at 933.33333 Hz (actually 1000/933.33333 = 1.07142857142857 and  exp(log(6.4)/27) = 1.07117028749447)
+        let logstep = Float(exp(log(6.4)/27)) // 1.0711703 is the ratio needed to get from 1000 Hz to 6400 Hz in 27 steps, and is *almost* the ratio between 1000 Hz and the preceding linear filter center at 933.33333 Hz (actually 1000/933.33333 = 1.07142857142857 and  exp(log(6.4)/27) = 1.07117028749447)
         
         var mel : Float = 0
         let linputs = hz < brkpt
@@ -112,8 +120,9 @@ extension BeatTracker {
     }
     
     /**
-     Converts values on the mel 'scale' to frequency in Hz
-     Adapted from matlab script: `fft2melmx.m`
+     Converts values on the mel 'scale' to frequency in Hz.
+     
+     Adapted from matlab script: `fft2melmx.m` [1]
      */
     func melToHz(_ mel: Float) -> Float {
         
@@ -137,7 +146,8 @@ extension BeatTracker {
     }
     /**
      Returns an array which contains the weightings of the fast fourier transform that are required to bin pack the data into bins seperated by the mel scale.
-     Adapted from matlab script: `fft2melmx.m`
+     
+     Adapted from matlab script: `fft2melmx.m` [1]
      */
     func fft2mel() -> [[Float]] {
         
@@ -203,10 +213,7 @@ extension BeatTracker {
     }
     
     /**
-     Returns the central value from the array after it is sorted.
-     
-     - parameter values: Array of decimal numbers.
-     - returns: The median value from the array. Returns the mean of the two middle values if there is an even number of items in the array.
+     Returns the central value from the array after it is sorted. Returns the mean of the two middle values if there is an even number of items in the array.
      */
     func median(_ values: [Float]) -> Float {
         
@@ -214,24 +221,14 @@ extension BeatTracker {
         let sorted = values.sorted()
         
         if count.truncatingRemainder(dividingBy: 2) == 0 {
-            // Even number of items - return the mean of two middle values
+            // Even number of items -> return the mean of two middle values
             let leftIndex = Int(count / 2 - 1)
             let leftValue = sorted[leftIndex]
             let rightValue = sorted[leftIndex + 1]
             return (leftValue + rightValue) / 2
         } else {
-            // Odd number of items - take the middle item.
+            // Odd number of items -> take the middle item.
             return sorted[Int(count / 2)]
         }
-    }
-}
-
-extension UIColor {
-    
-    class var aqua: UIColor {
-        return UIColor(red: 0.0, green: 0.5, blue: 1.0, alpha: 1.0)
-    }
-    class var clover: UIColor {
-        return UIColor(red: 0.0, green: 0.5, blue: 0.0, alpha: 1.0)
     }
 }

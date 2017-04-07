@@ -9,12 +9,18 @@
 import Foundation
 import AudioKit
 
+/**
+ Class that contains the instructions for creating an AudioKit-powered Metronome object.
+ */
 class Metronome {
     
+    // Private variables
     private let tickSound = AKSampler()
-    private var metroTimer: Timer!
-    private var metroInterval: TimeInterval!
-    var tempo: Double! {
+    private var metroTimer    : Timer!
+    private var metroInterval : TimeInterval!
+    
+    // Public variables
+    var tempo : Double! {
         get {
             return self.tempo
         }
@@ -22,7 +28,7 @@ class Metronome {
             updateTempo(to: newValue)
         }
     }
-    var isPlaying: Bool = false {
+    var isPlaying : Bool = false {
         didSet {
             if isPlaying {
                 start()
@@ -32,15 +38,22 @@ class Metronome {
         }
     }
     
+    /**
+     Initialises the Metronome object.
+     */
     init(tempo: Double) {
         
         self.tempo = tempo
         
+        // Load metronome click sound and start AudioKit engine
         try! tickSound.loadWav("Click")
         AudioKit.output = tickSound
         AudioKit.start()
     }
     
+    /**
+     Start playing the metronome click.
+     */
     private func start() {
         
         if isPlaying {
@@ -49,6 +62,9 @@ class Metronome {
         }
     }
     
+    /**
+     Stop playing the metronome click.
+     */
     private func stop() {
         
         if metroTimer != nil {
@@ -57,6 +73,9 @@ class Metronome {
         }
     }
     
+    /**
+     Updates the metronome timer interval according to new tempo.
+     */
     private func updateTempo(to tempo: Double) {
         
         stop()
@@ -64,6 +83,9 @@ class Metronome {
         start()
     }
     
+    /**
+     Called by the metronome timer to trigger the sound sample.
+     */
     @objc private func tick() {
         
         tickSound.play()

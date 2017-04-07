@@ -6,27 +6,43 @@
 //  Copyright © 2017 Y0075205. All rights reserved.
 //
 
+/**************************************************
+ *
+ *  [1]  D. P. W. Ellis, “Beat Tracking by Dynamic Programming,” J. New Music Res., vol. 36, no. 1, pp. 51–60, 2007. [Online].
+ *       Available: https://labrosa.ee.columbia.edu/projects/beattrack/
+ *
+ **************************************************/
+
 import Foundation
 import Surge
 
+/**
+ Class that contains the processing methods for calculating beat tracking from a set of input motion vectors.
+ */
 class BeatTracker {
     
+    // Constants
+    let newSampleRate   : Float = 8000
+    let windowWidth     : Int = 256
+    let numberOfMelBins : Int = 40
+    private let windowHop        : Int = 32
+    private let nyquistFrequency : Float = 4000
+    private let tightness        : Float = 400
+    private let oesr             : Float = 8000/32
+    
+    // Public variables
     var delegate: ProcessDelegate!
     
-    let newSampleRate    : Float = 8000
-    let windowWidth      : Int = 256
-    let windowHop        : Int = 32
-    let numberOfMelBins  : Int = 40
-    let nyquistFrequency : Float = 4000
-    let tightness        : Float = 400
-    let oesr             : Float = 8000/32
-    
-    struct TempoData {
-        var slow  : Float?
-        var fast  : Float?
-        var ratio : Float?
+    // Structures
+    private struct TempoData {
+        var slow  : Float
+        var fast  : Float
+        var ratio : Float
     }
     
+    /**
+     Main public function: takes in recorded motion vectors and returns beat positions.
+     */
     func calculateBeats(from vectors: MotionVectors) -> [Float] {
         
         // Create a new set of vectors at new sampling frequency
@@ -91,6 +107,8 @@ class BeatTracker {
      Perform a fourier transform on the data using a hanning window windowWidth and windowHop advance between frames.
      This is converted to an 'approximate auditory representation' by mapping the fft spectral bins onto 40 weighted Mel bands.
      Mel loosely stands for melody and is equal to the range of tones that are expected to be used most often for musical compositions.
+     
+     Adapted from Matlab script: `tempo2.m` [1]
      */
     private func melSpectrumBins(_ data: [Float]) -> [[Float]] {
         
@@ -129,6 +147,8 @@ class BeatTracker {
 
     /**
      First order differentiation (dy/dx) along time is calculated for each bin, giving a one dimensional 'onset strength envelope' against time that responds to proportional increase in energy summed across approximately auditory frequency bins.
+     
+     Adapted from Matlab script: `tempo2.m` [1]
      */
     private func calculateOnsetEnvelope(_ array: [[Float]] ) -> [Float] {
         
@@ -140,9 +160,9 @@ class BeatTracker {
             decisionWaveform.append(avg)
         }
         
-        /* Need to remove DC component and smooth result */
+        // Need to remove DC component and smooth result
         // a(1)y(n)=b(1)x(n)+b(2)x(n−1)−a(2)y(n−1)
-        // filter([1 -1], [1 -.99],mm);
+        // filter([1 -1], [1 -.99],mm)
         let x = decisionWaveform
         for j in 1 ..< decisionWaveform.count {
             decisionWaveform[j] = x[j] + (-1*x[j-1]) + (0.99*decisionWaveform[j-1])
@@ -152,15 +172,18 @@ class BeatTracker {
     }
     
     /**
-     Global tempo estimation
+     Global tempo estimation. Returns the top 2 BPM estimates; use faster one for beat tracking.
+     
+     Adapted from Matlab script: `tempo2.m` [1]
      */
     private func estimateTempo(from array: [Float]) -> TempoData {
         
-        let maxd : Float = 60
-        let maxt : Float = 120
-        let acmax : Int = Int(round(4*oesr));
+        let maxd   : Float = 60
+        let maxt   : Float = 120
+        let acmax  : Int = Int(round(4*oesr));
         let maxcol : Int = min(Int(round(maxt*oesr)),array.count)
         let mincol : Int = max(0, Int(maxcol-Int(round(maxd*oesr))))
+        
         // Only use the 1st 90 sec to estimate global pd
         let xcr = xcorr(Array(array[mincol ..< maxcol]), max: acmax)
         
@@ -176,17 +199,12 @@ class BeatTracker {
             let tsd : Float = 1.0
             xcrwin.append(exp ( -0.5 * ( pow( (log(beatsPerMilisecond/tmean)/log(2)/tsd) , 2))))
         }
-        rawxcr = mul(rawxcr , y: xcrwin);
+        rawxcr = mul(rawxcr , y: xcrwin)
         
-        // let xpks = localMax(rawxcr)
-        // let maximumPeak = max(rawxcr)
-        
-        var xcr00 = rawxcr; // rawxcr padded with 2 zeros on either end
+        var xcr00 = rawxcr
         xcr00.append(0)
-        xcr00.insert(0, at: 0)
+        xcr00.insert(0, at: 0) // rawxcr padded with 2 zeros on either end
         
-        // Equation 7: [2] pg.10
-        // TPS2(τ) = TPS(τ) + 0.5TPS(2τ) + 0.25TPS(2τ − 1) + 0.25TPS(2τ + 1)
         let xcr2Size = Int(ceil(Double(rawxcr.count/2)))
         var xcr2 : [Float] = []
         xcr2.reserveCapacity(xcr2Size)
@@ -197,8 +215,7 @@ class BeatTracker {
             xcr2[i] = xcr2[i] + 0.25*xcr00[(2*τ) - 1]
             xcr2[i] = xcr2[i] + 0.25*xcr00[(2*τ) + 1]
         }
-        // Equation 8: [2] pg.10
-        // TPS3(τ) = TPS(τ) + 0.33TPS(3τ) + 0.33TPS(3τ − 1) + 0.33TPS(3τ + 1)
+        
         let xcr3Size = Int(ceil(Double(rawxcr.count/3)))
         var xcr3 : [Float] = []
         xcr3.reserveCapacity(xcr3Size)
@@ -210,7 +227,7 @@ class BeatTracker {
             xcr3[i] = xcr3[i] + 0.33*xcr00[(3*τ) + 1]
         }
         
-        var startpd : Int = 0
+        var startpd  : Int = 0
         var startpd2 : Int = 0
         
         if max(xcr2) > max(xcr3) {
@@ -227,7 +244,7 @@ class BeatTracker {
                               ratio: rawxcr[startpd]/(rawxcr[startpd]+rawxcr[startpd2]))
         
         // Reorders if it comes out the wrong way around
-        if(tempo.fast < tempo.slow) {
+        if tempo.fast < tempo.slow {
             let fast = tempo.fast
             tempo.fast = tempo.slow
             tempo.slow = fast
@@ -236,13 +253,19 @@ class BeatTracker {
         return tempo
     }
     
+    /**
+     Returns the times (in sec) of the beats in the waveform from the onset envelope.
+     
+     Adapted from Matlab script: `beat2.m` [1]
+     */
     private func beatTracking(_ tempo: TempoData, onsetEnvelope: [Float]) -> [Float] {
         
         var startBPM : Float = 0
-        if (tempo.ratio! > 0.5) {
-            startBPM = Float(tempo.fast!) // Fast result from the autocorrelation
+        
+        if tempo.ratio > 0.5 {
+            startBPM = Float(tempo.fast) // Fast result from the autocorrelation
         } else {
-            startBPM = Float(tempo.slow!) // Slow result from the autocorrelation
+            startBPM = Float(tempo.slow) // Slow result from the autocorrelation
         }
         let pd = (60*oesr)/startBPM // numbeats in onsetEnvelope step, probability there is a beat in each sampling interval
         let onsetEnv = onsetEnvelope / std(onsetEnvelope) // vector which maps change in frequency
@@ -263,9 +286,9 @@ class BeatTracker {
         
         // Setting up some array variables for the next part
         var backLink : [Int] = Array(repeating: 0, count: localScore.count)
-        var cumScore : [Float] = Array(repeating: 0.0, count: localScore.count)
-        var prange : [Int] = []; prange.reserveCapacity(512)
-        var txwt   : [Float] = []; txwt.reserveCapacity(512)
+        var cScore   : [Float] = Array(repeating: 0.0, count: localScore.count)
+        var prange   : [Int] = []; prange.reserveCapacity(512)
+        var txwt     : [Float] = []; txwt.reserveCapacity(512)
         
         // Filling the arrays
         for i in Int(round(-2*pd)) ..< Int(-round(pd/2)) {
@@ -273,18 +296,18 @@ class BeatTracker {
             txwt.append(abs(pow(log(Float(i) / -pd), 2)) * -tightness)
         }
         
+        // This creates a recursive estimation of each beat interval
         var starting = true
-        /* This creates a recursive estimation of each beat interval */
         for i in 0 ..< localScore.count {
             let timeRange_start = Int(round(-2*pd)) + i
             let zpad : Int = max(0, min(-timeRange_start, prange.count))
             var scorecands = txwt
             var index = 0
             for j in zpad ..< prange.count {
-                scorecands[index] = scorecands[index] + cumScore[timeRange_start + j]
+                scorecands[index] = scorecands[index] + cScore[timeRange_start + j]
                 index += 1
             }
-            cumScore[i] = max(scorecands) + localScore[i]
+            cScore[i] = max(scorecands) + localScore[i]
             if (starting && localScore[i] < (0.01 * max(localScore))) {
                 backLink[i] = -1;
             }
@@ -295,17 +318,17 @@ class BeatTracker {
         }
         
         // Find the best point to end the beat tracking
-        var cumScoreHasLocalMaxima = localMax(cumScore)
-        var cumScoreLocalMaxima : [Float] = []
-        for i in 0 ..< cumScore.count - 1 {
-            if(cumScoreHasLocalMaxima[i] == 1) {
-                cumScoreLocalMaxima.append(cumScore[i])
+        var cScoreHasLocalMaxima = localMax(cScore)
+        var cScoreLocalMaxima : [Float] = []
+        for i in 0 ..< cScore.count - 1 {
+            if(cScoreHasLocalMaxima[i] == 1) {
+                cScoreLocalMaxima.append(cScore[i])
             }
         }
-        let medscore = median(cumScoreLocalMaxima)
+        let medscore = median(cScoreLocalMaxima)
         var bestEndPoss : [Float] = []
-        for i in 0 ..< cumScore.count - 1 {
-            if ((cumScore[i] * Float(cumScoreHasLocalMaxima[i])) > 0.5*medscore) {
+        for i in 0 ..< cScore.count - 1 {
+            if ((cScore[i] * Float(cScoreHasLocalMaxima[i])) > 0.5*medscore) {
                 bestEndPoss.append(Float(i))
             }
         }
@@ -333,7 +356,7 @@ class BeatTracker {
                 bIndices.append(Float(i))
             }
         }
-        beatTimes = Array(beatTimes[Int(min(bIndices)+2)...Int(max(bIndices)+2)])
+        beatTimes = Array(beatTimes[Int(min(bIndices)+1)...Int(max(bIndices)+2)])
         
         // Times it by the magic constant oesr that converts back to original sample rate
         var beatsInSeconds : [Float] = []

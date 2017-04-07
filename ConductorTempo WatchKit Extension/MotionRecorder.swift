@@ -10,16 +10,42 @@ import Foundation
 import CoreMotion
 import WatchConnectivity
 
+/**
+ Delegate for updating file information in the InterfaceController.
+ */
 protocol RecorderDelegate {
     
-    var isFilePresent: Bool! { get set }
-    var fileSize: String! { get set }
+    var isFilePresent : Bool!   { get set }
+    var fileSize      : String! { get set }
 }
 
+/**
+ Class for creating a new MotionRecorder object. Contains the methods for recording and transferring Apple Watch motion sensor data.
+ */
 class MotionRecorder: NSObject, WCSessionDelegate {
     
-    var delegate: RecorderDelegate!
-    var session: WCSession!
+    // Constants
+    private let manager = FileManager.default
+    private let file = "motiondata.txt"
+    private let motionManager = CMMotionManager()
+    
+    // Private variables
+    private var currentRecording = [MotionDataPoint]()
+    private var url : URL {
+        get {
+            let dir = manager.urls(for: .documentDirectory, in: .userDomainMask).first!
+            return dir.appendingPathComponent(file)
+        }
+    }
+    private var fileExists : Bool {
+        get {
+            return manager.fileExists(atPath: url.path)
+        }
+    }
+    
+    // Public variables
+    var delegate : RecorderDelegate!
+    var session  : WCSession!
     var isRecording = false {
         didSet {
             switch isRecording {
@@ -28,38 +54,32 @@ class MotionRecorder: NSObject, WCSessionDelegate {
             }
         }
     }
-    private let motionManager = CMMotionManager()
-    private var currentRecording = [MotionDataPoint]()
-    private let manager = FileManager.default
-    private let file = "motiondata.txt"
-    private var url: URL {
-        get {
-            let dir = manager.urls(for: .documentDirectory, in: .userDomainMask).first!
-            return dir.appendingPathComponent(file)
-        }
-    }
-    private var fileExists: Bool {
-        get {
-            return manager.fileExists(atPath: url.path)
-        }
-    }
     
+    /**
+     Initialises the MotionRecorder object.
+     */
     override init() {
         
         super.init()
         
+        // Set up and activate WatchConnectivity session
         if WCSession.isSupported() {
             session = WCSession.default()
             session.delegate = self
             session.activate()
         }
         
+        // Remove previously saved recording on start
         deleteFile()
         
+        // Set interval and start CoreMotion operation
         motionManager.deviceMotionUpdateInterval = 0.02
         motionManager.startDeviceMotionUpdates()
     }
     
+    /**
+     Start motion data recording.
+     */
     private func start() {
         
         currentRecording.removeAll()
@@ -91,6 +111,9 @@ class MotionRecorder: NSObject, WCSessionDelegate {
         }
     }
     
+    /**
+     Stop motion data recording.
+     */
     private func stop() {
         
         if motionManager.isDeviceMotionActive {
@@ -100,6 +123,9 @@ class MotionRecorder: NSObject, WCSessionDelegate {
         saveMotionData()
     }
     
+    /**
+     Remove any erroneous data points from the start of the recording.
+     */
     private func cleanMotionData() {
         
         var i = 1
@@ -119,6 +145,9 @@ class MotionRecorder: NSObject, WCSessionDelegate {
         }
     }
     
+    /**
+     Store motion recording array in data file and update delegate information.
+     */
     private func saveMotionData() {
         
         let data = Data(bytes: currentRecording, count: currentRecording.count * MemoryLayout<MotionDataPoint>.size)
@@ -129,11 +158,17 @@ class MotionRecorder: NSObject, WCSessionDelegate {
         delegate.fileSize = fileSizeString(for: data)
     }
     
+    /**
+     Start motion data recording.
+     */
     func checkIfFilePresent() {
         
         delegate.isFilePresent = fileExists
     }
     
+    /**
+     Remove file if a file exists in the filesystem.
+     */
     private func deleteFile() {
         
         if fileExists {
@@ -141,6 +176,9 @@ class MotionRecorder: NSObject, WCSessionDelegate {
         }
     }
     
+    /**
+     Return formatted string of file size from raw data bytes.
+     */
     private func fileSizeString(for data: Data) -> String {
         
         var bytes = Double(data.count)
@@ -153,11 +191,17 @@ class MotionRecorder: NSObject, WCSessionDelegate {
         return String(format: "%4.1f %@", bytes, tokens[i])
     }
     
+    /**
+     Transfer file to phone app.
+     */
     func send() {
         
         session.transferFile(url, metadata: nil)
     }
     
+    /**
+     Required function for WCSessionDelegate. Called when session has completed activation.
+     */
     public func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
     }
     

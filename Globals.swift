@@ -6,8 +6,11 @@
 //  Copyright © 2017 Y0075205. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
+/**
+ Global structures for storing an array of motion sensor data points. Used in the recording process.
+ */
 struct MotionDataPoint: CustomStringConvertible {
     
     var time: Float
@@ -19,7 +22,6 @@ struct MotionDataPoint: CustomStringConvertible {
         return "\n\(time): \(acceleration) \(rotation) \(attitude)"
     }
 }
-
 struct AccelerationPoint: CustomStringConvertible {
     
     let x: Float
@@ -30,7 +32,6 @@ struct AccelerationPoint: CustomStringConvertible {
         return "[\(x) \(y) \(z)]"
     }
 }
-
 struct RotationPoint: CustomStringConvertible {
     
     let x: Float
@@ -41,7 +42,6 @@ struct RotationPoint: CustomStringConvertible {
         return "[\(x) \(y) \(z)]"
     }
 }
-
 struct AttitudePoint: CustomStringConvertible {
     
     let roll: Float
@@ -53,6 +53,9 @@ struct AttitudePoint: CustomStringConvertible {
     }
 }
 
+/**
+ Global structure for containing a set of motion vectors. Initialised from array of `MotionDataPoint`.
+ */
 struct MotionVectors: CustomStringConvertible {
     
     var time = [Float]()
@@ -137,6 +140,9 @@ struct MotionVectors: CustomStringConvertible {
     }
 }
 
+/**
+ Extension for Data class to initialise Data object from array and subsequently convert data back into an array.
+ */
 extension Data {
     
     init<T>(fromArray values: [T]) {
@@ -151,8 +157,28 @@ extension Data {
     }
 }
 
-// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
-// Consider refactoring the code to use the non-optional operators.
+/**
+ Extension for UIcolor class. Provides additional colors.
+ */
+extension UIColor {
+    
+    class var aqua: UIColor {
+        return UIColor(red: 0.0, green: 0.5, blue: 1.0, alpha: 1.0)
+    }
+    class var clover: UIColor {
+        return UIColor(red: 0.0, green: 0.5, blue: 0.0, alpha: 1.0)
+    }
+    class var moss: UIColor {
+        return UIColor(red: 0.0, green: 0.5, blue: 0.25, alpha: 1.0)
+    }
+    class var cayenne: UIColor {
+        return UIColor(red: 0.5, green: 0.0, blue: 0.0, alpha: 1.0)
+    }
+}
+
+/**
+ Fix for comparing optional variables. Comparison operators with optionals were removed from the Swift Standard Libary.
+ */
 func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
     switch (lhs, rhs) {
     case let (l?, r?):
@@ -164,8 +190,9 @@ func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
     }
 }
 
-// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
-// Consider refactoring the code to use the non-optional operators.
+/**
+ Fix for comparing optional variables. Comparison operators with optionals were removed from the Swift Standard Libary.
+ */
 func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
     switch (lhs, rhs) {
     case let (l?, r?):

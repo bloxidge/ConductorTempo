@@ -9,18 +9,29 @@
 import UIKit
 import Charts
 
+/**
+ View Controller class for local tempo line chart.
+ */
 class MotionViewController: UIViewController {
     
-    var model: TempoCalculator!
+    // Interface variables
+    @IBOutlet weak var motionLineChart : LineChartView!
+    @IBOutlet var motionSegmentControl : UISegmentedControl!
     
-    @IBOutlet weak var motionLineChart: LineChartView!
-    @IBOutlet var motionSegmentControl: UISegmentedControl!
+    // Public variables
+    var model : TempoCalculator!
     
-    @IBAction func updateChart(_ sender: UISegmentedControl) {
+    /**
+     Called when the motion sensor selected segment is changed.
+     */
+    @IBAction func motionSegmentChanged(_ sender: UISegmentedControl) {
         
         model.updateMotionChart(motionLineChart, selectedSegment: sender.selectedSegmentIndex)
     }
-
+    
+    /**
+     Called when this view is loaded.
+     */
     override func viewDidLoad() {
         
         super.viewDidLoad()

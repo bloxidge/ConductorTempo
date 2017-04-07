@@ -12,29 +12,54 @@ import Charts
 import KalmanFilter
 import WatchConnectivity
 
+/**
+ Delegate for updating current process information in the MainViewController.
+ */
+protocol ProcessDelegate  {
+    
+    var text          : String { get set }
+    var inProgress    : Bool   { get set }
+    var buttonEnabled : Bool   { get set }
+    var tempo         : Float? { get set }
+    var accuracy      : Float? { get set }
+    
+    func removeRefreshButton()
+}
+
+/**
+ Class that contains the model for the main MVC. Contains all methods for receiving and processing the motion data.
+ */
 class TempoCalculator: NSObject, WCSessionDelegate {
     
+    // Private variables
+    private var session       : WCSession!
+    private var motionData    : [MotionDataPoint]!
+    private var motionVectors : MotionVectors!
+    private var beats         : [Float]!
+    private var localTempo    : [Float]!
+    private var localAccuracy : [Float]!
+    private var avgTempo      : Float!
+    private var avgAccuracy   : Float!
+    
+    // Public variables
     var tracker = BeatTracker()
-    var delegate: ProcessDelegate!
-    private var session: WCSession!
-    private var motionData: [MotionDataPoint]!
-    private var motionVectors: MotionVectors!
-    private var beats, localTempo: [Float]!
-    private var localAccuracy = [Float]()
-    private var averageTempo, averageAccuracy: Float!
-    var targetTempo: Float! {
+    var delegate : ProcessDelegate!
+    var targetTempo : Float! {
         didSet {
-            if averageTempo != nil {
+            if avgTempo != nil {
                 calculateAccuracy()
             }
         }
     }
     
+    /**
+     Initialises the TempoCalculator object.
+     */
     override init() {
         
         super.init()
         
-        /* Check device supports Apple Watch then activate WCSession */
+        // Check device supports Apple Watch then activate WCSession
         if WCSession.isSupported() {
             session = .default()
             session.delegate = self
@@ -43,9 +68,11 @@ class TempoCalculator: NSObject, WCSessionDelegate {
         clearPendingTransfers()
     }
     
+    /**
+     Checks if Apple Watch is paired and watch app is installed. Updates message text accordingly.
+     */
     func checkWatchIsPaired() {
         
-        /* Check if Watch is paired and app is installed */
         if session.isPaired && session.isWatchAppInstalled {
             delegate.text = "Apple Watch connected! \nYou currently have no saved data. \nStart recording on Apple Watch."
             delegate.removeRefreshButton()
@@ -54,6 +81,9 @@ class TempoCalculator: NSObject, WCSessionDelegate {
         }
     }
     
+    /**
+     Clears the WCSession transfer queue of any pending transfers.
+     */
     private func clearPendingTransfers() {
         
         let transfers = session.outstandingFileTransfers
@@ -62,63 +92,87 @@ class TempoCalculator: NSObject, WCSessionDelegate {
         }
     }
     
+    /**
+     WCSessionDelegate method. Called when a file is received successfully.
+     */
     func session(_ session: WCSession, didReceive file: WCSessionFile) {
         
         checkWatchIsPaired()
         
+        // Update message text and disable button to view graphs
         delegate.text = "Recording received!"
         delegate.buttonEnabled = false
         delegate.inProgress = true
         
+        // Save data file to array of motion vectors
         if let rcvdData = try? Data(contentsOf: file.fileURL) {
             motionData = rcvdData.toArray(type: MotionDataPoint.self)
         }
+        // Delete the transferred data file
         try? FileManager.default.removeItem(at: file.fileURL)
         
         processRecordingData()
     }
     
+    /**
+     Class that contains the top-level processing methods for calculating local tempo and accuracy.
+     */
     private func processRecordingData() {
         
-        /* Create vector arrays and perform beat detection */
+        // Create vector arrays and perform beat detection
         delegate.text = "Finding beats..."
         motionVectors = MotionVectors(from: motionData)
         beats = tracker.calculateBeats(from: motionVectors)
         
-        /* Calculate local tempo from inter-onset intervals */
+        // Calculate local tempo from inter-onset intervals
         delegate.text = "Inter-Onset Intervals..."
         let iois = differential(beats)
         localTempo = Float(60.0) / iois
         
-        /* Implement Kalman filter to smooth local tempo results */
+        // Implement Kalman filter to smooth local tempo results
         delegate.text = "Filtering..."
         filterTempo()
         
-        /* Calculate average accuracy compared to target tempo */
+        // Calculate average accuracy compared to target tempo
         delegate.text = "Accuracy..."
         calculateAccuracy()
         
+        // Update message text and enable button to view graphs
         delegate.text = "Processing complete! \nStart new recording on Apple Watch when ready..."
         delegate.inProgress = false
         delegate.buttonEnabled = true
     }
     
+    /**
+     Smooths the local tempo results through a Kalman filter.
+     */
     private func filterTempo() {
         
         var filter = KalmanFilter(stateEstimatePrior: mean(localTempo), errorCovariancePrior: 1)
+        
+        // Recursive filtering of local tempo values improving the filter with each pass
         for (i, value) in localTempo.enumerated() {
             let prediction = filter.predict(stateTransitionModel: 1, controlInputModel: 0, controlVector: 0, covarianceOfProcessNoise: 0.07)
             localTempo[i] = Float(prediction.stateEstimatePrior)
             let update = prediction.update(measurement: value, observationModel: 1, covarienceOfObservationNoise: 1.5)
             filter = update
         }
-        averageTempo = mean(localTempo)
-        delegate.tempo = averageTempo
+        
+        // Update average tempo value on the screen
+        avgTempo = mean(localTempo)
+        delegate.tempo = avgTempo
     }
     
+    /**
+     Calculates the accuracy of the local tempo compared to the target tempo.
+     */
     private func calculateAccuracy() {
         
+        localAccuracy = [Float]()
+        localAccuracy.reserveCapacity(localTempo.count)
         localAccuracy.removeAll()
+        
+        // Accuracy calculation for each tempo value
         for value in localTempo {
             let diff = abs(targetTempo - value)
             var ratio = diff/value
@@ -128,17 +182,22 @@ class TempoCalculator: NSObject, WCSessionDelegate {
             let accuracy: Float = (1 - ratio) * 100
             localAccuracy.append(accuracy)
         }
-        averageAccuracy = mean(localAccuracy)
-        delegate.accuracy = averageAccuracy
+        
+        // Update average accuracy value on the screen
+        avgAccuracy = mean(localAccuracy)
+        delegate.accuracy = avgAccuracy
     }
     
+    /**
+     Update the Local Tempo chart with the current data.
+     */
     func updateTempoChart(_ chart: LineChartView) {
         
         var dataEntries = [ChartDataEntry]()
-        var dataSets = [LineChartDataSet]()
-        var dataSet = LineChartDataSet()
+        var dataSets    = [LineChartDataSet]()
+        var dataSet     = LineChartDataSet()
         
-        /* Line chart for local tempo */
+        // Line chart for local tempo
         for (i, value) in localTempo.enumerated() {
             let entry = ChartDataEntry(x: Double(beats[i]), y: Double(value))
             dataEntries.append(entry)
@@ -153,9 +212,9 @@ class TempoCalculator: NSObject, WCSessionDelegate {
         
         dataEntries.removeAll()
         
-        /* Straight line showing target tempo */
+        // Straight line showing target tempo
         let first = ChartDataEntry(x: Double(beats.first!), y: Double(targetTempo))
-        let last = ChartDataEntry(x: Double(beats.last!), y: Double(targetTempo))
+        let last  = ChartDataEntry(x: Double(beats.last!) , y: Double(targetTempo))
         dataEntries.append(contentsOf: [first, last])
         
         dataSet = LineChartDataSet(values: dataEntries, label: "Target Tempo")
@@ -169,6 +228,7 @@ class TempoCalculator: NSObject, WCSessionDelegate {
         
         dataEntries.removeAll()
         
+        // Set chart properties and update chart data
         let lineData = LineChartData(dataSets: dataSets)
         chart.chartDescription?.text = ""
         chart.xAxis.labelPosition = .bottom
@@ -180,15 +240,19 @@ class TempoCalculator: NSObject, WCSessionDelegate {
         chart.data = lineData
     }
     
+    /**
+     Update the Motion Data chart with the current data. The displayed sensor data depends on the selected segment from the view controller.
+     */
     func updateMotionChart(_ chart: LineChartView, selectedSegment: Int) {
         
-        var vectors = [[Float]]()
-        var labels: [String]
-        let colors: [UIColor] = [.red, .clover, .blue]
         var dataEntries = [ChartDataEntry]()
-        var dataSets = [LineChartDataSet]()
-        var dataSet = LineChartDataSet()
+        var dataSets    = [LineChartDataSet]()
+        var dataSet     = LineChartDataSet()
+        var vectors     = [[Float]]()
+        var labels : [String]
+        let colors : [UIColor] = [.red, .clover, .blue]
         
+        // Selects the chosen sensor data to display
         switch selectedSegment {
         case 1:
             vectors = [motionVectors!.rotation.x, motionVectors!.rotation.y, motionVectors!.rotation.z]
@@ -204,6 +268,7 @@ class TempoCalculator: NSObject, WCSessionDelegate {
             chart.chartDescription?.text = "Accelerometer"
         }
         
+        // Set chart properties and update chart data
         for (index, vector) in vectors.enumerated() {
             
             for (i, value) in vector.enumerated() {
@@ -215,12 +280,12 @@ class TempoCalculator: NSObject, WCSessionDelegate {
             dataSet.drawCirclesEnabled = false
             dataSet.lineWidth = 2.0
             dataSet.colors = [colors[index]]
-            
             dataSets.append(dataSet)
             
             dataEntries.removeAll()
         }
         
+        // Beat position data marked as circles on the zero-crossing of the X axis
         for beat in beats {
             let entry = ChartDataEntry(x: Double(beat), y: 0)
             dataEntries.append(entry)
@@ -230,6 +295,7 @@ class TempoCalculator: NSObject, WCSessionDelegate {
         beatData.circleColors = [.magenta]
         dataSets.append(beatData)
         
+        // Set chart properties and update chart data
         let lineData = LineChartData(dataSets: dataSets)
         chart.chartDescription?.text = ""
         chart.xAxis.labelPosition = .bottom
@@ -238,6 +304,8 @@ class TempoCalculator: NSObject, WCSessionDelegate {
         chart.legend.position = .aboveChartRight
         chart.data = lineData
     }
+    
+    // WCSessionDelegate required functions
     
     public func sessionDidBecomeInactive(_ session: WCSession) {
     }

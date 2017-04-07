@@ -9,12 +9,20 @@
 import UIKit
 import Charts
 
+/**
+ View Controller class for local tempo line chart.
+ */
 class TempoViewController: UIViewController {
     
-    var model: TempoCalculator!
+    // Interface variables
+    @IBOutlet weak var tempoLineChart : LineChartView!
     
-    @IBOutlet weak var tempoLineChart: LineChartView!
-
+    // Public variables
+    var model : TempoCalculator!
+    
+    /**
+     Called when this view is loaded.
+     */
     override func viewDidLoad() {
         
         super.viewDidLoad()
