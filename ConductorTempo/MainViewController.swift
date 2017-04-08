@@ -166,7 +166,7 @@ class MainViewController: UIViewController, ProcessDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         // Pass the TempoCalculator model to the destination view controllers
-        if let destinationVC = segue.destination as? GraphTabBarController {
+        if let destinationVC = segue.destination as? UITabBarController {
             if let tabVCs = destinationVC.viewControllers {
                 (tabVCs[0] as! TempoViewController).model = self.model
                 (tabVCs[1] as! MotionViewController).model = self.model
