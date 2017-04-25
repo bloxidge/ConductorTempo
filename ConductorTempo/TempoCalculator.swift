@@ -250,7 +250,7 @@ class TempoCalculator: NSObject, WCSessionDelegate {
         var dataSet     = LineChartDataSet()
         var vectors     = [[Float]]()
         var labels : [String]
-        let colors : [UIColor] = [.red, .clover, .blue]
+        let colors : [UIColor] = [.red, .clover, .blue, .orange]
         
         // Selects the chosen sensor data to display
         switch selectedSegment {
@@ -259,8 +259,8 @@ class TempoCalculator: NSObject, WCSessionDelegate {
             labels = ["X", "Y", "Z"]
             chart.chartDescription?.text = "Rotation"
         case 2:
-            vectors = [motionVectors!.attitude.roll, motionVectors!.attitude.pitch, motionVectors!.attitude.yaw]
-            labels = ["Roll", "Pitch", "Yaw"]
+            vectors = [motionVectors!.attitude.w, motionVectors!.attitude.x, motionVectors!.attitude.y, motionVectors!.attitude.z]
+            labels = ["W", "X", "Y", "Z"]
             chart.chartDescription?.text = "Attitude"
         default:
             vectors = [motionVectors!.acceleration.x, motionVectors!.acceleration.y, motionVectors!.acceleration.z]
@@ -286,21 +286,21 @@ class TempoCalculator: NSObject, WCSessionDelegate {
         }
         
         // Beat position data marked as circles on the zero-crossing of the X axis
-        for beat in beats {
-            let entry = ChartDataEntry(x: Double(beat), y: 0)
-            dataEntries.append(entry)
-        }
-        let beatData = LineChartDataSet(values: dataEntries, label: "Beats")
-        beatData.colors = [.magenta]
-        beatData.circleColors = [.magenta]
-        dataSets.append(beatData)
+//        for beat in beats {
+//            let entry = ChartDataEntry(x: Double(beat), y: 0)
+//            dataEntries.append(entry)
+//        }
+//        let beatData = LineChartDataSet(values: dataEntries, label: "Beats")
+//        beatData.colors = [.magenta]
+//        beatData.circleColors = [.magenta]
+//        dataSets.append(beatData)
         
         // Set chart properties and update chart data
         let lineData = LineChartData(dataSets: dataSets)
         chart.chartDescription?.text = ""
         chart.xAxis.labelPosition = .bottom
-        chart.leftAxis.drawLabelsEnabled = false
-        chart.rightAxis.drawLabelsEnabled = false
+//        chart.leftAxis.drawLabelsEnabled = false
+//        chart.rightAxis.drawLabelsEnabled = false
         chart.legend.position = .aboveChartRight
         chart.data = lineData
     }

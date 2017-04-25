@@ -44,12 +44,13 @@ struct RotationPoint: CustomStringConvertible {
 }
 struct AttitudePoint: CustomStringConvertible {
     
-    let roll: Float
-    let pitch: Float
-    let yaw: Float
+    let w: Float
+    let x: Float
+    let y: Float
+    let z: Float
     
     var description: String {
-        return "[\(roll) \(pitch) \(yaw)]"
+        return "[\(w) \(x) \(y) \(z)]"
     }
 }
 
@@ -68,7 +69,7 @@ struct MotionVectors: CustomStringConvertible {
         var desc = String()
         
         for (index, t) in time.enumerated() {
-            desc.append("\(t): [\(acceleration.x[index]) \(acceleration.y[index]) \(acceleration.z[index])] [\(rotation.x[index]) \(rotation.y[index]) \(rotation.z[index])] [\(attitude.roll[index]) \(attitude.pitch[index]) \(attitude.yaw[index])]\n")
+            desc.append("\(t): [\(acceleration.x[index]) \(acceleration.y[index]) \(acceleration.z[index])] [\(rotation.x[index]) \(rotation.y[index]) \(rotation.z[index])] [\(attitude.w[index]) \(attitude.x[index]) \(attitude.y[index]) \(attitude.z[index])]\n")
         }
         return desc
     }
@@ -83,9 +84,10 @@ struct MotionVectors: CustomStringConvertible {
             rotation.x.append(dataPoint.rotation.x)
             rotation.y.append(dataPoint.rotation.y)
             rotation.z.append(dataPoint.rotation.z)
-            attitude.roll.append(dataPoint.attitude.roll)
-            attitude.pitch.append(dataPoint.attitude.pitch)
-            attitude.yaw.append(dataPoint.attitude.yaw)
+            attitude.w.append(dataPoint.attitude.w)
+            attitude.x.append(dataPoint.attitude.y)
+            attitude.y.append(dataPoint.attitude.y)
+            attitude.z.append(dataPoint.attitude.z)
         }
     }
     
@@ -125,15 +127,16 @@ struct MotionVectors: CustomStringConvertible {
 
     struct AttitudeVectors: CustomStringConvertible {
         
-        var roll = [Float]()
-        var pitch = [Float]()
-        var yaw = [Float]()
+        var w = [Float]()
+        var x = [Float]()
+        var y = [Float]()
+        var z = [Float]()
         
         var description: String {
             var desc = String()
             
-            for (index, _) in roll.enumerated() {
-                desc.append("[\(roll[index]) \(pitch[index]) \(yaw[index])]\n")
+            for (index, _) in w.enumerated() {
+                desc.append("[\(w[index]) \(x[index]) \(y[index]) \(z[index])]\n")
             }
             return desc
         }

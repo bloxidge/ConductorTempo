@@ -50,7 +50,7 @@ class BeatTracker {
         let newVecs = resample(vectors)
         
         // Pick vector to use for beat analysis
-        let data = newVecs.attitude.roll
+        let data = newVecs.attitude.w
         
         // Perform FFT that returns frequency bins on the 'mel' scale
         delegate.text = "Spectrum..."
@@ -96,9 +96,10 @@ class BeatTracker {
         output.rotation.y = interp(sampleTimes: input.time, outputTimes: output.time, data: input.rotation.y)
         output.rotation.z = interp(sampleTimes: input.time, outputTimes: output.time, data: input.rotation.z)
         
-        output.attitude.roll = interp(sampleTimes: input.time, outputTimes: output.time, data: input.attitude.roll)
-        output.attitude.pitch = interp(sampleTimes: input.time, outputTimes: output.time, data: input.attitude.pitch)
-        output.attitude.yaw = interp(sampleTimes: input.time, outputTimes: output.time, data: input.attitude.yaw)
+        output.attitude.w = interp(sampleTimes: input.time, outputTimes: output.time, data: input.attitude.w)
+        output.attitude.x = interp(sampleTimes: input.time, outputTimes: output.time, data: input.attitude.x)
+        output.attitude.y = interp(sampleTimes: input.time, outputTimes: output.time, data: input.attitude.y)
+        output.attitude.z = interp(sampleTimes: input.time, outputTimes: output.time, data: input.attitude.z)
         
         return output
     }

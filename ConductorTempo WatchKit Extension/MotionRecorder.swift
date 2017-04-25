@@ -99,9 +99,11 @@ class MotionRecorder: NSObject, WCSessionDelegate {
                 let rot = RotationPoint(x: Float(deviceMotion!.rotationRate.x),
                                         y: Float(deviceMotion!.rotationRate.y),
                                         z: Float(deviceMotion!.rotationRate.z))
-                let att = AttitudePoint(roll: Float(deviceMotion!.attitude.roll),
-                                        pitch: Float(deviceMotion!.attitude.pitch),
-                                        yaw: Float(deviceMotion!.attitude.yaw))
+//                let euler = self.quaternionToEuler(deviceMotion!.attitude.quaternion)
+                let att = AttitudePoint(w: Float(deviceMotion!.attitude.quaternion.w),
+                                        x: Float(deviceMotion!.attitude.quaternion.x),
+                                        y: Float(deviceMotion!.attitude.quaternion.y),
+                                        z: Float(deviceMotion!.attitude.quaternion.z))
                 
                 self.currentRecording.append(MotionDataPoint(time: Float(timestamp),
                                                              acceleration: acc,
@@ -109,6 +111,18 @@ class MotionRecorder: NSObject, WCSessionDelegate {
                                                              attitude: att))
             }
         }
+    }
+    
+    /**
+     Convert Quaternion attitude values to Euler angles.
+     */
+    private func quaternionToEuler(_ q: CMQuaternion) -> (roll: Double, pitch: Double, yaw: Double) {
+        
+        let roll  = atan2(2*q.y*q.w - 2*q.x*q.z, 1 - 2*q.y*q.y - 2*q.z*q.z)
+        let pitch = atan2(2*q.x*q.w - 2*q.y*q.z, 1 - 2*q.x*q.x - 2*q.z*q.z)
+        let yaw   =  asin(2*q.x*q.y + 2*q.z*q.w)
+        
+        return (roll, pitch, yaw)
     }
     
     /**
