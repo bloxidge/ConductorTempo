@@ -16,20 +16,17 @@
 import UIKit
 import Surge
 
-extension TempoCalculator {
+/**
+ Returns the first-order differential of a set of data. The returned array is one element smaller than the input.
+ */
+public func diff(_ array: [Float]) -> [Float] {
     
-    /**
-     Returns the first-order differential of a set of data. The returned array is one element smaller than the input.
-     */
-    func differential(_ array: [Float]) -> [Float] {
-        
-        var diff = [Float]()
-        diff.reserveCapacity(array.count-1)
-        for i in 0 ..< array.count-1 {
-            diff.append(array[i+1] - array[i])
-        }
-        return diff
+    var diff = [Float]()
+    diff.reserveCapacity(array.count-1)
+    for i in 0 ..< array.count-1 {
+        diff.append(array[i+1] - array[i])
     }
+    return diff
 }
 
 extension BeatTracker {

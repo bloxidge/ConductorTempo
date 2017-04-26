@@ -43,18 +43,15 @@ class BeatTracker {
     /**
      Main public function: takes in recorded motion vectors and returns beat positions.
      */
-    func calculateBeats(from vectors: MotionVectors) -> [Float] {
+    func calculateBeats(input: (t: [Float], x: [Float])) -> [Float] {
         
         // Create a new set of vectors at new sampling frequency
         delegate.text = "Resampling..."
-        let newVecs = resample(vectors)
-        
-        // Pick vector to use for beat analysis
-        let data = newVecs.attitude.roll
+        let signal = resample(input)
         
         // Perform FFT that returns frequency bins on the 'mel' scale
         delegate.text = "Spectrum..."
-        let bins = melSpectrumBins(data)
+        let bins = melSpectrumBins(signal)
         
         // Calculate onset envelope from FFT data
         delegate.text = "Calculus..."
@@ -74,33 +71,22 @@ class BeatTracker {
     /**
      Resamples the motion vector arrays from ~50Hz to approximately auditory new sampling frequency (8kHz).
      */
-    private func resample(_ input: MotionVectors) -> MotionVectors {
+    private func resample(_ input: (t: [Float], x: [Float])) -> [Float] {
         
         let fs = newSampleRate
         var output = input
         var time = [Float]()
         var t: Float = 0.0
-        while t < input.time[input.time.count - 2] {
+        while t < input.t[input.t.count - 2] {
             t = round(fs * t) / fs
             time.append(t)
             t += 1/fs
         }
         
-        output.time = time
+        output.t = time
+        output.x = interp(sampleTimes: input.t, outputTimes: output.t, data: input.x)
         
-        output.acceleration.x = interp(sampleTimes: input.time, outputTimes: output.time, data: input.acceleration.x)
-        output.acceleration.y = interp(sampleTimes: input.time, outputTimes: output.time, data: input.acceleration.y)
-        output.acceleration.z = interp(sampleTimes: input.time, outputTimes: output.time, data: input.acceleration.z)
-        
-        output.rotation.x = interp(sampleTimes: input.time, outputTimes: output.time, data: input.rotation.x)
-        output.rotation.y = interp(sampleTimes: input.time, outputTimes: output.time, data: input.rotation.y)
-        output.rotation.z = interp(sampleTimes: input.time, outputTimes: output.time, data: input.rotation.z)
-        
-        output.attitude.roll = interp(sampleTimes: input.time, outputTimes: output.time, data: input.attitude.roll)
-        output.attitude.pitch = interp(sampleTimes: input.time, outputTimes: output.time, data: input.attitude.pitch)
-        output.attitude.yaw = interp(sampleTimes: input.time, outputTimes: output.time, data: input.attitude.yaw)
-        
-        return output
+        return output.x
     }
     
     /**

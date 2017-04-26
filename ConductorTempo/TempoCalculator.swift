@@ -35,6 +35,7 @@ class TempoCalculator: NSObject, WCSessionDelegate {
     private var session       : WCSession!
     private var motionData    : [MotionDataPoint]!
     private var motionVectors : MotionVectors!
+    private var procSignal    : [Float]!
     private var beats         : [Float]!
     private var localTempo    : [Float]!
     private var localAccuracy : [Float]!
@@ -119,14 +120,15 @@ class TempoCalculator: NSObject, WCSessionDelegate {
      */
     private func processRecordingData() {
         
-        // Create vector arrays and perform beat detection
+        // Process motion data and perform beat detection
         delegate.text = "Finding beats..."
         motionVectors = MotionVectors(from: motionData)
-        beats = tracker.calculateBeats(from: motionVectors)
+        procSignal = processSignal(from: motionVectors)
+        beats = tracker.calculateBeats(input: (t: motionVectors.time, x: procSignal))
         
         // Calculate local tempo from inter-onset intervals
         delegate.text = "Inter-Onset Intervals..."
-        let iois = differential(beats)
+        let iois = diff(beats)
         localTempo = Float(60.0) / iois
         
         // Implement Kalman filter to smooth local tempo results
@@ -141,6 +143,21 @@ class TempoCalculator: NSObject, WCSessionDelegate {
         delegate.text = "Processing complete! \nStart new recording on Apple Watch when ready..."
         delegate.inProgress = false
         delegate.buttonEnabled = true
+    }
+    
+    /**
+     Performs processing to prepare single signal for beat detection.
+     */
+    private func processSignal(from vectors: MotionVectors) -> [Float] {
+        
+        var sig : [Float]!
+        
+        // Magnitude of 3D acceleration from converting Cartesian coordinates to spherical
+        let r = sqrt(pow(motionVectors!.acceleration.x, 2) + pow(motionVectors!.acceleration.y, 2) + pow(motionVectors!.acceleration.z, 2))
+        // Remove offset, start at 0
+        sig = r - r.first!
+        
+        return sig
     }
     
     /**
